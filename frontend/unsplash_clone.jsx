@@ -4,7 +4,7 @@ const ReactRouter = require('react-router');
 const hashHistory = ReactRouter.hashHistory;
 const Router = ReactRouter.Router;
 const Route = ReactRouter.Route;
-
+const SessionActions = require('./actions/session_actions');
 const App = require('./components/app.jsx');
 const LoginForm = require('./components/login_form');
 const SignupForm = require('./components/signup_form');
@@ -14,6 +14,7 @@ const router = (
     <Route path="/" component={App}>
       <Route path="/login" component={LoginForm}/>
       <Route path="/signup" component={SignupForm}/>
+      <Route path="/pictures" component={PictureIndex}>
     </Route>
   </Router>
 )

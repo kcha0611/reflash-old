@@ -8,11 +8,11 @@ const SessionApiUtil = require('../utils/session_api_util');
 const SessionActions = {
   logIn(data) {
     SessionApiUtil.logIn(data, this.receiveCurrentUser, ErrorActions.setErrors);
-    // hashHistory.push('pictures');
+    hashHistory.push('pictures');
   },
   signUp(data) {
     SessionApiUtil.signUp(data, this.receiveCurrentUser, ErrorActions.setErrors);
-    // hashHistory.push('pictures');
+    hashHistory.push('pictures');
   },
   logOut() {
     SessionApiUtil.logOut();
