@@ -1,10 +1,10 @@
 var Store = require('flux/utils').Store;
-var App Dispatcher = require('../dispatcher/dispatcher');
+var AppDispatcher = require('../dispatcher/dispatcher');
 var PictureConstants = require('../constants/picture_constants');
 
 let PictureStore = new Store(AppDispatcher);
 
-_pictures = {};
+let _pictures = {};
 
 PictureStore.all = function () {
   return Object.keys(_pictures).reverse().map((key) => {

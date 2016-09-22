@@ -9,3 +9,5 @@ const PictureApiUtil = {
     })
   }
 }
+
+module.exports = PictureApiUtil;

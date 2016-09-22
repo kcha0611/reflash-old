@@ -5,7 +5,9 @@ const App = React.createClass({
     return (
       <div>
         <p>Hello World!</p>
-        {this.props.children}
+        <ul>
+          {this.props.children}
+        </ul>
       </div>
     )
   }
