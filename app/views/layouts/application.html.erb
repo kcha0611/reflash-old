@@ -10,6 +10,14 @@
   </head>
 
   <body>
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $("body").on("click", ".pic-index-item", function() {
+            $(this).toggleClass("fullscreen");
+            // $(".pic-index-item-wrap").show();
+          })
+        });
+    </script>
     <%= yield %>
   </body>
 </html>

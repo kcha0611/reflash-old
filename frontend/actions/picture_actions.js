@@ -14,6 +14,15 @@ const PictureActions = {
       actionType: PictureConstants.RECEIVED_PICTURES,
       pictures: pictures
     })
+  },
+  getPicture: function(id) {
+    PictureApiUtil.receivePicture(id, this.receivePicture);
+  },
+  receivePicture: function(picture) {
+    AppDispatcher.dispatch({
+      actionType: PictureConstants.RECEIVED_PICTURE,
+      picture: picture
+    })
   }
 }
 

@@ -58,6 +58,7 @@
 	var SignupForm = __webpack_require__(265);
 	var PictureIndex = __webpack_require__(266);
 	var IndexRoute = ReactRouter.IndexRoute;
+	var PictureShow = __webpack_require__(272);
 	
 	var router = React.createElement(
 	  Router,
@@ -68,7 +69,11 @@
 	    React.createElement(IndexRoute, { component: PictureIndex }),
 	    React.createElement(Route, { path: '/login', component: LoginForm }),
 	    React.createElement(Route, { path: '/signup', component: SignupForm }),
-	    React.createElement(Route, { path: '/pictures', component: PictureIndex })
+	    React.createElement(
+	      Route,
+	      { path: '/pictures', component: PictureIndex },
+	      React.createElement(Route, { path: '/:pictureId', component: PictureShow })
+	    )
 	  )
 	);
 	
@@ -34134,16 +34139,7 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(
-	        'p',
-	        null,
-	        'Hello World!'
-	      ),
-	      React.createElement(
-	        'ul',
-	        null,
-	        this.props.children
-	      )
+	      this.props.children
 	    );
 	  }
 	});
@@ -34391,7 +34387,7 @@
 	    });
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'pic-index-wrap' },
 	      React.createElement(
 	        'ul',
 	        null,
@@ -34424,7 +34420,7 @@
 	};
 	
 	PictureStore.find = function (id) {
-	  _pictures[id];
+	  return _pictures[id];
 	};
 	
 	PictureStore.addPictures = function (pictures) {
@@ -34440,7 +34436,15 @@
 	      PictureStore.addPictures(payload.pictures);
 	      this.__emitChange();
 	      break;
+	    case PictureConstants.RECEIVED_PICTURE:
+	      PictureStore.addPicture(payload.picture);
+	      this.__emitChange();
+	      break;
 	  }
+	};
+	
+	PictureStore.addPost = function (post) {
+	  _posts[post.id] = post;
 	};
 	
 	module.exports = PictureStore;
@@ -34452,7 +34456,8 @@
 	"use strict";
 	
 	var PictureConstants = {
-	  RECEIVED_PICTURES: "RECEIVED_PICTURES"
+	  RECEIVED_PICTURES: "RECEIVED_PICTURES",
+	  RECEIVED_PICTURE: "RECEIVED_PICTURE"
 	};
 	
 	module.exports = PictureConstants;
@@ -34478,6 +34483,15 @@
 	      actionType: PictureConstants.RECEIVED_PICTURES,
 	      pictures: pictures
 	    });
+	  },
+	  getPicture: function getPicture(id) {
+	    PictureApiUtil.receivePicture(id, this.receivePicture);
+	  },
+	  receivePicture: function receivePicture(picture) {
+	    AppDispatcher.dispatch({
+	      actionType: PictureConstants.RECEIVED_PICTURE,
+	      picture: picture
+	    });
 	  }
 	};
 	
@@ -34487,7 +34501,7 @@
 /* 270 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	var PictureApiUtil = {
 	  fetchPictures: function fetchPictures(callback) {
@@ -34496,6 +34510,15 @@
 	      method: "GET",
 	      success: function success(pictures) {
 	        callback(pictures);
+	      }
+	    });
+	  },
+	  getPicture: function getPicture(id, callback) {
+	    $.ajax({
+	      url: '/api/pictures/' + id,
+	      method: 'GET',
+	      success: function success(posts) {
+	        callback(posts);
 	      }
 	    });
 	  }
@@ -34511,19 +34534,28 @@
 	
 	var PictureIndex = __webpack_require__(266);
 	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(267);
 	
 	var PictureIndexItem = React.createClass({
 	  displayName: 'PictureIndexItem',
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.createElement('img', { src: this.props.pic.picture_url })
+	      { className: 'pic-index-item-wrap' },
+	      React.createElement('img', { src: this.props.pic.picture_url, onClick: this.enlargePicture, className: 'pic-index-item' })
 	    );
 	  }
 	});
 	
 	module.exports = PictureIndexItem;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
 
 /***/ }
 /******/ ]);

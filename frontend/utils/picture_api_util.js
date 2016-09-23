@@ -7,6 +7,15 @@ const PictureApiUtil = {
         callback(pictures)
       }
     })
+  },
+  getPicture: function(id,callback) {
+    $.ajax({
+      url: `/api/pictures/${id}`,
+      method: 'GET',
+      success(posts) {
+        callback(posts);
+      }
+    })
   }
 }
 

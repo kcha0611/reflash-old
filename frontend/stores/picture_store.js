@@ -13,14 +13,14 @@ PictureStore.all = function () {
 }
 
 PictureStore.find = function (id) {
-  _pictures[id];
+  return _pictures[id];
 }
 
 PictureStore.addPictures = function (pictures) {
   _pictures = {};
   pictures.forEach((picture) => {
     _pictures[picture.id] = picture
-  })
+  });
 }
 
 PictureStore.__onDispatch = function (payload) {
@@ -29,7 +29,15 @@ PictureStore.__onDispatch = function (payload) {
       PictureStore.addPictures(payload.pictures);
       this.__emitChange();
       break;
+    case PictureConstants.RECEIVED_PICTURE:
+    PictureStore.addPicture(payload.picture);
+    this.__emitChange();
+    break;
   }
+}
+
+PictureStore.addPost = function (post) {
+  _posts[post.id] = post;
 }
 
 module.exports = PictureStore;
