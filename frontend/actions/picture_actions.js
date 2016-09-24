@@ -16,7 +16,7 @@ const PictureActions = {
     })
   },
   getPicture: function(id) {
-    PictureApiUtil.receivePicture(id, this.receivePicture);
+    PictureApiUtil.getPicture(id, this.receivePicture);
   },
   receivePicture: function(picture) {
     AppDispatcher.dispatch({

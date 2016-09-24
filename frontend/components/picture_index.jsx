@@ -23,7 +23,7 @@ const PictureIndex = React.createClass({
     });
     return (
       <div className="pic-index-wrap">
-        <ul>
+        <ul className="pic-index-ul">
           {allPictures}
         </ul>
       </div>

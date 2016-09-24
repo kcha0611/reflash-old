@@ -18,10 +18,8 @@ const router = (
       <IndexRoute component={PictureIndex}></IndexRoute>
       <Route path="/login" component={LoginForm}/>
       <Route path="/signup" component={SignupForm}/>
-      <Route path="/pictures" component={PictureIndex}>
-        <Route path="/:pictureId" component={PictureShow}></Route>
+      <Route path="/pictures/:pictureId" component={PictureShow} />
       </Route>
-    </Route>
   </Router>
 )
 

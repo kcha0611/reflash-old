@@ -58,7 +58,7 @@
 	var SignupForm = __webpack_require__(265);
 	var PictureIndex = __webpack_require__(266);
 	var IndexRoute = ReactRouter.IndexRoute;
-	var PictureShow = __webpack_require__(272);
+	var PictureShow = __webpack_require__(274);
 	
 	var router = React.createElement(
 	  Router,
@@ -69,11 +69,7 @@
 	    React.createElement(IndexRoute, { component: PictureIndex }),
 	    React.createElement(Route, { path: '/login', component: LoginForm }),
 	    React.createElement(Route, { path: '/signup', component: SignupForm }),
-	    React.createElement(
-	      Route,
-	      { path: '/pictures', component: PictureIndex },
-	      React.createElement(Route, { path: '/:pictureId', component: PictureShow })
-	    )
+	    React.createElement(Route, { path: '/pictures/:pictureId', component: PictureShow })
 	  )
 	);
 	
@@ -34390,7 +34386,7 @@
 	      { className: 'pic-index-wrap' },
 	      React.createElement(
 	        'ul',
-	        null,
+	        { className: 'pic-index-ul' },
 	        allPictures
 	      )
 	    );
@@ -34443,8 +34439,8 @@
 	  }
 	};
 	
-	PictureStore.addPost = function (post) {
-	  _posts[post.id] = post;
+	PictureStore.addPicture = function (picture) {
+	  _pictures[picture.id] = picture;
 	};
 	
 	module.exports = PictureStore;
@@ -34485,7 +34481,7 @@
 	    });
 	  },
 	  getPicture: function getPicture(id) {
-	    PictureApiUtil.receivePicture(id, this.receivePicture);
+	    PictureApiUtil.getPicture(id, this.receivePicture);
 	  },
 	  receivePicture: function receivePicture(picture) {
 	    AppDispatcher.dispatch({
@@ -34535,14 +34531,20 @@
 	var PictureIndex = __webpack_require__(266);
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(267);
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
 	
 	var PictureIndexItem = React.createClass({
 	  displayName: 'PictureIndexItem',
+	  showPic: function showPic() {
+	    debugger;
+	    hashHistory.push('/pictures/' + this.props.pic.id);
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-item-wrap' },
-	      React.createElement('img', { src: this.props.pic.picture_url, onClick: this.enlargePicture, className: 'pic-index-item' })
+	      React.createElement('img', { src: this.props.pic.picture_url, className: 'pic-index-item', onClick: this.showPic })
 	    );
 	  }
 	});
@@ -34550,12 +34552,47 @@
 	module.exports = PictureIndexItem;
 
 /***/ },
-/* 272 */
+/* 272 */,
+/* 273 */,
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(267);
+	var PictureActions = __webpack_require__(269);
+	
+	var PictureShow = React.createClass({
+	  displayName: 'PictureShow',
+	
+	  getInitialState: function getInitialState() {
+	    var potentialPicture = PictureStore.find(parseInt(this.props.params.pictureId));
+	    var finalPicture = potentialPicture ? potentialPicture : {};
+	    return {
+	      picture: finalPicture
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.pictureListener = PictureStore.addListener(this.fetchPost);
+	    PictureActions.getPicture(parseInt(this.props.params.pictureId));
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.pictureListener.remove();
+	  },
+	  fetchPost: function fetchPost() {
+	    PictureActions.getPicture(parseInt(this.props.params.pictureId));
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'pic-show-wrap' },
+	      React.createElement('img', { className: 'pic-show-img', src: this.state.picture.picture_url })
+	    );
+	  }
+	});
+	
+	module.exports = PictureShow;
 
 /***/ }
 /******/ ]);

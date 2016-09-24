@@ -36,8 +36,8 @@ PictureStore.__onDispatch = function (payload) {
   }
 }
 
-PictureStore.addPost = function (post) {
-  _posts[post.id] = post;
+PictureStore.addPicture = function (picture) {
+  _pictures[picture.id] = picture;
 }
 
 module.exports = PictureStore;
