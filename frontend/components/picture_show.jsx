@@ -1,6 +1,8 @@
 const React = require('react');
 const PictureStore = require('../stores/picture_store');
 const PictureActions = require('../actions/picture_actions');
+const ReactRouter = require('react-router');
+const hashHistory = ReactRouter.hashHistory;
 
 const PictureShow = React.createClass({
   getInitialState: function() {
@@ -20,10 +22,13 @@ const PictureShow = React.createClass({
   fetchPost() {
     PictureActions.getPicture(parseInt(this.props.params.pictureId))
   },
+  zoomOut() {
+    hashHistory.push('/')
+  },
   render() {
     return (
-      <div className="pic-show-wrap">
-        <img className="pic-show-img" src={this.state.picture.picture_url}></img>
+      <div className="pic-show-wrap" onClick={this.zoomOut}>
+        <img className="pic-show-img" src={this.state.picture.picture_url} onClick={this.zoomOut}></img>
       </div>
     )
   }

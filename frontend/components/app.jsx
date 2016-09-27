@@ -1,4 +1,6 @@
 const React = require('react');
+const ReactBootstrap = require('react-bootstrap');
+const Navbar = ReactBootstrap.Navbar;
 
 const App = React.createClass({
   render() {

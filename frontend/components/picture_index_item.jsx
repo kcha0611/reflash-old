@@ -6,7 +6,6 @@ const hashHistory = ReactRouter.hashHistory;
 
 const PictureIndexItem = React.createClass({
   showPic() {
-    debugger
     hashHistory.push(`/pictures/${this.props.pic.id}`)
   },
   render() {
