@@ -10,10 +10,12 @@ const App = React.createClass({
       <div>
         <Navbar id="navbar-wrap">
                   <Nav key={1} id="navbar-inner-wrap">
-                      <NavItem key={2} href="/" id="resplash-home-img" className="resplash-home-img"><img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/></NavItem>
-                        <NavItem key={3} href="">Home</NavItem>
-                        <NavItem key={4} href="">New</NavItem>
-                        <NavItem key={5} href="">Collections</NavItem>
+                      <NavItem key={2} href="/" id="resplash-home-img" className="resplash-img"><img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/></NavItem>
+                        <Nav id="inner-tabs-wrap">
+                          <NavItem key={3} href="">Home</NavItem>
+                          <NavItem key={4} href="">New</NavItem>
+                          <NavItem key={5} href="">Collections</NavItem>
+                        </Nav>
                   </Nav>
         </Navbar>
         {this.props.children}

@@ -34,13 +34,18 @@ nav#navbar-wrap {
   border: 0;
 }
 
-div.container:not(#resplash-home-img) {
-  display: flex;
-  justify-content: center;
-}
-
 a#resplash-home-img {
   float: left;
   padding: 0;
   padding-left: 10px;
+}
+
+#inner-tabs-wrap {
+  display: flex;
+  justify-content: center;
+  float: none;
+}
+
+ul#navbar-inner-wrap {
+    width: 100%;
 }

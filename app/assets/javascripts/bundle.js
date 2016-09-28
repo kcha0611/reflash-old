@@ -34147,23 +34147,27 @@
 	          { key: 1, id: 'navbar-inner-wrap' },
 	          React.createElement(
 	            NavItem,
-	            { key: 2, href: '/', id: 'resplash-home-img', className: 'resplash-home-img' },
+	            { key: 2, href: '/', id: 'resplash-home-img', className: 'resplash-img' },
 	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png', className: 'resplash-img' })
 	          ),
 	          React.createElement(
-	            NavItem,
-	            { key: 3, href: '' },
-	            'Home'
-	          ),
-	          React.createElement(
-	            NavItem,
-	            { key: 4, href: '' },
-	            'New'
-	          ),
-	          React.createElement(
-	            NavItem,
-	            { key: 5, href: '' },
-	            'Collections'
+	            Nav,
+	            { id: 'inner-tabs-wrap' },
+	            React.createElement(
+	              NavItem,
+	              { key: 3, href: '' },
+	              'Home'
+	            ),
+	            React.createElement(
+	              NavItem,
+	              { key: 4, href: '' },
+	              'New'
+	            ),
+	            React.createElement(
+	              NavItem,
+	              { key: 5, href: '' },
+	              'Collections'
+	            )
 	          )
 	        )
 	      ),
