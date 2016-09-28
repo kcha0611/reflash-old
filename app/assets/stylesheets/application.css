@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
-* {
+*, div.container {
   margin: 0;
   padding: 0;
 }
@@ -21,4 +21,26 @@
 html {
   width: 100%;
   height: 100%;
+}
+
+div.container {
+  width: 100%;
+  background: white;
+}
+
+nav#navbar-wrap {
+  display: flex;
+  align-items: center;
+  border: 0;
+}
+
+div.container:not(#resplash-home-img) {
+  display: flex;
+  justify-content: center;
+}
+
+a#resplash-home-img {
+  float: left;
+  padding: 0;
+  padding-left: 10px;
 }
