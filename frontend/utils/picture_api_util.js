@@ -16,6 +16,16 @@ const PictureApiUtil = {
         callback(posts);
       }
     })
+  },
+  getSearchedPictures: function(data, callback) {
+    $.ajax({
+      url: '/api/pictures',
+      method: "GET",
+      data: data,
+      success (response) {
+        callback(response)
+      }
+    })
   }
 }
 

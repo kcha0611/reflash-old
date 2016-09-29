@@ -34132,6 +34132,7 @@
 	var Navbar = ReactBootstrap.Navbar;
 	var NavItem = ReactBootstrap.NavItem;
 	var Nav = ReactBootstrap.Nav;
+	var SearchBar = __webpack_require__(526);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -34150,6 +34151,7 @@
 	            { key: 2, href: '/', id: 'resplash-home-img', className: 'resplash-img' },
 	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png', className: 'resplash-img' })
 	          ),
+	          React.createElement(SearchBar, null),
 	          React.createElement(
 	            Nav,
 	            { id: 'inner-tabs-wrap' },
@@ -53348,6 +53350,9 @@
 	      actionType: PictureConstants.RECEIVED_PICTURE,
 	      picture: picture
 	    });
+	  },
+	  getSearchedPictures: function getSearchedPictures(data) {
+	    PictureApiUtil.getSearchedPictures(data, this.receivePictures);
 	  }
 	};
 	
@@ -53375,6 +53380,16 @@
 	      method: 'GET',
 	      success: function success(posts) {
 	        callback(posts);
+	      }
+	    });
+	  },
+	  getSearchedPictures: function getSearchedPictures(data, callback) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "GET",
+	      data: data,
+	      success: function success(response) {
+	        callback(response);
 	      }
 	    });
 	  }
@@ -53455,6 +53470,69 @@
 	});
 	
 	module.exports = PictureShow;
+
+/***/ },
+/* 526 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(520);
+	var PictureActions = __webpack_require__(522);
+	var FormControl = __webpack_require__(264).FormControl;
+	var ControlLabel = __webpack_require__(264).ControlLabel;
+	var FormGroup = __webpack_require__(264).FormGroup;
+	var Navbar = __webpack_require__(264).Navbar;
+	
+	var SearchBar = React.createClass({
+	  displayName: 'SearchBar',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      searchInput: ""
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.pictureListener = PictureActions.fetchPictures();
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.pictureListener.remove();
+	  },
+	  handleChange: function handleChange(e) {
+	    e.preventDefault();
+	    this.setState({ searchInput: e.target.value });
+	  },
+	  _handleSubmit: function _handleSubmit(e) {
+	    e.preventDefault();
+	    PictureActions.getSearchedPictures({ searchInput: this.state.searchInput });
+	    this.setState({ searchInput: "" });
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { id: 'search-bar-id' },
+	      React.createElement(
+	        Navbar.Form,
+	        null,
+	        React.createElement(
+	          FormGroup,
+	          null,
+	          React.createElement(FormControl, {
+	            type: 'text',
+	            placeholder: 'Search Pictures',
+	            value: this.state.value,
+	            onChange: this.handleChange,
+	            id: 'search-input'
+	          }),
+	          React.createElement('button', { onClick: this._handleSubmit, className: 'input-search-bar' })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = SearchBar;
 
 /***/ }
 /******/ ]);

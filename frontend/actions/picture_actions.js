@@ -23,6 +23,9 @@ const PictureActions = {
       actionType: PictureConstants.RECEIVED_PICTURE,
       picture: picture
     })
+  },
+  getSearchedPictures: function(data) {
+    PictureApiUtil.getSearchedPictures(data, this.receivePictures);
   }
 }
 
