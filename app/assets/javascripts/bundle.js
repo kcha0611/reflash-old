@@ -54,11 +54,11 @@
 	var Route = ReactRouter.Route;
 	var SessionActions = __webpack_require__(235);
 	var App = __webpack_require__(263);
-	var LoginForm = __webpack_require__(517);
-	var SignupForm = __webpack_require__(518);
-	var PictureIndex = __webpack_require__(519);
+	var LoginForm = __webpack_require__(522);
+	var SignupForm = __webpack_require__(523);
+	var PictureIndex = __webpack_require__(524);
 	var IndexRoute = ReactRouter.IndexRoute;
-	var PictureShow = __webpack_require__(525);
+	var PictureShow = __webpack_require__(526);
 	
 	var router = React.createElement(
 	  Router,
@@ -34132,7 +34132,7 @@
 	var Navbar = ReactBootstrap.Navbar;
 	var NavItem = ReactBootstrap.NavItem;
 	var Nav = ReactBootstrap.Nav;
-	var SearchBar = __webpack_require__(526);
+	var SearchBar = __webpack_require__(517);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -53011,6 +53011,231 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
+	var FormControl = __webpack_require__(264).FormControl;
+	var ControlLabel = __webpack_require__(264).ControlLabel;
+	var FormGroup = __webpack_require__(264).FormGroup;
+	var Navbar = __webpack_require__(264).Navbar;
+	
+	var SearchBar = React.createClass({
+	  displayName: 'SearchBar',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      searchInput: "",
+	      pictures: [],
+	      searchedPictures: []
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.pictureListener = PictureStore.addListener(this.getSearchedPictures);
+	    PictureActions.fetchPictures();
+	  },
+	  getSearchedPictures: function getSearchedPictures() {
+	    this.setState({ pictures: PictureStore.all() });
+	    debugger;
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.pictureListener.remove();
+	  },
+	  handleChange: function handleChange(e) {
+	    e.preventDefault();
+	    this.setState({ searchInput: e.target.value });
+	  },
+	  _handleSubmit: function _handleSubmit(e) {
+	    var _this = this;
+	
+	    e.preventDefault();
+	    var pictures = PictureStore.all();
+	    var filteredPictures = [];
+	    pictures = pictures.map(function (picture) {
+	      if (picture.subject == _this.state.searchInput.toLowerCase()) {
+	        searchedPictures.push(picture);
+	      }
+	    });
+	    this.setState({ searchInput: "", pictures: [], searchedPictures: filteredPictures });
+	    debugger;
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { id: 'search-bar-id' },
+	      React.createElement(
+	        Navbar.Form,
+	        null,
+	        React.createElement(
+	          FormGroup,
+	          null,
+	          React.createElement(FormControl, {
+	            type: 'text',
+	            placeholder: 'Search Pictures',
+	            value: this.state.value,
+	            onChange: this.handleChange,
+	            id: 'search-input'
+	          }),
+	          React.createElement(
+	            'button',
+	            { onClick: this._handleSubmit },
+	            'Search'
+	          )
+	        )
+	      ),
+	      this.state.searchPictures
+	    );
+	  }
+	});
+	
+	module.exports = SearchBar;
+
+/***/ },
+/* 518 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Store = __webpack_require__(241).Store;
+	var AppDispatcher = __webpack_require__(236);
+	var PictureConstants = __webpack_require__(519);
+	
+	var PictureStore = new Store(AppDispatcher);
+	
+	var _pictures = {};
+	
+	PictureStore.all = function () {
+	  return Object.keys(_pictures).reverse().map(function (key) {
+	    return _pictures[key];
+	  });
+	};
+	
+	PictureStore.find = function (id) {
+	  return _pictures[id];
+	};
+	
+	PictureStore.addPictures = function (pictures) {
+	  _pictures = {};
+	  pictures.forEach(function (picture) {
+	    _pictures[picture.id] = picture;
+	  });
+	};
+	
+	PictureStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case PictureConstants.RECEIVED_PICTURES:
+	      PictureStore.addPictures(payload.pictures);
+	      this.__emitChange();
+	      break;
+	    case PictureConstants.RECEIVED_PICTURE:
+	      PictureStore.addPicture(payload.picture);
+	      this.__emitChange();
+	      break;
+	  }
+	};
+	
+	PictureStore.addPicture = function (picture) {
+	  _pictures[picture.id] = picture;
+	};
+	
+	module.exports = PictureStore;
+
+/***/ },
+/* 519 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var PictureConstants = {
+	  RECEIVED_PICTURES: "RECEIVED_PICTURES",
+	  RECEIVED_PICTURE: "RECEIVED_PICTURE"
+	};
+	
+	module.exports = PictureConstants;
+
+/***/ },
+/* 520 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var AppDispatcher = __webpack_require__(236);
+	var PictureConstants = __webpack_require__(519);
+	var ErrorActions = __webpack_require__(259);
+	var hashHistory = __webpack_require__(172).hashHistory;
+	var PictureApiUtil = __webpack_require__(521);
+	
+	var PictureActions = {
+	  fetchPictures: function fetchPictures() {
+	    PictureApiUtil.fetchPictures(this.receivePictures);
+	  },
+	  receivePictures: function receivePictures(pictures) {
+	    AppDispatcher.dispatch({
+	      actionType: PictureConstants.RECEIVED_PICTURES,
+	      pictures: pictures
+	    });
+	  },
+	  getPicture: function getPicture(id) {
+	    PictureApiUtil.getPicture(id, this.receivePicture);
+	  },
+	  receivePicture: function receivePicture(picture) {
+	    AppDispatcher.dispatch({
+	      actionType: PictureConstants.RECEIVED_PICTURE,
+	      picture: picture
+	    });
+	  },
+	  getSearchedPictures: function getSearchedPictures(data) {
+	    debugger;
+	    PictureApiUtil.getSearchedPictures(data, this.receivePictures);
+	  }
+	};
+	
+	module.exports = PictureActions;
+
+/***/ },
+/* 521 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var PictureApiUtil = {
+	  fetchPictures: function fetchPictures(callback) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "GET",
+	      success: function success(pictures) {
+	        callback(pictures);
+	      }
+	    });
+	  },
+	  getPicture: function getPicture(id, callback) {
+	    $.ajax({
+	      url: '/api/pictures/' + id,
+	      method: 'GET',
+	      success: function success(posts) {
+	        callback(posts);
+	      }
+	    });
+	  },
+	  getSearchedPictures: function getSearchedPictures(searchInput, callback) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "GET",
+	      data: { pictures: searchInput },
+	      success: function success(response) {
+	        callback(response);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = PictureApiUtil;
+
+/***/ },
+/* 522 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
@@ -53105,7 +53330,7 @@
 	module.exports = LoginForm;
 
 /***/ },
-/* 518 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53214,15 +53439,15 @@
 	module.exports = SignupForm;
 
 /***/ },
-/* 519 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var PictureStore = __webpack_require__(520);
-	var PictureActions = __webpack_require__(522);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
 	var React = __webpack_require__(1);
-	var PictureIndexItem = __webpack_require__(524);
+	var PictureIndexItem = __webpack_require__(525);
 	
 	var PictureIndex = React.createClass({
 	  displayName: 'PictureIndex',
@@ -53258,154 +53483,14 @@
 	module.exports = PictureIndex;
 
 /***/ },
-/* 520 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Store = __webpack_require__(241).Store;
-	var AppDispatcher = __webpack_require__(236);
-	var PictureConstants = __webpack_require__(521);
-	
-	var PictureStore = new Store(AppDispatcher);
-	
-	var _pictures = {};
-	
-	PictureStore.all = function () {
-	  return Object.keys(_pictures).reverse().map(function (key) {
-	    return _pictures[key];
-	  });
-	};
-	
-	PictureStore.find = function (id) {
-	  return _pictures[id];
-	};
-	
-	PictureStore.addPictures = function (pictures) {
-	  _pictures = {};
-	  pictures.forEach(function (picture) {
-	    _pictures[picture.id] = picture;
-	  });
-	};
-	
-	PictureStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case PictureConstants.RECEIVED_PICTURES:
-	      PictureStore.addPictures(payload.pictures);
-	      this.__emitChange();
-	      break;
-	    case PictureConstants.RECEIVED_PICTURE:
-	      PictureStore.addPicture(payload.picture);
-	      this.__emitChange();
-	      break;
-	  }
-	};
-	
-	PictureStore.addPicture = function (picture) {
-	  _pictures[picture.id] = picture;
-	};
-	
-	module.exports = PictureStore;
-
-/***/ },
-/* 521 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var PictureConstants = {
-	  RECEIVED_PICTURES: "RECEIVED_PICTURES",
-	  RECEIVED_PICTURE: "RECEIVED_PICTURE"
-	};
-	
-	module.exports = PictureConstants;
-
-/***/ },
-/* 522 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var AppDispatcher = __webpack_require__(236);
-	var PictureConstants = __webpack_require__(521);
-	var ErrorActions = __webpack_require__(259);
-	var hashHistory = __webpack_require__(172).hashHistory;
-	var PictureApiUtil = __webpack_require__(523);
-	
-	var PictureActions = {
-	  fetchPictures: function fetchPictures() {
-	    PictureApiUtil.fetchPictures(this.receivePictures);
-	  },
-	  receivePictures: function receivePictures(pictures) {
-	    AppDispatcher.dispatch({
-	      actionType: PictureConstants.RECEIVED_PICTURES,
-	      pictures: pictures
-	    });
-	  },
-	  getPicture: function getPicture(id) {
-	    PictureApiUtil.getPicture(id, this.receivePicture);
-	  },
-	  receivePicture: function receivePicture(picture) {
-	    AppDispatcher.dispatch({
-	      actionType: PictureConstants.RECEIVED_PICTURE,
-	      picture: picture
-	    });
-	  },
-	  getSearchedPictures: function getSearchedPictures(data) {
-	    PictureApiUtil.getSearchedPictures(data, this.receivePictures);
-	  }
-	};
-	
-	module.exports = PictureActions;
-
-/***/ },
-/* 523 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var PictureApiUtil = {
-	  fetchPictures: function fetchPictures(callback) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "GET",
-	      success: function success(pictures) {
-	        callback(pictures);
-	      }
-	    });
-	  },
-	  getPicture: function getPicture(id, callback) {
-	    $.ajax({
-	      url: '/api/pictures/' + id,
-	      method: 'GET',
-	      success: function success(posts) {
-	        callback(posts);
-	      }
-	    });
-	  },
-	  getSearchedPictures: function getSearchedPictures(data, callback) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "GET",
-	      data: data,
-	      success: function success(response) {
-	        callback(response);
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = PictureApiUtil;
-
-/***/ },
-/* 524 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var PictureIndex = __webpack_require__(519);
+	var PictureIndex = __webpack_require__(524);
 	var React = __webpack_require__(1);
-	var PictureStore = __webpack_require__(520);
+	var PictureStore = __webpack_require__(518);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	
@@ -53426,14 +53511,14 @@
 	module.exports = PictureIndexItem;
 
 /***/ },
-/* 525 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var PictureStore = __webpack_require__(520);
-	var PictureActions = __webpack_require__(522);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	
@@ -53470,69 +53555,6 @@
 	});
 	
 	module.exports = PictureShow;
-
-/***/ },
-/* 526 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	var PictureStore = __webpack_require__(520);
-	var PictureActions = __webpack_require__(522);
-	var FormControl = __webpack_require__(264).FormControl;
-	var ControlLabel = __webpack_require__(264).ControlLabel;
-	var FormGroup = __webpack_require__(264).FormGroup;
-	var Navbar = __webpack_require__(264).Navbar;
-	
-	var SearchBar = React.createClass({
-	  displayName: 'SearchBar',
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      searchInput: ""
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    this.pictureListener = PictureActions.fetchPictures();
-	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    this.pictureListener.remove();
-	  },
-	  handleChange: function handleChange(e) {
-	    e.preventDefault();
-	    this.setState({ searchInput: e.target.value });
-	  },
-	  _handleSubmit: function _handleSubmit(e) {
-	    e.preventDefault();
-	    PictureActions.getSearchedPictures({ searchInput: this.state.searchInput });
-	    this.setState({ searchInput: "" });
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { id: 'search-bar-id' },
-	      React.createElement(
-	        Navbar.Form,
-	        null,
-	        React.createElement(
-	          FormGroup,
-	          null,
-	          React.createElement(FormControl, {
-	            type: 'text',
-	            placeholder: 'Search Pictures',
-	            value: this.state.value,
-	            onChange: this.handleChange,
-	            id: 'search-input'
-	          }),
-	          React.createElement('button', { onClick: this._handleSubmit, className: 'input-search-bar' })
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = SearchBar;
 
 /***/ }
 /******/ ]);

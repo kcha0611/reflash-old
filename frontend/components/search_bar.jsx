@@ -9,11 +9,18 @@ const Navbar = require('react-bootstrap').Navbar;
 const SearchBar = React.createClass({
   getInitialState: function() {
     return {
-      searchInput: ""
+      searchInput: "",
+      pictures: [],
+      searchedPictures: []
     };
   },
   componentDidMount: function() {
-    this.pictureListener = PictureActions.fetchPictures();
+    this.pictureListener = PictureStore.addListener(this.getSearchedPictures)
+    PictureActions.fetchPictures();
+  },
+  getSearchedPictures: function() {
+    this.setState({pictures: PictureStore.all()})
+    debugger
   },
   componentWillUnmount: function() {
     this.pictureListener.remove()
@@ -24,8 +31,15 @@ const SearchBar = React.createClass({
   },
   _handleSubmit: function(e) {
     e.preventDefault();
-    PictureActions.getSearchedPictures({searchInput: this.state.searchInput});
-    this.setState({searchInput: ""})
+    let pictures = PictureStore.all();
+    let filteredPictures = [];
+    pictures = pictures.map( (picture) => {
+      if (picture.subject == this.state.searchInput.toLowerCase()) {
+        searchedPictures.push(picture);
+      }
+    });
+    this.setState({searchInput: "", pictures: [], searchedPictures: filteredPictures})
+    debugger
   },
   render() {
     return (
@@ -39,9 +53,10 @@ const SearchBar = React.createClass({
               onChange={this.handleChange}
               id="search-input"
               />
-            <button onClick={this._handleSubmit} className="input-search-bar"/>
+        <button onClick={this._handleSubmit}>Search</button>
           </FormGroup>
         </Navbar.Form>
+        {this.state.searchPictures}
     </div>
     )
   }

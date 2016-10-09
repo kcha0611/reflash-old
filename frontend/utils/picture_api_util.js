@@ -17,11 +17,11 @@ const PictureApiUtil = {
       }
     })
   },
-  getSearchedPictures: function(data, callback) {
+  getSearchedPictures: function(searchInput, callback) {
     $.ajax({
       url: '/api/pictures',
       method: "GET",
-      data: data,
+      data: {pictures: searchInput},
       success (response) {
         callback(response)
       }
