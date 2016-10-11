@@ -20,7 +20,6 @@ const SearchBar = React.createClass({
   },
   getSearchedPictures: function() {
     this.setState({pictures: PictureStore.all()})
-    debugger
   },
   componentWillUnmount: function() {
     this.pictureListener.remove()
@@ -34,12 +33,12 @@ const SearchBar = React.createClass({
     let pictures = PictureStore.all();
     let filteredPictures = [];
     pictures = pictures.map( (picture) => {
+      debugger
       if (picture.subject == this.state.searchInput.toLowerCase()) {
-        searchedPictures.push(picture);
+        filteredPictures.push(picture);
       }
     });
     this.setState({searchInput: "", pictures: [], searchedPictures: filteredPictures})
-    debugger
   },
   render() {
     return (

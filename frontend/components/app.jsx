@@ -4,8 +4,13 @@ const Navbar = ReactBootstrap.Navbar;
 const NavItem = ReactBootstrap.NavItem;
 const Nav = ReactBootstrap.Nav;
 const SearchBar = require('./search_bar');
+const ReactRouter = require('react-router');
+const hashHistory = ReactRouter.hashHistory;
 
 const App = React.createClass({
+  renderForm() {
+    hashHistory.push("/pictures/new")
+  },
   render() {
     return (
       <div>
@@ -18,6 +23,7 @@ const App = React.createClass({
                           <NavItem key={4} href="">New</NavItem>
                           <NavItem key={5} href="">Collections</NavItem>
                         </Nav>
+                      <button onClick={this.renderForm}>Submit Photo</button>
                   </Nav>
         </Navbar>
         {this.props.children}

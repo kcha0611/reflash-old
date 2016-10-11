@@ -27,6 +27,9 @@ const PictureActions = {
   getSearchedPictures: function(data) {
     debugger
     PictureApiUtil.getSearchedPictures(data, this.receivePictures);
+  },
+  createPicture: function(picture) {
+    PictureApiUtil.createPicture(picture, this.receivePicture);
   }
 }
 

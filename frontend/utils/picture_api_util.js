@@ -26,6 +26,17 @@ const PictureApiUtil = {
         callback(response)
       }
     })
+  },
+  createPicture: function(data, cb) {
+    $.ajax({
+      url: '/api/pictures',
+      method: "POST",
+      data: {picture: data},
+      dataType: 'json',
+      success(response) {
+        cb(response)
+      }
+    })
   }
 }
 
