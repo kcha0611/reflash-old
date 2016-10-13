@@ -16,7 +16,7 @@ const PictureForm = require('./components/picture_form');
 const router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={PictureIndex}></IndexRoute>
+      <IndexRoute component={LoginForm}></IndexRoute>
       <Route path="/login" component={LoginForm}/>
       <Route path="/signup" component={SignupForm}/>
       <Route path="/pictures/create" component={PictureForm} />

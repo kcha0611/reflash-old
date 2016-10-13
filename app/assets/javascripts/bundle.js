@@ -67,7 +67,7 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: App },
-	    React.createElement(IndexRoute, { component: PictureIndex }),
+	    React.createElement(IndexRoute, { component: LoginForm }),
 	    React.createElement(Route, { path: '/login', component: LoginForm }),
 	    React.createElement(Route, { path: '/signup', component: SignupForm }),
 	    React.createElement(Route, { path: '/pictures/create', component: PictureForm }),
