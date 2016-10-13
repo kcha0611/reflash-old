@@ -13,13 +13,13 @@ const PictureShow = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.pictureListener = PictureStore.addListener(this.fetchPost);
+    this.pictureListener = PictureStore.addListener(this.fetchPicture);
     PictureActions.getPicture(parseInt(this.props.params.pictureId))
   },
   componentWillUnmount: function() {
     this.pictureListener.remove()
   },
-  fetchPost() {
+  fetchPicture() {
     PictureActions.getPicture(parseInt(this.props.params.pictureId))
   },
   zoomOut() {

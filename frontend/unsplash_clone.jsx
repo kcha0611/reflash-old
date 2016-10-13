@@ -19,8 +19,8 @@ const router = (
       <IndexRoute component={PictureIndex}></IndexRoute>
       <Route path="/login" component={LoginForm}/>
       <Route path="/signup" component={SignupForm}/>
+      <Route path="/pictures/create" component={PictureForm} />
       <Route path="/pictures/:pictureId" component={PictureShow} />
-      <Route path="/pictures/new" component={PictureForm} />
       </Route>
   </Router>
 )

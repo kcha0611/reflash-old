@@ -31,8 +31,8 @@ const PictureApiUtil = {
     $.ajax({
       url: '/api/pictures',
       method: "POST",
-      data: {picture: data},
       dataType: 'json',
+      data: data,
       success(response) {
         cb(response)
       }

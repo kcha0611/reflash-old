@@ -26,6 +26,7 @@ const LoginForm = React.createClass({
   },
   renderPicIfLoggedIn: function () {
     if (SessionStore.checkLoggedIn()) {
+      debugger
       hashHistory.push("/");
     }
   },

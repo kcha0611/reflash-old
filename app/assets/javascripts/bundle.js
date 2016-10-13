@@ -54,12 +54,12 @@
 	var Route = ReactRouter.Route;
 	var SessionActions = __webpack_require__(235);
 	var App = __webpack_require__(263);
-	var LoginForm = __webpack_require__(521);
-	var SignupForm = __webpack_require__(522);
-	var PictureIndex = __webpack_require__(523);
+	var LoginForm = __webpack_require__(522);
+	var SignupForm = __webpack_require__(523);
+	var PictureIndex = __webpack_require__(524);
 	var IndexRoute = ReactRouter.IndexRoute;
-	var PictureShow = __webpack_require__(525);
-	var PictureForm = __webpack_require__(526);
+	var PictureShow = __webpack_require__(526);
+	var PictureForm = __webpack_require__(527);
 	
 	var router = React.createElement(
 	  Router,
@@ -70,8 +70,8 @@
 	    React.createElement(IndexRoute, { component: PictureIndex }),
 	    React.createElement(Route, { path: '/login', component: LoginForm }),
 	    React.createElement(Route, { path: '/signup', component: SignupForm }),
-	    React.createElement(Route, { path: '/pictures/:pictureId', component: PictureShow }),
-	    React.createElement(Route, { path: '/pictures/new', component: PictureForm })
+	    React.createElement(Route, { path: '/pictures/create', component: PictureForm }),
+	    React.createElement(Route, { path: '/pictures/:pictureId', component: PictureShow })
 	  )
 	);
 	
@@ -34137,13 +34137,24 @@
 	var SearchBar = __webpack_require__(517);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
+	var Link = ReactRouter.Link;
+	var SessionActions = __webpack_require__(235);
+	var SessionStore = __webpack_require__(240);
 	
 	var App = React.createClass({
 	  displayName: 'App',
-	  renderForm: function renderForm() {
-	    hashHistory.push("/pictures/new");
+	  _logOut: function _logOut() {
+	    SessionActions.logOut();
 	  },
 	  render: function render() {
+	    var logOut = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      logOut = React.createElement(
+	        'button',
+	        { onClick: this._logOut },
+	        'LogOut'
+	      );
+	    }
 	    return React.createElement(
 	      'div',
 	      null,
@@ -34179,10 +34190,11 @@
 	            )
 	          ),
 	          React.createElement(
-	            'button',
-	            { onClick: this.renderForm },
+	            Link,
+	            { to: 'pictures/create' },
 	            'Submit Photo'
-	          )
+	          ),
+	          logOut
 	        )
 	      ),
 	      this.props.children
@@ -53172,7 +53184,7 @@
 	var PictureConstants = __webpack_require__(519);
 	var ErrorActions = __webpack_require__(259);
 	var hashHistory = __webpack_require__(172).hashHistory;
-	var PictureApiUtil = __webpack_require__(527);
+	var PictureApiUtil = __webpack_require__(521);
 	
 	var PictureActions = {
 	  fetchPictures: function fetchPictures() {
@@ -53206,6 +53218,56 @@
 
 /***/ },
 /* 521 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var PictureApiUtil = {
+	  fetchPictures: function fetchPictures(callback) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "GET",
+	      success: function success(pictures) {
+	        callback(pictures);
+	      }
+	    });
+	  },
+	  getPicture: function getPicture(id, callback) {
+	    $.ajax({
+	      url: '/api/pictures/' + id,
+	      method: 'GET',
+	      success: function success(posts) {
+	        callback(posts);
+	      }
+	    });
+	  },
+	  getSearchedPictures: function getSearchedPictures(searchInput, callback) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "GET",
+	      data: { pictures: searchInput },
+	      success: function success(response) {
+	        callback(response);
+	      }
+	    });
+	  },
+	  createPicture: function createPicture(data, cb) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "POST",
+	      dataType: 'json',
+	      data: data,
+	      success: function success(response) {
+	        cb(response);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = PictureApiUtil;
+
+/***/ },
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53240,6 +53302,7 @@
 	  },
 	  renderPicIfLoggedIn: function renderPicIfLoggedIn() {
 	    if (SessionStore.checkLoggedIn()) {
+	      debugger;
 	      hashHistory.push("/");
 	    }
 	  },
@@ -53305,7 +53368,7 @@
 	module.exports = LoginForm;
 
 /***/ },
-/* 522 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53414,7 +53477,7 @@
 	module.exports = SignupForm;
 
 /***/ },
-/* 523 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53422,7 +53485,7 @@
 	var PictureStore = __webpack_require__(518);
 	var PictureActions = __webpack_require__(520);
 	var React = __webpack_require__(1);
-	var PictureIndexItem = __webpack_require__(524);
+	var PictureIndexItem = __webpack_require__(525);
 	
 	var PictureIndex = React.createClass({
 	  displayName: 'PictureIndex',
@@ -53458,12 +53521,12 @@
 	module.exports = PictureIndex;
 
 /***/ },
-/* 524 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var PictureIndex = __webpack_require__(523);
+	var PictureIndex = __webpack_require__(524);
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
 	var ReactRouter = __webpack_require__(172);
@@ -53486,7 +53549,7 @@
 	module.exports = PictureIndexItem;
 
 /***/ },
-/* 525 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53508,13 +53571,13 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.pictureListener = PictureStore.addListener(this.fetchPost);
+	    this.pictureListener = PictureStore.addListener(this.fetchPicture);
 	    PictureActions.getPicture(parseInt(this.props.params.pictureId));
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    this.pictureListener.remove();
 	  },
-	  fetchPost: function fetchPost() {
+	  fetchPicture: function fetchPicture() {
 	    PictureActions.getPicture(parseInt(this.props.params.pictureId));
 	  },
 	  zoomOut: function zoomOut() {
@@ -53532,7 +53595,7 @@
 	module.exports = PictureShow;
 
 /***/ },
-/* 526 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53570,7 +53633,9 @@
 	  },
 	  _submit: function _submit(e) {
 	    e.preventDefault();
-	    PictureActions.createProject({ picture_url: this.state.picture_url, subject: this.state.subject });
+	    PictureActions.createPicture({ picture_url: this.state.picture_url, subject: this.state.subject });
+	    debugger;
+	    hashHistory.push('/');
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -53579,68 +53644,20 @@
 	      React.createElement(
 	        'form',
 	        { onSubmit: this._submit },
-	        React.createElement('input', { placeholder: 'Subject' }),
+	        React.createElement('input', { onChange: this.subjectChange, placeholder: 'Enter Picture Subject' }),
+	        React.createElement('input', { type: 'submit', placeholder: 'Post a Picture' }),
 	        React.createElement(
 	          'button',
 	          { onClick: this.updateImage },
-	          'Post a Picture'
+	          'Upload Picture'
 	        )
-	      )
+	      ),
+	      React.createElement('img', { src: this.state.picture_url })
 	    );
 	  }
 	});
 	
 	module.exports = PictureForm;
-
-/***/ },
-/* 527 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var PictureApiUtil = {
-	  fetchPictures: function fetchPictures(callback) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "GET",
-	      success: function success(pictures) {
-	        callback(pictures);
-	      }
-	    });
-	  },
-	  getPicture: function getPicture(id, callback) {
-	    $.ajax({
-	      url: '/api/pictures/' + id,
-	      method: 'GET',
-	      success: function success(posts) {
-	        callback(posts);
-	      }
-	    });
-	  },
-	  getSearchedPictures: function getSearchedPictures(searchInput, callback) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "GET",
-	      data: { pictures: searchInput },
-	      success: function success(response) {
-	        callback(response);
-	      }
-	    });
-	  },
-	  createPicture: function createPicture(data, cb) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "POST",
-	      data: { picture: data },
-	      dataType: 'json',
-	      success: function success(response) {
-	        cb(response);
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = PictureApiUtil;
 
 /***/ }
 /******/ ]);

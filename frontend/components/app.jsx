@@ -6,12 +6,19 @@ const Nav = ReactBootstrap.Nav;
 const SearchBar = require('./search_bar');
 const ReactRouter = require('react-router');
 const hashHistory = ReactRouter.hashHistory;
+const Link = ReactRouter.Link;
+const SessionActions = require('../actions/session_actions');
+const SessionStore = require('../stores/session_store');
 
 const App = React.createClass({
-  renderForm() {
-    hashHistory.push("/pictures/new")
+  _logOut() {
+    SessionActions.logOut();
   },
   render() {
+    let logOut;
+    if (SessionStore.checkLoggedIn()) {
+      logOut = (<button onClick={this._logOut}>LogOut</button>)
+    }
     return (
       <div>
         <Navbar id="navbar-wrap">
@@ -23,7 +30,8 @@ const App = React.createClass({
                           <NavItem key={4} href="">New</NavItem>
                           <NavItem key={5} href="">Collections</NavItem>
                         </Nav>
-                      <button onClick={this.renderForm}>Submit Photo</button>
+                      <Link to="pictures/create">Submit Photo</Link>
+                      {logOut}
                   </Nav>
         </Navbar>
         {this.props.children}

@@ -1,8 +1,11 @@
 class Api::PicturesController < ApplicationController
   before_action :require_logged_in, only: [:create]
+  skip_before_filter  :verify_authenticity_token, only: [:create]
+
   def create
     @picture = Picture.new(picture_params)
-    if @picture.save
+    if @picture
+      @picture.save
       render "api/pictures/show"
     else
       render json: ["somethings fucked up"]

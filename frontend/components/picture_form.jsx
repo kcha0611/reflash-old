@@ -29,15 +29,19 @@ const PictureForm = React.createClass({
   },
   _submit(e) {
     e.preventDefault();
-    PictureActions.createProject({picture_url: this.state.picture_url, subject: this.state.subject})
+    PictureActions.createPicture({picture_url: this.state.picture_url, subject: this.state.subject})
+    debugger
+    hashHistory.push('/');
   },
   render() {
     return (
       <div>
         <form onSubmit={this._submit}>
-          <input placeholder="Subject"/>
-          <button onClick={this.updateImage}>Post a Picture</button>
+          <input onChange={this.subjectChange} placeholder="Enter Picture Subject"/>
+          <input type="submit" placeholder="Post a Picture"/>
+          <button onClick={this.updateImage}>Upload Picture</button>
         </form>
+        <img src={this.state.picture_url}/>
       </div>
     )
   }
