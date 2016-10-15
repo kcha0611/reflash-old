@@ -10,7 +10,6 @@ const SearchBar = React.createClass({
   getInitialState: function() {
     return {
       searchInput: "",
-      pictures: [],
       searchedPictures: []
     };
   },
@@ -31,14 +30,14 @@ const SearchBar = React.createClass({
   _handleSubmit: function(e) {
     e.preventDefault();
     let pictures = PictureStore.all();
-    let filteredPictures = [];
-    pictures = pictures.map( (picture) => {
-      debugger
-      if (picture.subject == this.state.searchInput.toLowerCase()) {
-        filteredPictures.push(picture);
+    let that = this
+    pictures.map( (picture) => {
+      if (picture.subject == that.state.searchInput.toLowerCase()) {
+        debugger
+        that.state.searchedPictures.push(picture);
       }
     });
-    this.setState({searchInput: "", pictures: [], searchedPictures: filteredPictures})
+    // this.setState({searchedPictures: [], searchInput: ""})
   },
   render() {
     return (
@@ -52,10 +51,13 @@ const SearchBar = React.createClass({
               onChange={this.handleChange}
               id="search-input"
               />
-        <button onClick={this._handleSubmit}>Search</button>
+            <input type="submit" onClick={this._handleSubmit} placeholder="Search" />
           </FormGroup>
         </Navbar.Form>
-        {this.state.searchPictures}
+        {this.state.searchedPictures.map ( (pic) => {
+          return (<img src={pic.picture_url}></img>)
+        })
+      }
     </div>
     )
   }
