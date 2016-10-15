@@ -28,7 +28,7 @@ const SignupForm = React.createClass({
   },
   renderPicIfLoggedIn: function () {
     if (SessionStore.checkLoggedIn()) {
-      hashHistory.push("/");
+      hashHistory.push("/pictures");
     }
   },
   _handleUsernameChange: function(e) {

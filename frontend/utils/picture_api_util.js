@@ -32,7 +32,7 @@ const PictureApiUtil = {
       url: '/api/pictures',
       method: "POST",
       dataType: 'json',
-      data: data,
+      data: {picture: data},
       success(response) {
         cb(response)
       }

@@ -17,8 +17,8 @@ const router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={LoginForm}></IndexRoute>
-      <Route path="/login" component={LoginForm}/>
       <Route path="/signup" component={SignupForm}/>
+      <Route path="/pictures" component={PictureIndex} />
       <Route path="/pictures/create" component={PictureForm} />
       <Route path="/pictures/:pictureId" component={PictureShow} />
       </Route>

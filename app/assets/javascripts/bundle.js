@@ -68,8 +68,8 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: LoginForm }),
-	    React.createElement(Route, { path: '/login', component: LoginForm }),
 	    React.createElement(Route, { path: '/signup', component: SignupForm }),
+	    React.createElement(Route, { path: '/pictures', component: PictureIndex }),
 	    React.createElement(Route, { path: '/pictures/create', component: PictureForm }),
 	    React.createElement(Route, { path: '/pictures/:pictureId', component: PictureShow })
 	  )
@@ -27117,11 +27117,9 @@
 	var SessionActions = {
 	  logIn: function logIn(data) {
 	    SessionApiUtil.logIn(data, this.receiveCurrentUser, ErrorActions.setErrors);
-	    hashHistory.push('/pictures');
 	  },
 	  signUp: function signUp(data) {
 	    SessionApiUtil.signUp(data, this.receiveCurrentUser, ErrorActions.setErrors);
-	    hashHistory.push('/pictures');
 	  },
 	  logOut: function logOut() {
 	    SessionApiUtil.logOut();
@@ -34145,6 +34143,7 @@
 	  displayName: 'App',
 	  _logOut: function _logOut() {
 	    SessionActions.logOut();
+	    hashHistory.push('/');
 	  },
 	  render: function render() {
 	    var logOut = void 0;
@@ -53256,7 +53255,7 @@
 	      url: '/api/pictures',
 	      method: "POST",
 	      dataType: 'json',
-	      data: data,
+	      data: { picture: data },
 	      success: function success(response) {
 	        cb(response);
 	      }
@@ -53302,8 +53301,7 @@
 	  },
 	  renderPicIfLoggedIn: function renderPicIfLoggedIn() {
 	    if (SessionStore.checkLoggedIn()) {
-	      debugger;
-	      hashHistory.push("/");
+	      hashHistory.push('/pictures');
 	    }
 	  },
 	  formType: function formType() {
@@ -53405,7 +53403,7 @@
 	  },
 	  renderPicIfLoggedIn: function renderPicIfLoggedIn() {
 	    if (SessionStore.checkLoggedIn()) {
-	      hashHistory.push("/");
+	      hashHistory.push("/pictures");
 	    }
 	  },
 	  _handleUsernameChange: function _handleUsernameChange(e) {
@@ -53486,6 +53484,7 @@
 	var PictureActions = __webpack_require__(520);
 	var React = __webpack_require__(1);
 	var PictureIndexItem = __webpack_require__(525);
+	var SessionStore = __webpack_require__(240);
 	
 	var PictureIndex = React.createClass({
 	  displayName: 'PictureIndex',
@@ -53581,7 +53580,7 @@
 	    PictureActions.getPicture(parseInt(this.props.params.pictureId));
 	  },
 	  zoomOut: function zoomOut() {
-	    hashHistory.push('/');
+	    hashHistory.push('/pictures');
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -53635,7 +53634,7 @@
 	    e.preventDefault();
 	    PictureActions.createPicture({ picture_url: this.state.picture_url, subject: this.state.subject });
 	    debugger;
-	    hashHistory.push('/');
+	    hashHistory.push('/pictures');
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -53644,7 +53643,7 @@
 	      React.createElement(
 	        'form',
 	        { onSubmit: this._submit },
-	        React.createElement('input', { onChange: this.subjectChange, placeholder: 'Enter Picture Subject' }),
+	        React.createElement('input', { type: 'text', onChange: this.subjectChange, placeholder: 'Enter Picture Subject' }),
 	        React.createElement('input', { type: 'submit', placeholder: 'Post a Picture' }),
 	        React.createElement(
 	          'button',

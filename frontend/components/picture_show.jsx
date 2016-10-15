@@ -23,7 +23,7 @@ const PictureShow = React.createClass({
     PictureActions.getPicture(parseInt(this.props.params.pictureId))
   },
   zoomOut() {
-    hashHistory.push('/')
+    hashHistory.push('/pictures')
   },
   render() {
     return (

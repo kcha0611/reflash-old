@@ -31,13 +31,13 @@ const PictureForm = React.createClass({
     e.preventDefault();
     PictureActions.createPicture({picture_url: this.state.picture_url, subject: this.state.subject})
     debugger
-    hashHistory.push('/');
+    hashHistory.push('/pictures');
   },
   render() {
     return (
       <div>
         <form onSubmit={this._submit}>
-          <input onChange={this.subjectChange} placeholder="Enter Picture Subject"/>
+          <input type="text" onChange={this.subjectChange} placeholder="Enter Picture Subject"/>
           <input type="submit" placeholder="Post a Picture"/>
           <button onClick={this.updateImage}>Upload Picture</button>
         </form>

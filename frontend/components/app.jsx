@@ -13,6 +13,7 @@ const SessionStore = require('../stores/session_store');
 const App = React.createClass({
   _logOut() {
     SessionActions.logOut();
+    hashHistory.push('/')
   },
   render() {
     let logOut;
