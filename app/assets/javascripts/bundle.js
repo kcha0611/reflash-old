@@ -53047,6 +53047,7 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      searchInput: "",
+	      pictures: [],
 	      searchedPictures: []
 	    };
 	  },
@@ -53065,16 +53066,13 @@
 	    this.setState({ searchInput: e.target.value });
 	  },
 	  _handleSubmit: function _handleSubmit(e) {
+	    var _this = this;
+	
 	    e.preventDefault();
-	    var pictures = PictureStore.all();
-	    var that = this;
-	    pictures.map(function (picture) {
-	      if (picture.subject == that.state.searchInput.toLowerCase()) {
-	        debugger;
-	        that.state.searchedPictures.push(picture);
-	      }
+	    var filteredPictures = this.state.pictures.filter(function (pic) {
+	      return pic.subject.toLowerCase().indexOf(_this.state.searchInput.toLowerCase()) !== -1;
 	    });
-	    // this.setState({searchedPictures: [], searchInput: ""})
+	    this.setState({ searchInput: "", pictures: [], searchedPictures: filteredPictures });
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -53093,11 +53091,15 @@
 	            onChange: this.handleChange,
 	            id: 'search-input'
 	          }),
-	          React.createElement('input', { type: 'submit', onClick: this._handleSubmit, placeholder: 'Search' })
+	          React.createElement(
+	            'button',
+	            { onClick: this._handleSubmit },
+	            'Search'
+	          )
 	        )
 	      ),
-	      this.state.searchedPictures.map(function (pic) {
-	        return React.createElement('img', { src: pic.picture_url });
+	      this.state.searchedPictures.map(function (picture, index) {
+	        return React.createElement('img', { src: picture.picture_url, className: 'pic-index-item' });
 	      })
 	    );
 	  }
