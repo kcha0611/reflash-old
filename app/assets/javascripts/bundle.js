@@ -34141,19 +34141,7 @@
 	
 	var App = React.createClass({
 	  displayName: 'App',
-	  _logOut: function _logOut() {
-	    SessionActions.logOut();
-	    hashHistory.push('/');
-	  },
 	  render: function render() {
-	    var logOut = void 0;
-	    if (SessionStore.checkLoggedIn()) {
-	      logOut = React.createElement(
-	        'button',
-	        { onClick: this._logOut },
-	        'LogOut'
-	      );
-	    }
 	    return React.createElement(
 	      'div',
 	      null,
@@ -34168,32 +34156,7 @@
 	            { key: 2, href: '/', id: 'resplash-home-img', className: 'resplash-img' },
 	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png', className: 'resplash-img' })
 	          ),
-	          React.createElement(SearchBar, null),
-	          React.createElement(
-	            Nav,
-	            { id: 'inner-tabs-wrap' },
-	            React.createElement(
-	              NavItem,
-	              { key: 3, href: '' },
-	              'Home'
-	            ),
-	            React.createElement(
-	              NavItem,
-	              { key: 4, href: '' },
-	              'New'
-	            ),
-	            React.createElement(
-	              NavItem,
-	              { key: 5, href: '' },
-	              'Collections'
-	            )
-	          ),
-	          React.createElement(
-	            Link,
-	            { to: 'pictures/create' },
-	            'Submit Photo'
-	          ),
-	          logOut
+	          React.createElement(SearchBar, null)
 	        )
 	      ),
 	      this.props.children
@@ -53040,6 +53003,14 @@
 	var ControlLabel = __webpack_require__(264).ControlLabel;
 	var FormGroup = __webpack_require__(264).FormGroup;
 	var Navbar = __webpack_require__(264).Navbar;
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
+	var ReactBootstrap = __webpack_require__(264);
+	var NavItem = ReactBootstrap.NavItem;
+	var Nav = ReactBootstrap.Nav;
+	var SessionActions = __webpack_require__(235);
+	var Link = ReactRouter.Link;
+	var SessionStore = __webpack_require__(240);
 	
 	var SearchBar = React.createClass({
 	  displayName: 'SearchBar',
@@ -53047,9 +53018,7 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      searchInput: "",
-	      pictures: [],
-	      searchedPictures: [],
-	      counter: false
+	      pictures: []
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -53065,6 +53034,10 @@
 	    e.preventDefault();
 	    this.setState({ searchInput: e.target.value });
 	  },
+	  _logOut: function _logOut() {
+	    SessionActions.logOut();
+	    hashHistory.push('/');
+	  },
 	  render: function render() {
 	    var _this = this;
 	
@@ -53074,6 +53047,14 @@
 	        return pic.subject.toLowerCase().indexOf(_this.state.searchInput.toLowerCase()) !== -1;
 	      }
 	    });
+	    var logOut = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      logOut = React.createElement(
+	        'button',
+	        { onClick: this._logOut },
+	        'LogOut'
+	      );
+	    }
 	    return React.createElement(
 	      'div',
 	      { id: 'search-bar-id' },
@@ -53092,6 +53073,31 @@
 	          })
 	        )
 	      ),
+	      React.createElement(
+	        Nav,
+	        { id: 'inner-tabs-wrap' },
+	        React.createElement(
+	          NavItem,
+	          { key: 3, href: '' },
+	          'Home'
+	        ),
+	        React.createElement(
+	          NavItem,
+	          { key: 4, href: '' },
+	          'New'
+	        ),
+	        React.createElement(
+	          NavItem,
+	          { key: 5, href: '' },
+	          'Collections'
+	        )
+	      ),
+	      React.createElement(
+	        Link,
+	        { to: 'pictures/create' },
+	        'Submit Photo'
+	      ),
+	      logOut,
 	      React.createElement(
 	        'h1',
 	        { className: 'search-input' },
