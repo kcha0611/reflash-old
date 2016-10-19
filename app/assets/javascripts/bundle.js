@@ -53048,12 +53048,12 @@
 	    return {
 	      searchInput: "",
 	      pictures: [],
-	      searchedPictures: []
+	      searchedPictures: [],
+	      counter: false
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
 	    this.pictureListener = PictureStore.addListener(this.getSearchedPictures);
-	    PictureActions.fetchPictures();
 	  },
 	  getSearchedPictures: function getSearchedPictures() {
 	    this.setState({ pictures: PictureStore.all() });
@@ -53065,16 +53065,15 @@
 	    e.preventDefault();
 	    this.setState({ searchInput: e.target.value });
 	  },
-	  _handleSubmit: function _handleSubmit(e) {
+	  render: function render() {
 	    var _this = this;
 	
-	    e.preventDefault();
-	    var filteredPictures = this.state.pictures.filter(function (pic) {
-	      return pic.subject.toLowerCase().indexOf(_this.state.searchInput.toLowerCase()) !== -1;
+	    var filteredPictures = void 0;
+	    filteredPictures = this.state.pictures.filter(function (pic) {
+	      if (_this.state.searchInput !== "") {
+	        return pic.subject.toLowerCase().indexOf(_this.state.searchInput.toLowerCase()) !== -1;
+	      }
 	    });
-	    this.setState({ searchInput: "", pictures: [], searchedPictures: filteredPictures });
-	  },
-	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      { id: 'search-bar-id' },
@@ -53090,17 +53089,23 @@
 	            value: this.state.value,
 	            onChange: this.handleChange,
 	            id: 'search-input'
-	          }),
-	          React.createElement(
-	            'button',
-	            { onClick: this._handleSubmit },
-	            'Search'
-	          )
+	          })
 	        )
 	      ),
-	      this.state.searchedPictures.map(function (picture, index) {
-	        return React.createElement('img', { src: picture.picture_url, className: 'pic-index-item' });
-	      })
+	      React.createElement(
+	        'h1',
+	        { className: 'search-input' },
+	        this.state.searchInput
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'search-result-wrap' },
+	        filteredPictures.map(function (picture) {
+	          return React.createElement('img', { src: picture.picture_url, className: 'pic-index-item', onClick: function onClick() {
+	              hashHistory.push('/pictures/' + picture.id);
+	            } });
+	        })
+	      )
 	    );
 	  }
 	});

@@ -46,6 +46,17 @@ a#resplash-home-img {
   float: none;
 }
 
-ul#navbar-inner-wrap {
+ul#navbar-inner-wrap, #search-bar-id {
     width: 100%;
+}
+
+.search-input {
+  text-align: center;
+  font-weight: bold;
+}
+
+.search-result-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

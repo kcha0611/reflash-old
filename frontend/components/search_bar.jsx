@@ -11,12 +11,12 @@ const SearchBar = React.createClass({
     return {
       searchInput: "",
       pictures: [],
-      searchedPictures: []
+      searchedPictures: [],
+      counter: false
     };
   },
   componentDidMount: function() {
     this.pictureListener = PictureStore.addListener(this.getSearchedPictures)
-    PictureActions.fetchPictures();
   },
   getSearchedPictures: function() {
     this.setState({pictures: PictureStore.all()})
@@ -26,16 +26,15 @@ const SearchBar = React.createClass({
   },
   handleChange: function(e) {
     e.preventDefault();
-    this.setState({searchInput: e.target.value});
-  },
-  _handleSubmit: function(e) {
-    e.preventDefault();
-    let filteredPictures = this.state.pictures.filter( (pic) => {
-      return pic.subject.toLowerCase().indexOf(this.state.searchInput.toLowerCase()) !== -1
-    })
-    this.setState({searchInput: "", pictures: [], searchedPictures: filteredPictures})
+    this.setState({searchInput: e.target.value})
   },
   render() {
+    let filteredPictures;
+    filteredPictures = this.state.pictures.filter( (pic) => {
+      if (this.state.searchInput !== "") {
+       return pic.subject.toLowerCase().indexOf(this.state.searchInput.toLowerCase()) !== -1
+     }
+    })
     return (
       <div id="search-bar-id">
         <Navbar.Form>
@@ -47,13 +46,15 @@ const SearchBar = React.createClass({
               onChange={this.handleChange}
               id="search-input"
               />
-        <button onClick={this._handleSubmit}>Search</button>
           </FormGroup>
         </Navbar.Form>
-        {this.state.searchedPictures.map ( (picture, index) => {
-          return <img src={picture.picture_url} className="pic-index-item"/>
-        })
-      }
+        <h1 className="search-input">{this.state.searchInput}</h1>
+        <div className="search-result-wrap">
+          {filteredPictures.map ( (picture) => {
+            return <img src={picture.picture_url} className="pic-index-item" onClick={function() {hashHistory.push(`/pictures/${picture.id}`)}}/>
+          })
+        }
+      </div>
     </div>
     )
   }
