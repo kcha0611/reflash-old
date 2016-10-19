@@ -56,7 +56,5 @@ ul#navbar-inner-wrap, #search-bar-id {
 }
 
 .search-result-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }

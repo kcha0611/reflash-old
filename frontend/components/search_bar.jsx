@@ -18,7 +18,7 @@ const SearchBar = React.createClass({
   getInitialState: function() {
     return {
       searchInput: "",
-      pictures: [],
+      pictures: []
     };
   },
   componentDidMount: function() {
@@ -45,6 +45,12 @@ const SearchBar = React.createClass({
        return pic.subject.toLowerCase().indexOf(this.state.searchInput.toLowerCase()) !== -1
      }
     })
+    if (filteredPictures.length !== 0) {
+      $('.pic-index-wrap').hide()
+    }
+    else {
+      $('.pic-index-wrap').show()
+    }
     let logOut;
     if (SessionStore.checkLoggedIn()) {
       logOut = (<button onClick={this._logOut}>LogOut</button>)
@@ -72,7 +78,9 @@ const SearchBar = React.createClass({
         <h1 className="search-input">{this.state.searchInput}</h1>
           <div className="search-result-wrap">
             {filteredPictures.map ( (picture) => {
-              return <img src={picture.picture_url} className="pic-index-item" onClick={function() {hashHistory.push(`/pictures/${picture.id}`)}}/>
+              return
+                <img src={picture.picture_url} className="pic-index-item" onClick={function() {hashHistory.push(`/pictures/${picture.id}`)}}/>
+                <a className="user-show-link">{picture.user.f_name} {picture.user.l_name}</a>
             })
           }
         </div>

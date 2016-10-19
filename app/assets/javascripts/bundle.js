@@ -53047,6 +53047,11 @@
 	        return pic.subject.toLowerCase().indexOf(_this.state.searchInput.toLowerCase()) !== -1;
 	      }
 	    });
+	    if (filteredPictures.length !== 0) {
+	      $('.pic-index-wrap').hide();
+	    } else {
+	      $('.pic-index-wrap').show();
+	    }
 	    var logOut = void 0;
 	    if (SessionStore.checkLoggedIn()) {
 	      logOut = React.createElement(
@@ -53107,9 +53112,21 @@
 	        'div',
 	        { className: 'search-result-wrap' },
 	        filteredPictures.map(function (picture) {
-	          return React.createElement('img', { src: picture.picture_url, className: 'pic-index-item', onClick: function onClick() {
-	              hashHistory.push('/pictures/' + picture.id);
-	            } });
+	          return React.createElement(
+	            'div',
+	            null,
+	            React.createElement('img', { src: picture.picture_url, className: 'pic-index-item', onClick: function onClick() {
+	                hashHistory.push('/pictures/' + picture.id);
+	              } }),
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	            React.createElement(
+	              'a',
+	              { className: 'user-show-link' },
+	              picture.user.f_name,
+	              ' ',
+	              picture.user.l_name
+	            )
+	          );
 	        })
 	      )
 	    );
@@ -53544,11 +53561,26 @@
 	  showPic: function showPic() {
 	    hashHistory.push('/pictures/' + this.props.pic.id);
 	  },
+	  capitalize: function capitalize(string) {
+	    string.charAt(0).toUpperCase() + string.split(1);
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-item-wrap' },
-	      React.createElement('img', { src: this.props.pic.picture_url, className: 'pic-index-item', onClick: this.showPic })
+	      React.createElement('img', { src: this.props.pic.picture_url, className: 'pic-index-item', onClick: this.showPic }),
+	      React.createElement(
+	        'div',
+	        { className: 'inner-user-wrap' },
+	        React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	        React.createElement(
+	          'a',
+	          { className: 'user-show-link' },
+	          this.props.pic.user.f_name,
+	          ' ',
+	          this.props.pic.user.l_name
+	        )
+	      )
 	    );
 	  }
 	});
