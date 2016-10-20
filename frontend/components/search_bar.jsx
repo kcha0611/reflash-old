@@ -78,9 +78,7 @@ const SearchBar = React.createClass({
         <h1 className="search-input">{this.state.searchInput}</h1>
           <div className="search-result-wrap">
             {filteredPictures.map ( (picture) => {
-              return
-                <img src={picture.picture_url} className="pic-index-item" onClick={function() {hashHistory.push(`/pictures/${picture.id}`)}}/>
-                <a className="user-show-link">{picture.user.f_name} {picture.user.l_name}</a>
+              return <img src={picture.picture_url} className="pic-index-item" onClick={function() {hashHistory.push(`/pictures/${picture.id}`)}}/>
             })
           }
         </div>

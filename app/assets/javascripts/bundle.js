@@ -54,9 +54,9 @@
 	var Route = ReactRouter.Route;
 	var SessionActions = __webpack_require__(235);
 	var App = __webpack_require__(263);
-	var LoginForm = __webpack_require__(522);
-	var SignupForm = __webpack_require__(523);
-	var PictureIndex = __webpack_require__(524);
+	var LoginForm = __webpack_require__(518);
+	var SignupForm = __webpack_require__(519);
+	var PictureIndex = __webpack_require__(520);
 	var IndexRoute = ReactRouter.IndexRoute;
 	var PictureShow = __webpack_require__(526);
 	var PictureForm = __webpack_require__(527);
@@ -34159,6 +34159,37 @@
 	          React.createElement(SearchBar, null)
 	        )
 	      ),
+	      React.createElement(
+	        'h1',
+	        { className: 'main-title' },
+	        'ReFlash'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'main-phrase-wrap' },
+	        React.createElement(
+	          'p',
+	          { className: 'main-phrase' },
+	          'Free ',
+	          React.createElement(
+	            'a',
+	            { href: 'https://unsplash.com/license', className: 'main-link' },
+	            '(do whatever you want)'
+	          ),
+	          ' high resolution photos.'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'p',
+	          { className: 'main-phrase' },
+	          'A project by ',
+	          React.createElement(
+	            'a',
+	            { href: 'https://www.linkedin.com/in/kencha', className: 'main-link' },
+	            'Me'
+	          )
+	        )
+	      ),
 	      this.props.children
 	    );
 	  }
@@ -52997,8 +53028,8 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureStore = __webpack_require__(521);
+	var PictureActions = __webpack_require__(523);
 	var FormControl = __webpack_require__(264).FormControl;
 	var ControlLabel = __webpack_require__(264).ControlLabel;
 	var FormGroup = __webpack_require__(264).FormGroup;
@@ -53112,21 +53143,9 @@
 	        'div',
 	        { className: 'search-result-wrap' },
 	        filteredPictures.map(function (picture) {
-	          return React.createElement(
-	            'div',
-	            null,
-	            React.createElement('img', { src: picture.picture_url, className: 'pic-index-item', onClick: function onClick() {
-	                hashHistory.push('/pictures/' + picture.id);
-	              } }),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
-	            React.createElement(
-	              'a',
-	              { className: 'user-show-link' },
-	              picture.user.f_name,
-	              ' ',
-	              picture.user.l_name
-	            )
-	          );
+	          return React.createElement('img', { src: picture.picture_url, className: 'pic-index-item', onClick: function onClick() {
+	              hashHistory.push('/pictures/' + picture.id);
+	            } });
 	        })
 	      )
 	    );
@@ -53137,161 +53156,6 @@
 
 /***/ },
 /* 518 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Store = __webpack_require__(241).Store;
-	var AppDispatcher = __webpack_require__(236);
-	var PictureConstants = __webpack_require__(519);
-	
-	var PictureStore = new Store(AppDispatcher);
-	
-	var _pictures = {};
-	
-	PictureStore.all = function () {
-	  return Object.keys(_pictures).reverse().map(function (key) {
-	    return _pictures[key];
-	  });
-	};
-	
-	PictureStore.find = function (id) {
-	  return _pictures[id];
-	};
-	
-	PictureStore.addPictures = function (pictures) {
-	  _pictures = {};
-	  pictures.forEach(function (picture) {
-	    _pictures[picture.id] = picture;
-	  });
-	};
-	
-	PictureStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case PictureConstants.RECEIVED_PICTURES:
-	      PictureStore.addPictures(payload.pictures);
-	      this.__emitChange();
-	      break;
-	    case PictureConstants.RECEIVED_PICTURE:
-	      PictureStore.addPicture(payload.picture);
-	      this.__emitChange();
-	      break;
-	  }
-	};
-	
-	PictureStore.addPicture = function (picture) {
-	  _pictures[picture.id] = picture;
-	};
-	
-	module.exports = PictureStore;
-
-/***/ },
-/* 519 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var PictureConstants = {
-	  RECEIVED_PICTURES: "RECEIVED_PICTURES",
-	  RECEIVED_PICTURE: "RECEIVED_PICTURE"
-	};
-	
-	module.exports = PictureConstants;
-
-/***/ },
-/* 520 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var AppDispatcher = __webpack_require__(236);
-	var PictureConstants = __webpack_require__(519);
-	var ErrorActions = __webpack_require__(259);
-	var hashHistory = __webpack_require__(172).hashHistory;
-	var PictureApiUtil = __webpack_require__(521);
-	
-	var PictureActions = {
-	  fetchPictures: function fetchPictures() {
-	    PictureApiUtil.fetchPictures(this.receivePictures);
-	  },
-	  receivePictures: function receivePictures(pictures) {
-	    AppDispatcher.dispatch({
-	      actionType: PictureConstants.RECEIVED_PICTURES,
-	      pictures: pictures
-	    });
-	  },
-	  getPicture: function getPicture(id) {
-	    PictureApiUtil.getPicture(id, this.receivePicture);
-	  },
-	  receivePicture: function receivePicture(picture) {
-	    AppDispatcher.dispatch({
-	      actionType: PictureConstants.RECEIVED_PICTURE,
-	      picture: picture
-	    });
-	  },
-	  getSearchedPictures: function getSearchedPictures(data) {
-	    debugger;
-	    PictureApiUtil.getSearchedPictures(data, this.receivePictures);
-	  },
-	  createPicture: function createPicture(picture) {
-	    PictureApiUtil.createPicture(picture, this.receivePicture);
-	  }
-	};
-	
-	module.exports = PictureActions;
-
-/***/ },
-/* 521 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var PictureApiUtil = {
-	  fetchPictures: function fetchPictures(callback) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "GET",
-	      success: function success(pictures) {
-	        callback(pictures);
-	      }
-	    });
-	  },
-	  getPicture: function getPicture(id, callback) {
-	    $.ajax({
-	      url: '/api/pictures/' + id,
-	      method: 'GET',
-	      success: function success(posts) {
-	        callback(posts);
-	      }
-	    });
-	  },
-	  getSearchedPictures: function getSearchedPictures(searchInput, callback) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "GET",
-	      data: { pictures: searchInput },
-	      success: function success(response) {
-	        callback(response);
-	      }
-	    });
-	  },
-	  createPicture: function createPicture(data, cb) {
-	    $.ajax({
-	      url: '/api/pictures',
-	      method: "POST",
-	      dataType: 'json',
-	      data: { picture: data },
-	      success: function success(response) {
-	        cb(response);
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = PictureApiUtil;
-
-/***/ },
-/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53391,7 +53255,7 @@
 	module.exports = LoginForm;
 
 /***/ },
-/* 523 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53500,16 +53364,17 @@
 	module.exports = SignupForm;
 
 /***/ },
-/* 524 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureStore = __webpack_require__(521);
+	var PictureActions = __webpack_require__(523);
 	var React = __webpack_require__(1);
 	var PictureIndexItem = __webpack_require__(525);
 	var SessionStore = __webpack_require__(240);
+	var Masonry = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-masonry-component\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var PictureIndex = React.createClass({
 	  displayName: 'PictureIndex',
@@ -53528,7 +53393,7 @@
 	  },
 	  render: function render() {
 	    var allPictures = this.state.pictures.map(function (pic, index) {
-	      return React.createElement(PictureIndexItem, { key: index, pic: pic });
+	      return React.createElement(PictureIndexItem, { key: index, pic: pic, className: 'picture-index-item' });
 	    });
 	    return React.createElement(
 	      'div',
@@ -53536,6 +53401,20 @@
 	      React.createElement(
 	        'ul',
 	        { className: 'pic-index-ul' },
+	        React.createElement(
+	          'div',
+	          { className: 'tab-wrap' },
+	          React.createElement(
+	            'a',
+	            { id: 'normal-tab' },
+	            'normal'
+	          ),
+	          React.createElement(
+	            'a',
+	            { id: 'grid-tab' },
+	            'grid'
+	          )
+	        ),
 	        allPictures
 	      )
 	    );
@@ -53545,14 +53424,169 @@
 	module.exports = PictureIndex;
 
 /***/ },
+/* 521 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Store = __webpack_require__(241).Store;
+	var AppDispatcher = __webpack_require__(236);
+	var PictureConstants = __webpack_require__(522);
+	
+	var PictureStore = new Store(AppDispatcher);
+	
+	var _pictures = {};
+	
+	PictureStore.all = function () {
+	  return Object.keys(_pictures).reverse().map(function (key) {
+	    return _pictures[key];
+	  });
+	};
+	
+	PictureStore.find = function (id) {
+	  return _pictures[id];
+	};
+	
+	PictureStore.addPictures = function (pictures) {
+	  _pictures = {};
+	  pictures.forEach(function (picture) {
+	    _pictures[picture.id] = picture;
+	  });
+	};
+	
+	PictureStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case PictureConstants.RECEIVED_PICTURES:
+	      PictureStore.addPictures(payload.pictures);
+	      this.__emitChange();
+	      break;
+	    case PictureConstants.RECEIVED_PICTURE:
+	      PictureStore.addPicture(payload.picture);
+	      this.__emitChange();
+	      break;
+	  }
+	};
+	
+	PictureStore.addPicture = function (picture) {
+	  _pictures[picture.id] = picture;
+	};
+	
+	module.exports = PictureStore;
+
+/***/ },
+/* 522 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var PictureConstants = {
+	  RECEIVED_PICTURES: "RECEIVED_PICTURES",
+	  RECEIVED_PICTURE: "RECEIVED_PICTURE"
+	};
+	
+	module.exports = PictureConstants;
+
+/***/ },
+/* 523 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var AppDispatcher = __webpack_require__(236);
+	var PictureConstants = __webpack_require__(522);
+	var ErrorActions = __webpack_require__(259);
+	var hashHistory = __webpack_require__(172).hashHistory;
+	var PictureApiUtil = __webpack_require__(524);
+	
+	var PictureActions = {
+	  fetchPictures: function fetchPictures() {
+	    PictureApiUtil.fetchPictures(this.receivePictures);
+	  },
+	  receivePictures: function receivePictures(pictures) {
+	    AppDispatcher.dispatch({
+	      actionType: PictureConstants.RECEIVED_PICTURES,
+	      pictures: pictures
+	    });
+	  },
+	  getPicture: function getPicture(id) {
+	    PictureApiUtil.getPicture(id, this.receivePicture);
+	  },
+	  receivePicture: function receivePicture(picture) {
+	    AppDispatcher.dispatch({
+	      actionType: PictureConstants.RECEIVED_PICTURE,
+	      picture: picture
+	    });
+	  },
+	  getSearchedPictures: function getSearchedPictures(data) {
+	    debugger;
+	    PictureApiUtil.getSearchedPictures(data, this.receivePictures);
+	  },
+	  createPicture: function createPicture(picture) {
+	    PictureApiUtil.createPicture(picture, this.receivePicture);
+	  }
+	};
+	
+	module.exports = PictureActions;
+
+/***/ },
+/* 524 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var PictureApiUtil = {
+	  fetchPictures: function fetchPictures(callback) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "GET",
+	      success: function success(pictures) {
+	        callback(pictures);
+	      }
+	    });
+	  },
+	  getPicture: function getPicture(id, callback) {
+	    $.ajax({
+	      url: '/api/pictures/' + id,
+	      method: 'GET',
+	      success: function success(posts) {
+	        callback(posts);
+	      }
+	    });
+	  },
+	  getSearchedPictures: function getSearchedPictures(searchInput, callback) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "GET",
+	      data: { pictures: searchInput },
+	      success: function success(response) {
+	        callback(response);
+	      }
+	    });
+	  },
+	  createPicture: function createPicture(data, cb) {
+	    $.ajax({
+	      url: '/api/pictures',
+	      method: "POST",
+	      dataType: 'json',
+	      data: { picture: data },
+	      success: function success(response) {
+	        cb(response);
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = PictureApiUtil;
+
+/***/ },
 /* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var PictureIndex = __webpack_require__(524);
+	var PictureIndex = __webpack_require__(520);
 	var React = __webpack_require__(1);
-	var PictureStore = __webpack_require__(518);
+	var PictureStore = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	
@@ -53594,8 +53628,8 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureStore = __webpack_require__(521);
+	var PictureActions = __webpack_require__(523);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	
@@ -53646,7 +53680,7 @@
 	var Router = ReactRouter.Router;
 	var Route = ReactRouter.Route;
 	var Link = ReactRouter.Link;
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(523);
 	
 	var PictureForm = React.createClass({
 	  displayName: 'PictureForm',

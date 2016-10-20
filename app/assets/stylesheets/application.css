@@ -18,9 +18,17 @@
   padding: 0;
 }
 
+* {
+  font-family: Courier,"Courier New",monospace;
+  font-size: 1em;
+}
+
 html {
   width: 100%;
   height: 100%;
+}
+
+body {
 }
 
 div.container {
@@ -57,4 +65,29 @@ ul#navbar-inner-wrap, #search-bar-id {
 
 .search-result-wrap {
   text-align: center;
+}
+
+.main-title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.main-phrase {
+  text-align: center;
+}
+
+.main-link {
+  color: #999;
+  text-decoration: underline;
+}
+
+#normal-tab, #grid-tab {
+  text-align: center;
+}
+
+.tab-wrap {
+  /*display: flex;
+  justify-content: center;
+  /*align-items: center;*/
+  /*width: 100%;*/*/
 }

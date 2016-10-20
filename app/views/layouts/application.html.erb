@@ -18,14 +18,20 @@
   </head>
 
   <body>
-    <!-- <script type="text/javascript">
-        $(document).ready(function() {
-          $("body").on("click", ".pic-index-item", function() {
-            $('.pic-index-item').not(this).toggleClass("hidden")
-            $(this).toggleClass("fullscreen");
-          })
-        });
-    </script> -->
+    <script>
+    $(document).ready(function() {
+      $('#grid-tab').on("click", function() {
+        $('.pic-index-item').addClass("grid")
+        $('.pic-index-wrap').addClass("grid")
+        $('.user-show-link, .user-img').hide()
+      })
+      $('#normal-tab').on("click", function() {
+        $('.pic-index-item').removeClass("grid")
+        $('.pic-index-ul').removeClass("grid")
+        $('.user-show-link, .user-img').show()
+      })
+    })
+    </script>
     <%= yield %>
   </body>
 </html>

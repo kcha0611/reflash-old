@@ -42,7 +42,6 @@
 }
 
 .user-show-link {
-  font-family: Courier,"Courier New",monospace;
   display: inline;
   font-weight: 400;
   font-size: 15px;
@@ -59,4 +58,19 @@
 
 .user-img {
   display: inline;
+}
+
+.pic-index-wrap.grid{
+  display: flex;
+  flex-wrap: wrap;
+
+}
+//
+.pic-index-item.grid {
+  // width: 50%;
+}
+
+.tab-wrap {
+  display: flex;
+  justify-content: center;
 }

@@ -20,6 +20,11 @@ const App = React.createClass({
                       <SearchBar />
                   </Nav>
         </Navbar>
+        <h1 className="main-title">ReFlash</h1>
+        <div className="main-phrase-wrap">
+          <p className="main-phrase">Free <a href="https://unsplash.com/license" className="main-link">(do whatever you want)</a> high resolution photos.</p><br/>
+          <p className="main-phrase">A project by <a href="https://www.linkedin.com/in/kencha" className="main-link">Me</a></p>
+        </div>
         {this.props.children}
       </div>
     )
