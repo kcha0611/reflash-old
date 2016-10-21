@@ -24,6 +24,7 @@ const PictureShow = React.createClass({
   },
   zoomOut() {
     hashHistory.push('/pictures')
+    $('#inner-main-wrap').show()
   },
   render() {
     return (

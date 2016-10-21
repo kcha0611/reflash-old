@@ -3,8 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .pic-index-wrap, .pic-index-item-wrap {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  align-items: center;
   // height: 100%;
 }
 
@@ -60,14 +59,24 @@
   display: inline;
 }
 
-.pic-index-wrap.grid{
+.pic-index-item.grid {
+  width: 375.95px;
+  height: 251px;
+  display: flex;
+  flex-direction: row;
+}
+
+.pic-index-item-wrap.grid {
+  width: 375.95px;
+  float: left;
+  margin: 10px;
+  height: 251px;
+}
+
+.pic-index-ul.grid {
   display: flex;
   flex-wrap: wrap;
-
-}
-//
-.pic-index-item.grid {
-  // width: 50%;
+  justify-content: center;
 }
 
 .tab-wrap {

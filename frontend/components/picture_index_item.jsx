@@ -7,6 +7,7 @@ const hashHistory = ReactRouter.hashHistory;
 const PictureIndexItem = React.createClass({
   showPic() {
     hashHistory.push(`/pictures/${this.props.pic.id}`)
+    $('#inner-main-wrap').hide()
   },
   capitalize(string) {
     string.charAt(0).toUpperCase() + string.split(1);

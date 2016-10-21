@@ -14,16 +14,18 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <Navbar id="navbar-wrap">
-                  <Nav key={1} id="navbar-inner-wrap">
-                      <NavItem key={2} href="/" id="resplash-home-img" className="resplash-img"><img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/></NavItem>
-                      <SearchBar />
-                  </Nav>
-        </Navbar>
-        <h1 className="main-title">ReFlash</h1>
-        <div className="main-phrase-wrap">
-          <p className="main-phrase">Free <a href="https://unsplash.com/license" className="main-link">(do whatever you want)</a> high resolution photos.</p><br/>
-          <p className="main-phrase">A project by <a href="https://www.linkedin.com/in/kencha" className="main-link">Me</a></p>
+        <div id="inner-main-wrap">
+          <Navbar id="navbar-wrap">
+                    <Nav key={1} id="navbar-inner-wrap">
+                        <NavItem key={2} href="/" id="resplash-home-img" className="resplash-img"><img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/></NavItem>
+                        <SearchBar />
+                    </Nav>
+          </Navbar>
+          <h1 className="main-title">ReFlash</h1>
+          <div className="main-phrase-wrap">
+            <p className="main-phrase">Free <a href="https://unsplash.com/license" className="main-link">(do whatever you want)</a> high resolution photos.</p><br/>
+            <p className="main-phrase">A project by <a href="https://www.linkedin.com/in/kencha" className="main-link">Me</a></p>
+          </div>
         </div>
         {this.props.children}
       </div>
