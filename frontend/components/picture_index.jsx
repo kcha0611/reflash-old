@@ -45,11 +45,13 @@ const PictureIndex = React.createClass({
     return (
       <div className="pic-index-wrap">
         <div className="tab-wrap">
-          <a id="normal-tab" onClick={this.handleNormalTab}>normal</a>
-          <a id="grid-tab" onClick={this.handleGridTab}>grid</a>
+          <img id="normal-tab" onClick={this.handleNormalTab} src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_34/v1477014487/mobile_menu_icon_zdz8sw.png"/>
+          <img id="grid-tab" onClick={this.handleGridTab} src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_25/v1477014279/256-256-43252f44e69ebdd2e8bb5370ba120db4-grid_buzr3h.png"/>
         </div>
         <ul className="pic-index-ul">
-          {allPictures}
+          <div className="inner-index-wrap">
+            {allPictures}
+          </div>
         </ul>
       </div>
     )

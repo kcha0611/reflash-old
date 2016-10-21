@@ -70,6 +70,9 @@ ul#navbar-inner-wrap, #search-bar-id {
 .main-title {
   text-align: center;
   font-weight: bold;
+  font-size: 46px;
+  font-family: "Helvetica Neue,Helvetica,Arial,sans-serif";
+  color: #111;
 }
 
 .main-phrase {
@@ -83,4 +86,12 @@ ul#navbar-inner-wrap, #search-bar-id {
 
 #normal-tab, #grid-tab {
   text-align: center;
+  cursor: pointer;
+}
+
+#grid-tab {
+  width: 28px;
+  height: 31px;
+  position: relative;
+  top: 1.3px;
 }
