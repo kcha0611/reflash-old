@@ -38,6 +38,9 @@ const SearchBar = React.createClass({
     SessionActions.logOut();
     hashHistory.push('/')
   },
+  showCollections() {
+    hashHistory.push('/users/collections')
+  },
   render() {
     let filteredPictures;
     filteredPictures = this.state.pictures.filter( (pic) => {
@@ -71,7 +74,7 @@ const SearchBar = React.createClass({
         <Nav id="inner-tabs-wrap">
           <NavItem key={3} href="">Home</NavItem>
           <NavItem key={4} href="">New</NavItem>
-          <NavItem key={5} href="">Collections</NavItem>
+          <NavItem key={5} href="" onClick={this.showCollections}>Collections</NavItem>
         </Nav>
       <Link to="pictures/create">Submit Photo</Link>
         {logOut}

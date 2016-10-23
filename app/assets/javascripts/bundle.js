@@ -60,6 +60,7 @@
 	var IndexRoute = ReactRouter.IndexRoute;
 	var PictureShow = __webpack_require__(539);
 	var PictureForm = __webpack_require__(540);
+	var UserPictureIndex = __webpack_require__(541);
 	
 	var router = React.createElement(
 	  Router,
@@ -71,7 +72,8 @@
 	    React.createElement(Route, { path: '/signup', component: SignupForm }),
 	    React.createElement(Route, { path: '/pictures', component: PictureIndex }),
 	    React.createElement(Route, { path: '/pictures/create', component: PictureForm }),
-	    React.createElement(Route, { path: '/pictures/:pictureId', component: PictureShow })
+	    React.createElement(Route, { path: '/pictures/:pictureId', component: PictureShow }),
+	    React.createElement(Route, { path: '/users/collections', component: UserPictureIndex })
 	  )
 	);
 	
@@ -53073,6 +53075,9 @@
 	    SessionActions.logOut();
 	    hashHistory.push('/');
 	  },
+	  showCollections: function showCollections() {
+	    hashHistory.push('/users/collections');
+	  },
 	  render: function render() {
 	    var _this = this;
 	
@@ -53128,7 +53133,7 @@
 	        ),
 	        React.createElement(
 	          NavItem,
-	          { key: 5, href: '' },
+	          { key: 5, href: '', onClick: this.showCollections },
 	          'Collections'
 	        )
 	      ),
@@ -53570,9 +53575,6 @@
 	    var allPictures = this.state.pictures.map(function (pic, index) {
 	      return React.createElement(PictureIndexItem, { key: index, pic: pic, className: 'picture-index-item' });
 	    });
-	    var masonryOptions = {
-	      fitWidth: true
-	    };
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
@@ -59313,6 +59315,153 @@
 	});
 	
 	module.exports = PictureForm;
+
+/***/ },
+/* 541 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(518);
+	var UserStore = __webpack_require__(542);
+	var UserActions = __webpack_require__(543);
+	var PictureActions = __webpack_require__(520);
+	
+	var UserPictureIndex = React.createClass({
+	  displayName: 'UserPictureIndex',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      pictures: []
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    PictureStore.addListener(this.getUserPics);
+	    PictureActions.fetchPictures();
+	  },
+	  getUserPics: function getUserPics() {
+	    this.setState({ pictures: PictureStore.all() });
+	  },
+	  render: function render() {
+	    var userPictures = [];
+	    var firstUserPictures = this.state.pictures.filter(function (pic) {
+	      return pic.user.id == 1;
+	    });
+	    var secondUserPictures = this.state.pictures.filter(function (pic) {
+	      return pic.user.id == 2;
+	    });
+	    var thirdUserPictures = this.state.pictures.filter(function (pic) {
+	      return pic.user.id == 3;
+	    });
+	    var fourthUserPictures = this.state.pictures.filter(function (pic) {
+	      return pic.user.id == 4;
+	    });
+	    var firstPhotoCover = firstUserPictures[0];
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Featured Collections'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'first-collection-wrap' },
+	        React.createElement('img', { src: firstPhotoCover.picture_url })
+	      ),
+	      React.createElement('div', { className: 'second-collection-wrap' })
+	    );
+	  }
+	});
+	
+	module.exports = UserPictureIndex;
+
+/***/ },
+/* 542 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Store = __webpack_require__(241).Store;
+	var AppDispatcher = __webpack_require__(236);
+	var UserConstants = __webpack_require__(519);
+	
+	var UserStore = new Store(AppDispatcher);
+	
+	var _users = {};
+	
+	UserStore.all = function () {
+	  return Object.keys(_users).reverse().map(function (key) {
+	    return _users[key];
+	  });
+	};
+	
+	UserStore.find = function (id) {
+	  return _users[id];
+	};
+	
+	UserStore.addUsers = function (users) {
+	  _users = {};
+	  users.forEach(function (user) {
+	    _users[user.id] = user;
+	  });
+	};
+	
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case UserConstants.USER_RECEIVED:
+	      UserStore.addUsers(payload.users);
+	      this.__emitChange();
+	      break;
+	    case UserConstants.USERS_RECEIVED:
+	      UserStore.addPicture(payload.picture);
+	      this.__emitChange();
+	      break;
+	  }
+	};
+	
+	UserStore.addUser = function (user) {
+	  _users[user.id] = user;
+	};
+	
+	module.exports = UserStore;
+
+/***/ },
+/* 543 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var AppDispatcher = __webpack_require__(236);
+	var UserStore = __webpack_require__(542);
+	var UserConstants = __webpack_require__(258);
+	var hashHistory = __webpack_require__(172).hashHistory;
+	var UserApiUtil = __webpack_require__(262);
+	
+	var UserActions = {
+	  fetchUsers: function fetchUsers() {
+	    UserApiUtil.fetchUsers(this.receiveAllUsers);
+	  },
+	  fetchUser: function fetchUser(id) {
+	    UserApiUtil.fetchUser(this.receiveUser);
+	  },
+	  receiveAllUsers: function receiveAllUsers(users) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.USERS_RECEIVED,
+	      users: users
+	    });
+	  },
+	  receiveUser: function receiveUser(user) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.USER_RECEIVED,
+	      user: user
+	    });
+	  }
+	};
+	
+	module.exports = UserActions;
 
 /***/ }
 /******/ ]);

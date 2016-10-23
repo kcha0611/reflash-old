@@ -12,6 +12,7 @@ const PictureIndex = require('./components/picture_index');
 const IndexRoute = ReactRouter.IndexRoute;
 const PictureShow = require('./components/picture_show');
 const PictureForm = require('./components/picture_form');
+const UserPictureIndex = require('./components/user_pictures');
 
 const router = (
   <Router history={hashHistory}>
@@ -21,7 +22,8 @@ const router = (
       <Route path="/pictures" component={PictureIndex} />
       <Route path="/pictures/create" component={PictureForm} />
       <Route path="/pictures/:pictureId" component={PictureShow} />
-      </Route>
+      <Route path="/users/collections" component={UserPictureIndex} />
+    </Route>
   </Router>
 )
 

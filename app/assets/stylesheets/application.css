@@ -13,6 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+ h1 {
+   text-align: center;
+ }
 *, div.container {
   margin: 0;
   padding: 0;

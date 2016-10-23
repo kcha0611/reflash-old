@@ -39,9 +39,6 @@ const PictureIndex = React.createClass({
     let allPictures = this.state.pictures.map( (pic, index) => {
       return (<PictureIndexItem key={index} pic={pic} className="picture-index-item"/>)
     });
-    const masonryOptions = {
-     fitWidth: true
-    }
     return (
       <div className="pic-index-wrap">
         <div className="tab-wrap">

@@ -1,7 +1,8 @@
 class Api::UsersController < ApplicationController
   # skip_before_action :verify_authenticity_token, except: [:show]
-  def new
-  end
+  def index
+    @users = User.all
+  end 
 
   def create
     @user = User.new(user_params)
