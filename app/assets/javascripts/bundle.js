@@ -59345,19 +59345,10 @@
 	  },
 	  render: function render() {
 	    var userPictures = [];
-	    var firstUserPictures = this.state.pictures.filter(function (pic) {
-	      return pic.user.id == 1;
-	    });
-	    var secondUserPictures = this.state.pictures.filter(function (pic) {
+	    var firstUserPictures = [];
+	    firstUserPictures = this.state.pictures.filter(function (pic) {
 	      return pic.user.id == 2;
 	    });
-	    var thirdUserPictures = this.state.pictures.filter(function (pic) {
-	      return pic.user.id == 3;
-	    });
-	    var fourthUserPictures = this.state.pictures.filter(function (pic) {
-	      return pic.user.id == 4;
-	    });
-	    var firstPhotoCover = firstUserPictures[0];
 	    return React.createElement(
 	      'div',
 	      null,
@@ -59368,10 +59359,62 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'first-collection-wrap' },
-	        React.createElement('img', { src: firstPhotoCover.picture_url })
-	      ),
-	      React.createElement('div', { className: 'second-collection-wrap' })
+	        { className: 'collections-wrap' },
+	        React.createElement(
+	          'div',
+	          { className: 'inner-collections-wrap' },
+	          React.createElement(
+	            'div',
+	            { className: 'first-collection-wrap' },
+	            React.createElement(
+	              'h2',
+	              { className: 'collection-one-title' },
+	              'COLLECTION #1'
+	            ),
+	            React.createElement(
+	              'h4',
+	              { className: 'collection-one-title', id: 'collection-one-date' },
+	              'October 8th, 2016'
+	            ),
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935416/1920x1080_e1aoab.jpg', className: 'first-collection-img' })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'second-collection-wrap' },
+	            React.createElement(
+	              'h2',
+	              { className: 'collection-two-title' },
+	              'COLLECTION #2'
+	            ),
+	            React.createElement(
+	              'h4',
+	              { className: 'collection-two-title', id: 'collection-two-date' },
+	              'October 10th, 2016'
+	            ),
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935395/1920x1080_a0vlgw.jpg', className: 'second-collection-img' })
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'three-collection-wrap' },
+	          React.createElement(
+	            'div',
+	            { className: 'third-collection-wrap' },
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg', className: 'third-collection-img' })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'fourth-collection-wrap' },
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg', className: 'fourth-collection-img' })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'fifth-collection-wrap' },
+	            '2',
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg', className: 'fifth-collection-img' })
+	          )
+	        )
+	      )
 	    );
 	  }
 	});

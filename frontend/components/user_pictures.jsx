@@ -19,26 +19,37 @@ const UserPictureIndex = React.createClass({
   },
   render() {
     let userPictures = [];
-    let firstUserPictures = this.state.pictures.filter((pic) => {
-      return pic.user.id == 1
-    })
-    let secondUserPictures = this.state.pictures.filter((pic) => {
+    let firstUserPictures = [];
+    firstUserPictures = this.state.pictures.filter( (pic) => {
       return pic.user.id == 2
     })
-    let thirdUserPictures = this.state.pictures.filter((pic) => {
-      return pic.user.id == 3
-    })
-    let fourthUserPictures = this.state.pictures.filter((pic) => {
-      return pic.user.id == 4
-    })
-    let firstPhotoCover = firstUserPictures[0];
     return (
       <div>
         <h1>Featured Collections</h1>
-        <div className="first-collection-wrap">
-          <img src={firstPhotoCover.picture_url}/>
-        </div>
-        <div className="second-collection-wrap">
+        <div className="collections-wrap">
+          <div className="inner-collections-wrap">
+            <div className="first-collection-wrap">
+              <h2 className="collection-one-title">COLLECTION #1</h2>
+              <h4 className="collection-one-title" id="collection-one-date">October 8th, 2016</h4>
+              <img src="http://res.cloudinary.com/dllnnnotc/image/upload/v1474935416/1920x1080_e1aoab.jpg" className="first-collection-img"/>
+            </div>
+            <div className="second-collection-wrap">
+              <h2 className="collection-two-title">COLLECTION #2</h2>
+              <h4 className="collection-two-title" id="collection-two-date">October 10th, 2016</h4>
+              <img src="http://res.cloudinary.com/dllnnnotc/image/upload/v1474935395/1920x1080_a0vlgw.jpg" className="second-collection-img"/>
+            </div>
+          </div>
+          <div className="three-collection-wrap">
+            <div className="third-collection-wrap">
+              <img src="http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg" className="third-collection-img"/>
+            </div>
+            <div className="fourth-collection-wrap">
+              <img src="http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg" className="fourth-collection-img"/>
+            </div>
+            <div className="fifth-collection-wrap">2
+              <img src="http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg" className="fifth-collection-img"/>
+            </div>
+          </div>
         </div>
       </div>
     )
