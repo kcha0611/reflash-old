@@ -40,4 +40,5 @@ PictureStore.addPicture = function (picture) {
   _pictures[picture.id] = picture;
 }
 
+
 module.exports = PictureStore;

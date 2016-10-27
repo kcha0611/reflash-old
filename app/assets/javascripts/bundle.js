@@ -61,6 +61,12 @@
 	var PictureShow = __webpack_require__(539);
 	var PictureForm = __webpack_require__(540);
 	var UserPictureIndex = __webpack_require__(541);
+	var FirstUserIndex = __webpack_require__(545);
+	var SecondUserIndex = __webpack_require__(546);
+	var ThirdUserIndex = __webpack_require__(547);
+	var FourthUserIndex = __webpack_require__(548);
+	var FifthUserIndex = __webpack_require__(549);
+	var NewPicturesIndex = __webpack_require__(550);
 	
 	var router = React.createElement(
 	  Router,
@@ -73,7 +79,13 @@
 	    React.createElement(Route, { path: '/pictures', component: PictureIndex }),
 	    React.createElement(Route, { path: '/pictures/create', component: PictureForm }),
 	    React.createElement(Route, { path: '/pictures/:pictureId', component: PictureShow }),
-	    React.createElement(Route, { path: '/users/collections', component: UserPictureIndex })
+	    React.createElement(Route, { path: '/users/collections', component: UserPictureIndex }),
+	    React.createElement(Route, { path: '/users/collections/1', component: FirstUserIndex }),
+	    React.createElement(Route, { path: '/users/collections/2', component: SecondUserIndex }),
+	    React.createElement(Route, { path: '/users/collections/3', component: ThirdUserIndex }),
+	    React.createElement(Route, { path: '/users/collections/4', component: FourthUserIndex }),
+	    React.createElement(Route, { path: '/users/collections/5', component: FifthUserIndex }),
+	    React.createElement(Route, { path: '/new', component: NewPicturesIndex })
 	  )
 	);
 	
@@ -53078,6 +53090,12 @@
 	  showCollections: function showCollections() {
 	    hashHistory.push('/users/collections');
 	  },
+	  showHome: function showHome() {
+	    hashHistory.push("/pictures");
+	  },
+	  showNewPictures: function showNewPictures() {
+	    hashHistory.push("/new");
+	  },
 	  render: function render() {
 	    var _this = this;
 	
@@ -53123,12 +53141,12 @@
 	        { id: 'inner-tabs-wrap' },
 	        React.createElement(
 	          NavItem,
-	          { key: 3, href: '' },
+	          { key: 3, href: '', onClick: this.showHome },
 	          'Home'
 	        ),
 	        React.createElement(
 	          NavItem,
-	          { key: 4, href: '' },
+	          { key: 4, href: '', onClick: this.showNewPictures },
 	          'New'
 	        ),
 	        React.createElement(
@@ -53258,7 +53276,6 @@
 	    });
 	  },
 	  getSearchedPictures: function getSearchedPictures(data) {
-	    debugger;
 	    PictureApiUtil.getSearchedPictures(data, this.receivePictures);
 	  },
 	  createPicture: function createPicture(picture) {
@@ -59327,6 +59344,8 @@
 	var UserStore = __webpack_require__(542);
 	var UserActions = __webpack_require__(543);
 	var PictureActions = __webpack_require__(520);
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
 	
 	var UserPictureIndex = React.createClass({
 	  displayName: 'UserPictureIndex',
@@ -59343,12 +59362,22 @@
 	  getUserPics: function getUserPics() {
 	    this.setState({ pictures: PictureStore.all() });
 	  },
+	  goFirstUser: function goFirstUser() {
+	    hashHistory.push("/users/collections/1");
+	  },
+	  goSecondUser: function goSecondUser() {
+	    hashHistory.push("/users/collections/2");
+	  },
+	  goThirdUser: function goThirdUser() {
+	    hashHistory.push("/users/collections/3");
+	  },
+	  goFourthUser: function goFourthUser() {
+	    hashHistory.push("/users/collections/4");
+	  },
+	  goFifthUser: function goFifthUser() {
+	    hashHistory.push("/users/collections/5");
+	  },
 	  render: function render() {
-	    var userPictures = [];
-	    var firstUserPictures = [];
-	    firstUserPictures = this.state.pictures.filter(function (pic) {
-	      return pic.user.id == 2;
-	    });
 	    return React.createElement(
 	      'div',
 	      null,
@@ -59368,30 +59397,30 @@
 	            { className: 'first-collection-wrap' },
 	            React.createElement(
 	              'h2',
-	              { className: 'collection-one-title' },
+	              { className: 'collection-one-title', onClick: this.goFirstUser },
 	              'COLLECTION #1'
 	            ),
 	            React.createElement(
 	              'h4',
-	              { className: 'collection-one-title', id: 'collection-one-date' },
+	              { className: 'collection-one-title', id: 'collection-one-date', onClick: this.goFirstUser },
 	              'October 8th, 2016'
 	            ),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935416/1920x1080_e1aoab.jpg', className: 'first-collection-img' })
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935416/1920x1080_e1aoab.jpg', className: 'first-collection-img', id: 'collection-img', onClick: this.goFirstUser })
 	          ),
 	          React.createElement(
 	            'div',
 	            { className: 'second-collection-wrap' },
 	            React.createElement(
 	              'h2',
-	              { className: 'collection-two-title' },
+	              { className: 'collection-two-title', onClick: this.goSecondUser },
 	              'COLLECTION #2'
 	            ),
 	            React.createElement(
 	              'h4',
-	              { className: 'collection-two-title', id: 'collection-two-date' },
+	              { className: 'collection-two-title', id: 'collection-two-date', onClick: this.goSecondUser },
 	              'October 10th, 2016'
 	            ),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935395/1920x1080_a0vlgw.jpg', className: 'second-collection-img' })
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935395/1920x1080_a0vlgw.jpg', className: 'second-collection-img', id: 'collection-img', onClick: this.goSecondUser })
 	          )
 	        ),
 	        React.createElement(
@@ -59400,18 +59429,47 @@
 	          React.createElement(
 	            'div',
 	            { className: 'third-collection-wrap' },
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg', className: 'third-collection-img' })
+	            React.createElement(
+	              'h2',
+	              { className: 'collection-three-title', onClick: this.goThirdUser },
+	              'COLLECTION #3'
+	            ),
+	            React.createElement(
+	              'h4',
+	              { className: 'collection-three-title', id: 'collection-three-date', onClick: this.goThirdUser },
+	              'October 17th, 2016'
+	            ),
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524693/nature_ayqyoq.jpg', className: 'third-collection-img', id: 'collection-img', onClick: this.goThirdUser })
 	          ),
 	          React.createElement(
 	            'div',
 	            { className: 'fourth-collection-wrap' },
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg', className: 'fourth-collection-img' })
+	            React.createElement(
+	              'h2',
+	              { className: 'collection-four-title', onClick: this.goFourthUser },
+	              'COLLECTION #4'
+	            ),
+	            React.createElement(
+	              'h4',
+	              { className: 'collection-four-title', id: 'collection-four-date', onClick: this.goFourthUser },
+	              'October 20th, 2016'
+	            ),
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524681/nature_fznpry.jpg', className: 'fourth-collection-img', id: 'collection-img', onClick: this.goFourthUser })
 	          ),
 	          React.createElement(
 	            'div',
 	            { className: 'fifth-collection-wrap' },
-	            '2',
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1477012374/1920x1080_ofyxp9.jpg', className: 'fifth-collection-img' })
+	            React.createElement(
+	              'h2',
+	              { className: 'collection-four-title', onClick: this.goFifthUser },
+	              'COLLECTION #5'
+	            ),
+	            React.createElement(
+	              'h4',
+	              { className: 'collection-four-title', id: 'collection-four-date', onClick: this.goFifthUser },
+	              'October 26th, 2016'
+	            ),
+	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524677/nature_dcomfs.jpg', className: 'fifth-collection-img', id: 'collection-img', onClick: this.goFifthUser })
 	          )
 	        )
 	      )
@@ -59505,6 +59563,278 @@
 	};
 	
 	module.exports = UserActions;
+
+/***/ },
+/* 544 */,
+/* 545 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
+	
+	var FirstUserIndex = React.createClass({
+	  displayName: 'FirstUserIndex',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      userPics: []
+	    };
+	  },
+	  render: function render() {
+	    var firstUserPics = PictureStore.all().filter(function (pic) {
+	      return pic.user.id == 1;
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'ul',
+	        { className: 'pic-index-ul' },
+	        React.createElement(
+	          'div',
+	          { className: 'inner-index-wrap' },
+	          firstUserPics.map(function (pic) {
+	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	          })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FirstUserIndex;
+
+/***/ },
+/* 546 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
+	
+	var SecondUserIndex = React.createClass({
+	  displayName: 'SecondUserIndex',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      userPics: []
+	    };
+	  },
+	  render: function render() {
+	    var secondUserPics = PictureStore.all().filter(function (pic) {
+	      return pic.user.id == 2;
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'ul',
+	        { className: 'pic-index-ul' },
+	        React.createElement(
+	          'div',
+	          { className: 'inner-index-wrap' },
+	          secondUserPics.map(function (pic) {
+	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	          })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = SecondUserIndex;
+
+/***/ },
+/* 547 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
+	
+	var ThirdUserIndex = React.createClass({
+	  displayName: 'ThirdUserIndex',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      userPics: []
+	    };
+	  },
+	  render: function render() {
+	    var thirdUserPics = PictureStore.all().filter(function (pic) {
+	      return pic.user.id == 3;
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'ul',
+	        { className: 'pic-index-ul' },
+	        React.createElement(
+	          'div',
+	          { className: 'inner-index-wrap' },
+	          thirdUserPics.map(function (pic) {
+	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	          })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ThirdUserIndex;
+
+/***/ },
+/* 548 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
+	
+	var FourthUserIndex = React.createClass({
+	  displayName: 'FourthUserIndex',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      userPics: []
+	    };
+	  },
+	  render: function render() {
+	    var FourthUserPics = PictureStore.all().filter(function (pic) {
+	      return pic.user.id == 4;
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'ul',
+	        { className: 'pic-index-ul' },
+	        React.createElement(
+	          'div',
+	          { className: 'inner-index-wrap' },
+	          FourthUserPics.map(function (pic) {
+	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	          })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FourthUserIndex;
+
+/***/ },
+/* 549 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
+	var ReactRouter = __webpack_require__(172);
+	var hashHistory = ReactRouter.hashHistory;
+	
+	var FifthUserIndex = React.createClass({
+	  displayName: 'FifthUserIndex',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      userPics: []
+	    };
+	  },
+	  render: function render() {
+	    var fifthUserPics = PictureStore.all().filter(function (pic) {
+	      return pic.user.id == 4;
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'ul',
+	        { className: 'pic-index-ul' },
+	        React.createElement(
+	          'div',
+	          { className: 'inner-index-wrap' },
+	          fifthUserPics.map(function (pic) {
+	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	          })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = FifthUserIndex;
+
+/***/ },
+/* 550 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var PictureStore = __webpack_require__(518);
+	var PictureActions = __webpack_require__(520);
+	var React = __webpack_require__(1);
+	var PictureIndexItem = __webpack_require__(525);
+	
+	var NewPicturesIndex = React.createClass({
+	  displayName: 'NewPicturesIndex',
+	  getInitialState: function getInitialState() {
+	    return { pictures: [] };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.allPics = PictureStore.addListener(this.getPictures);
+	    PictureActions.fetchPictures();
+	  },
+	  getPictures: function getPictures() {
+	    var filteredPictures = PictureStore.all().sort(function (first, second) {
+	      return new Date(first.created_at).getTime() - new Date(second.created_at).getTime();
+	    });
+	    this.setState({ pictures: filteredPictures });
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    this.allPics.remove();
+	  },
+	  render: function render() {
+	    var allPictures = this.state.pictures.map(function (pic) {
+	      return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'ul',
+	        { className: 'pic-index-ul' },
+	        React.createElement(
+	          'div',
+	          { className: 'inner-index-wrap' },
+	          allPictures
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = NewPicturesIndex;
 
 /***/ }
 /******/ ]);

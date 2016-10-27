@@ -194,3 +194,47 @@
   font-family: Courier,"Courier New",monospace;;
   font-weight: 400;
 }
+
+.collection-three-title {
+  position: absolute;
+  float: left;
+  color: #fff;
+  font-weight: 800;
+  text-shadow: 0 1px 1px rgba(0,0,0,.1);
+  font-family: "Helvetica Neue,Helvetica,Arial,sans-serif";
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  font-size: 22px;
+  line-height: 5;
+  padding-left: 20px;
+}
+
+#collection-three-date {
+  text-shadow: 0 1px 1px rgba(0,0,0,.15);
+  font-size: 14px;
+  color: black;
+  font-family: Courier,"Courier New",monospace;;
+  font-weight: 400;
+}
+
+.collection-four-title {
+  position: absolute;
+  float: left;
+  color: #fff;
+  margin: 0;
+  font-weight: 800;
+  font-family: "Helvetica Neue, Helvetica, Arial, sans-serif";
+  width: 25%;
+  font-size: 22px;
+  line-height: 5;
+  padding-left: 20px;
+}
+
+#collection-four-date {
+  text-shadow: 0 1px 1px rgba(0,0,0,.15);
+  font-size: 14px;
+  color: black;
+  font-family: Courier,"Courier New",monospace;;
+  font-weight: 400;
+}
