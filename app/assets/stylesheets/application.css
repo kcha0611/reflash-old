@@ -56,10 +56,20 @@ a#resplash-home-img {
   display: flex;
   justify-content: center;
   float: none;
+  align-items: center;
 }
 
 ul#navbar-inner-wrap, #search-bar-id {
     width: 100%;
+}
+
+.inner-search-bar-wrap  {
+
+}
+
+#search-input {
+  width: 400px;
+  border-radius: 16px;
 }
 
 .search-input {
@@ -98,4 +108,19 @@ ul#navbar-inner-wrap, #search-bar-id {
   height: 31px;
   position: relative;
   top: 1.3px;
+}
+
+
+.logout-btn {
+  height: 26px;
+  color: #999;
+  fill: #777;
+  background-color: transparent;
+  border-color: #ddd;
+  box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  border-radius: 6px;
+  font-size: 11px;
+  width: 66px;
+  font-weight: 700;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }

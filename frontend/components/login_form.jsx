@@ -55,15 +55,18 @@ const LoginForm = React.createClass({
   },
   render: function() {
     return (
-      <form onSubmit={this._handleSubmit}>
-        <input value={this.state.username} type="text" onChange={this._handleUsernameChange} placeholder="Username" />
-        <input value={this.state.password} type="password" onChange={this._handlePasswordChange} placeholder="Password" />
+    <div className="login-form-wrap">
+      <form onSubmit={this._handleSubmit} className="inner-login-wrap">
+        <input value={this.state.username} type="text" onChange={this._handleUsernameChange} placeholder="Username" className="username-input"/>
+        <input value={this.state.password} type="password" onChange={this._handlePasswordChange} placeholder="Password" className="password-input"/>
         <div>{this.handleErrors()}</div>
         <input type="submit" value="Login" />
         <text>New to the site?</text>
         <Link to="/signup">Sign Up!</Link>
         <input type="submit" value="Guest Login" onClick={this._guestLogin} />
-    </form>)
+      </form>
+    </div>
+  )
   }
 });
 

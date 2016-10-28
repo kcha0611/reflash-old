@@ -1,3 +1,21 @@
 // Place all the styles related to the user controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.login-form-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.password-input, .username-input {
+  display: block;
+  // width: 33.333333333333333333%;
+}
+
+.inner-login-wrap {
+  width: 33.33333333333333%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

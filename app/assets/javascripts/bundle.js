@@ -27136,7 +27136,7 @@
 	    SessionApiUtil.signUp(data, this.receiveCurrentUser, ErrorActions.setErrors);
 	  },
 	  logOut: function logOut() {
-	    SessionApiUtil.logOut();
+	    SessionApiUtil.logOut(this.removeCurrentUser);
 	  },
 	  fetchCurrentUser: function fetchCurrentUser(complete) {
 	    SessionApiUtil.fetchCurrentUser(this.receiveCurrentUser, complete);
@@ -27151,7 +27151,7 @@
 	    AppDispatcher.dispatch({
 	      actionType: SessionConstants.LOGOUT
 	    });
-	    hashHistory.push('/login');
+	    hashHistory.push('/');
 	  }
 	};
 	
@@ -27496,7 +27496,7 @@
 	
 	var _logOut = function _logOut() {
 	  _currentUser = {};
-	  _currentUserFetched = false;
+	  _currentUserFetched = true;
 	};
 	
 	SessionStore.currentUser = function () {
@@ -27518,7 +27518,7 @@
 	      this.__emitChange();
 	      break;
 	    case SessionConstants.LOGOUT:
-	      _logout(payload.currentUser);
+	      _logOut();
 	      this.__emitChange();
 	      break;
 	  }
@@ -53060,6 +53060,8 @@
 	var SessionActions = __webpack_require__(235);
 	var Link = ReactRouter.Link;
 	var SessionStore = __webpack_require__(240);
+	var Modal = ReactBootstrap.Modal;
+	var Button = ReactBootstrap.Button;
 	
 	var SearchBar = React.createClass({
 	  displayName: 'SearchBar',
@@ -53067,11 +53069,13 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      searchInput: "",
-	      pictures: []
+	      pictures: [],
+	      show: false
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
 	    this.pictureListener = PictureStore.addListener(this.getSearchedPictures);
+	    SessionStore.addListener(this.forceUpdate.bind(this));
 	  },
 	  getSearchedPictures: function getSearchedPictures() {
 	    this.setState({ pictures: PictureStore.all() });
@@ -53083,9 +53087,18 @@
 	    e.preventDefault();
 	    this.setState({ searchInput: e.target.value });
 	  },
+	  checkLoggedIn: function checkLoggedIn() {
+	    if (!SessionStore.checkLoggedIn()) {
+	      this.showModal();
+	    } else {
+	      hashHistory.push("/pictures/create");
+	    }
+	  },
 	  _logOut: function _logOut() {
 	    SessionActions.logOut();
-	    hashHistory.push('/');
+	  },
+	  showModal: function showModal() {
+	    this.setState({ show: true });
 	  },
 	  showCollections: function showCollections() {
 	    hashHistory.push('/users/collections');
@@ -53095,6 +53108,9 @@
 	  },
 	  showNewPictures: function showNewPictures() {
 	    hashHistory.push("/new");
+	  },
+	  hideModal: function hideModal() {
+	    this.setState({ show: false });
 	  },
 	  render: function render() {
 	    var _this = this;
@@ -53114,7 +53130,7 @@
 	    if (SessionStore.checkLoggedIn()) {
 	      logOut = React.createElement(
 	        'button',
-	        { onClick: this._logOut },
+	        { onClick: this._logOut, className: 'logout-btn' },
 	        'LogOut'
 	      );
 	    }
@@ -53153,14 +53169,14 @@
 	          NavItem,
 	          { key: 5, href: '', onClick: this.showCollections },
 	          'Collections'
-	        )
+	        ),
+	        React.createElement(
+	          'a',
+	          { href: 'javascript:void(0)', className: 'new-photo-link', onClick: this.checkLoggedIn },
+	          'Submit Photo'
+	        ),
+	        logOut
 	      ),
-	      React.createElement(
-	        Link,
-	        { to: 'pictures/create' },
-	        'Submit Photo'
-	      ),
-	      logOut,
 	      React.createElement(
 	        'h1',
 	        { className: 'search-input' },
@@ -53174,6 +53190,52 @@
 	              hashHistory.push('/pictures/' + picture.id);
 	            } });
 	        })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'new-photo-modal' },
+	        React.createElement(
+	          Modal,
+	          { bsSize: 'large', show: this.state.show, onHide: this.hideModal },
+	          React.createElement(
+	            Modal.Header,
+	            { closeButton: true },
+	            React.createElement(
+	              Modal.Title,
+	              null,
+	              'Welcome to Reflash'
+	            )
+	          ),
+	          React.createElement(
+	            Modal.Body,
+	            null,
+	            React.createElement(
+	              'p',
+	              { className: 'root-modal-p' },
+	              'If you haven\'t already, please ',
+	              React.createElement(
+	                Link,
+	                { to: '/signup' },
+	                'SignUp'
+	              ),
+	              ' to submit a photo! Or just ',
+	              React.createElement(
+	                Link,
+	                { to: '/' },
+	                'Login!'
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            Modal.Footer,
+	            null,
+	            React.createElement(
+	              Button,
+	              { onClick: this.hideModal },
+	              'Close'
+	            )
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -53408,27 +53470,31 @@
 	  },
 	  render: function render() {
 	    return React.createElement(
-	      'form',
-	      { onSubmit: this._handleSubmit },
-	      React.createElement('input', { value: this.state.username, type: 'text', onChange: this._handleUsernameChange, placeholder: 'Username' }),
-	      React.createElement('input', { value: this.state.password, type: 'password', onChange: this._handlePasswordChange, placeholder: 'Password' }),
+	      'div',
+	      { className: 'login-form-wrap' },
 	      React.createElement(
-	        'div',
-	        null,
-	        this.handleErrors()
-	      ),
-	      React.createElement('input', { type: 'submit', value: 'Login' }),
-	      React.createElement(
-	        'text',
-	        null,
-	        'New to the site?'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/signup' },
-	        'Sign Up!'
-	      ),
-	      React.createElement('input', { type: 'submit', value: 'Guest Login', onClick: this._guestLogin })
+	        'form',
+	        { onSubmit: this._handleSubmit, className: 'inner-login-wrap' },
+	        React.createElement('input', { value: this.state.username, type: 'text', onChange: this._handleUsernameChange, placeholder: 'Username', className: 'username-input' }),
+	        React.createElement('input', { value: this.state.password, type: 'password', onChange: this._handlePasswordChange, placeholder: 'Password', className: 'password-input' }),
+	        React.createElement(
+	          'div',
+	          null,
+	          this.handleErrors()
+	        ),
+	        React.createElement('input', { type: 'submit', value: 'Login' }),
+	        React.createElement(
+	          'text',
+	          null,
+	          'New to the site?'
+	        ),
+	        React.createElement(
+	          Link,
+	          { to: '/signup' },
+	          'Sign Up!'
+	        ),
+	        React.createElement('input', { type: 'submit', value: 'Guest Login', onClick: this._guestLogin })
+	      )
 	    );
 	  }
 	});

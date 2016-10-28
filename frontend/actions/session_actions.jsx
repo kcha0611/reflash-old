@@ -13,7 +13,7 @@ const SessionActions = {
     SessionApiUtil.signUp(data, this.receiveCurrentUser, ErrorActions.setErrors);
   },
   logOut() {
-    SessionApiUtil.logOut();
+    SessionApiUtil.logOut(this.removeCurrentUser);
   },
   fetchCurrentUser(complete) {
     SessionApiUtil.fetchCurrentUser(this.receiveCurrentUser, complete);
@@ -28,7 +28,7 @@ const SessionActions = {
     AppDispatcher.dispatch({
       actionType: SessionConstants.LOGOUT
     });
-    hashHistory.push('/login');
+    hashHistory.push('/');
   }
 }
 

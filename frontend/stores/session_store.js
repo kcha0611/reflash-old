@@ -14,7 +14,7 @@ var _login = function (currentUser) {
 
 var _logOut = function() {
   _currentUser = {};
-  _currentUserFetched = false;
+  _currentUserFetched = true;
 };
 
 SessionStore.currentUser = function() {
@@ -36,7 +36,7 @@ SessionStore.__onDispatch = function (payload) {
       this.__emitChange();
       break
     case SessionConstants.LOGOUT:
-      _logout(payload.currentUser);
+      _logOut();
       this.__emitChange();
       break
   }
