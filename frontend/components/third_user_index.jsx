@@ -16,6 +16,8 @@ const ThirdUserIndex = React.createClass({
     })
     return (
       <div className="pic-index-wrap">
+        <h1>Collection #3</h1>
+        <h4 className="first-user-header">Curated by Jay Z</h4>
         <ul className="pic-index-ul">
           <div className="inner-index-wrap">
             {thirdUserPics.map( (pic) => {

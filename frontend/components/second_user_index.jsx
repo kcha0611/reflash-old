@@ -16,6 +16,8 @@ const SecondUserIndex = React.createClass({
     })
     return (
       <div className="pic-index-wrap">
+        <h1>Collection #2</h1>
+        <h4 className="first-user-header">Curated by Ken Cha</h4>
         <ul className="pic-index-ul">
           <div className="inner-index-wrap">
             {secondUserPics.map( (pic) => {

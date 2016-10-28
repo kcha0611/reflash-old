@@ -16,6 +16,8 @@ const FifthUserIndex = React.createClass({
     })
     return (
       <div className="pic-index-wrap">
+        <h1>Collection #5</h1>
+        <h4 className="first-user-header">Curated by Joe Kim</h4>
         <ul className="pic-index-ul">
           <div className="inner-index-wrap">
             {fifthUserPics.map( (pic) => {

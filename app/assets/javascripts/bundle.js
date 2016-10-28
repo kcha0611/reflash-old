@@ -61,12 +61,12 @@
 	var PictureShow = __webpack_require__(539);
 	var PictureForm = __webpack_require__(540);
 	var UserPictureIndex = __webpack_require__(541);
-	var FirstUserIndex = __webpack_require__(545);
-	var SecondUserIndex = __webpack_require__(546);
-	var ThirdUserIndex = __webpack_require__(547);
-	var FourthUserIndex = __webpack_require__(548);
-	var FifthUserIndex = __webpack_require__(549);
-	var NewPicturesIndex = __webpack_require__(550);
+	var FirstUserIndex = __webpack_require__(544);
+	var SecondUserIndex = __webpack_require__(545);
+	var ThirdUserIndex = __webpack_require__(546);
+	var FourthUserIndex = __webpack_require__(547);
+	var FifthUserIndex = __webpack_require__(548);
+	var NewPicturesIndex = __webpack_require__(549);
 	
 	var router = React.createElement(
 	  Router,
@@ -59565,8 +59565,7 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 544 */,
-/* 545 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59576,6 +59575,7 @@
 	var PictureActions = __webpack_require__(520);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
+	var UserStore = __webpack_require__(542);
 	
 	var FirstUserIndex = React.createClass({
 	  displayName: 'FirstUserIndex',
@@ -59585,6 +59585,11 @@
 	      userPics: []
 	    };
 	  },
+	  findUser: function findUser() {
+	    User.all().map(function (user) {
+	      return user.id == 1;
+	    });
+	  },
 	  render: function render() {
 	    var firstUserPics = PictureStore.all().filter(function (pic) {
 	      return pic.user.id == 1;
@@ -59592,6 +59597,16 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Collection #1'
+	      ),
+	      React.createElement(
+	        'h4',
+	        { className: 'first-user-header' },
+	        'Curated by Guest Guest'
+	      ),
 	      React.createElement(
 	        'ul',
 	        { className: 'pic-index-ul' },
@@ -59610,7 +59625,7 @@
 	module.exports = FirstUserIndex;
 
 /***/ },
-/* 546 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59637,6 +59652,16 @@
 	      'div',
 	      { className: 'pic-index-wrap' },
 	      React.createElement(
+	        'h1',
+	        null,
+	        'Collection #2'
+	      ),
+	      React.createElement(
+	        'h4',
+	        { className: 'first-user-header' },
+	        'Curated by Ken Cha'
+	      ),
+	      React.createElement(
 	        'ul',
 	        { className: 'pic-index-ul' },
 	        React.createElement(
@@ -59654,7 +59679,7 @@
 	module.exports = SecondUserIndex;
 
 /***/ },
-/* 547 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59681,6 +59706,16 @@
 	      'div',
 	      { className: 'pic-index-wrap' },
 	      React.createElement(
+	        'h1',
+	        null,
+	        'Collection #3'
+	      ),
+	      React.createElement(
+	        'h4',
+	        { className: 'first-user-header' },
+	        'Curated by Jay Z'
+	      ),
+	      React.createElement(
 	        'ul',
 	        { className: 'pic-index-ul' },
 	        React.createElement(
@@ -59698,7 +59733,7 @@
 	module.exports = ThirdUserIndex;
 
 /***/ },
-/* 548 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59725,6 +59760,16 @@
 	      'div',
 	      { className: 'pic-index-wrap' },
 	      React.createElement(
+	        'h1',
+	        null,
+	        'Collection #4'
+	      ),
+	      React.createElement(
+	        'h4',
+	        { className: 'first-user-header' },
+	        'Curated by Joseph Kim'
+	      ),
+	      React.createElement(
 	        'ul',
 	        { className: 'pic-index-ul' },
 	        React.createElement(
@@ -59742,7 +59787,7 @@
 	module.exports = FourthUserIndex;
 
 /***/ },
-/* 549 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59769,6 +59814,16 @@
 	      'div',
 	      { className: 'pic-index-wrap' },
 	      React.createElement(
+	        'h1',
+	        null,
+	        'Collection #5'
+	      ),
+	      React.createElement(
+	        'h4',
+	        { className: 'first-user-header' },
+	        'Curated by Joe Kim'
+	      ),
+	      React.createElement(
 	        'ul',
 	        { className: 'pic-index-ul' },
 	        React.createElement(
@@ -59786,7 +59841,7 @@
 	module.exports = FifthUserIndex;
 
 /***/ },
-/* 550 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
