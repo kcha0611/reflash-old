@@ -53424,6 +53424,9 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
+	    if (window.location.pathname == "/") {
+	      $('#inner-main-wrap').hide();
+	    }
 	    this._error = ErrorStore.addListener(this.forceUpdate.bind(this));
 	    this.loggedIn = SessionStore.addListener(this.renderPicIfLoggedIn);
 	  },
@@ -53475,6 +53478,27 @@
 	      React.createElement(
 	        'form',
 	        { onSubmit: this._handleSubmit, className: 'inner-login-wrap' },
+	        React.createElement(
+	          'div',
+	          { className: 'login-img-wrap' },
+	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img' })
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Login'
+	        ),
+	        React.createElement(
+	          'h4',
+	          { className: 'login-welcome' },
+	          'Welcome Back.'
+	        ),
+	        React.createElement('input', { type: 'submit', value: 'Guest Login', onClick: this._guestLogin, className: 'guest-login-btn' }),
+	        React.createElement(
+	          'p',
+	          { className: 'or' },
+	          'OR'
+	        ),
 	        React.createElement('input', { value: this.state.username, type: 'text', onChange: this._handleUsernameChange, placeholder: 'Username', className: 'username-input' }),
 	        React.createElement('input', { value: this.state.password, type: 'password', onChange: this._handlePasswordChange, placeholder: 'Password', className: 'password-input' }),
 	        React.createElement(
@@ -53482,18 +53506,17 @@
 	          null,
 	          this.handleErrors()
 	        ),
-	        React.createElement('input', { type: 'submit', value: 'Login' }),
+	        React.createElement('input', { type: 'submit', value: 'Login', className: 'login-btn' }),
 	        React.createElement(
 	          'text',
 	          null,
-	          'New to the site?'
-	        ),
-	        React.createElement(
-	          Link,
-	          { to: '/signup' },
-	          'Sign Up!'
-	        ),
-	        React.createElement('input', { type: 'submit', value: 'Guest Login', onClick: this._guestLogin })
+	          'New to the site? ',
+	          React.createElement(
+	            Link,
+	            { to: '/signup' },
+	            'Join'
+	          )
+	        )
 	      )
 	    );
 	  }

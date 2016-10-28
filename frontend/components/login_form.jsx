@@ -17,6 +17,9 @@ const LoginForm = React.createClass({
     };
   },
   componentDidMount: function() {
+    if (window.location.pathname == "/") {
+      $('#inner-main-wrap').hide()
+    }
     this._error = ErrorStore.addListener(this.forceUpdate.bind(this));
     this.loggedIn = SessionStore.addListener(this.renderPicIfLoggedIn);
   },
@@ -57,13 +60,18 @@ const LoginForm = React.createClass({
     return (
     <div className="login-form-wrap">
       <form onSubmit={this._handleSubmit} className="inner-login-wrap">
+        <div className="login-img-wrap">
+          <img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png" className="login-img"/>
+        </div>
+        <h2>Login</h2>
+        <h4 className="login-welcome">Welcome Back.</h4>
+        <input type="submit" value="Guest Login" onClick={this._guestLogin} className="guest-login-btn"/>
+        <p className="or">OR</p>
         <input value={this.state.username} type="text" onChange={this._handleUsernameChange} placeholder="Username" className="username-input"/>
         <input value={this.state.password} type="password" onChange={this._handlePasswordChange} placeholder="Password" className="password-input"/>
         <div>{this.handleErrors()}</div>
-        <input type="submit" value="Login" />
-        <text>New to the site?</text>
-        <Link to="/signup">Sign Up!</Link>
-        <input type="submit" value="Guest Login" onClick={this._guestLogin} />
+        <input type="submit" value="Login" className="login-btn"/>
+        <text>New to the site? <Link to="/signup">Join</Link></text>
       </form>
     </div>
   )

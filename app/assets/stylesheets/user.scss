@@ -6,16 +6,56 @@
   justify-content: center;
   width: 100%;
   text-align: center;
+  margin-top: 45px;
 }
 
 .password-input, .username-input {
-  display: block;
-  // width: 33.333333333333333333%;
+  height: 40px;
+  margin-bottom: 40px;
+  color: #111111;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  transition: border-color ease-in-out 0.15s;
 }
 
 .inner-login-wrap {
-  width: 33.33333333333333%;
+  width: 38%;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  text-align: center;
+}
+
+.login-img {
+  width: 70px;
+  height: 70px;
+}
+
+.login-img-wrap {
+  width: 100%;
+  text-align: center;
+}
+
+.login-welcome, .guest-login-btn, .or, .login-btn {
+  margin-bottom: 35px;
+}
+
+.guest-login-btn, .login-btn {
+  height: 43.6px;
+  color: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.login-btn {
+  background: #111111;
+}
+
+.guest-login-btn {
+  background: #4c66a4;
+}
+.username-input, .password {
+
 }
