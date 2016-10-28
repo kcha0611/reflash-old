@@ -9,7 +9,7 @@
   margin-top: 45px;
 }
 
-.password-input, .username-input {
+.password-input, .username-input, .fname-input, .lname-input {
   height: 40px;
   margin-bottom: 40px;
   color: #111111;
@@ -47,6 +47,7 @@
   box-shadow: 0 1px 1px rgba(0,0,0,0.04);
   border-radius: 6px;
   font-weight: 500;
+  font-size: 17px;
 }
 
 .login-btn {
@@ -56,6 +57,16 @@
 .guest-login-btn {
   background: #4c66a4;
 }
-.username-input, .password {
+a, .join-link {
+  color: #999999;
+}
 
+.policy {
+  color: #999999;
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+
+.login-img {
+  cursor: pointer;
 }

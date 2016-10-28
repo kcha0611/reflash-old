@@ -19,10 +19,12 @@ const SignupForm = React.createClass({
     };
   },
   componentDidMount: function() {
+    $('#inner-main-wrap').hide();
     this._error = ErrorStore.addListener(this.forceUpdate.bind(this));
     this.loggedIn = SessionStore.addListener(this.renderPicIfLoggedIn);
   },
   componentWillUnmount: function() {
+    $('#inner-main-wrap').show();
     this._error.remove();
     this.loggedIn.remove();
   },
@@ -54,6 +56,9 @@ const SignupForm = React.createClass({
   formType: function() {
     return this.props.location.pathname.slice(1)
   },
+  goHome() {
+    hashHistory.push("/pictures");
+  },
   handleErrors: function() {
     let errors = ErrorStore.errors("signup");
     let errorMessages = errors.map((message, index) => {
@@ -63,16 +68,24 @@ const SignupForm = React.createClass({
   },
   render: function() {
     return (
-      <form onSubmit={this._handleSubmit}>
-        <input value={this.state.username} type="text" onChange={this._handleUsernameChange} placeholder="Username" />
-        <input value={this.state.password} type="password" onChange={this._handlePasswordChange} placeholder="Password" />
-        <input value={this.state.f_name} type="text" onChange={this._handleFName} placeholder="First Name" />
-        <input value={this.state.l_name} type="text" onChange={this._handleLName} placeholder="Last Name" />
-        <div>{this.handleErrors()}</div>
-        <input type="submit" value="SignUp" />
-        <text>Welcome</text>
-        <Link to="/login">Login!</Link>
-    </form>)
+      <div className="login-form-wrap">
+        <form onSubmit={this._handleSubmit} className="inner-login-wrap">
+          <div className="login-img-wrap">
+            <img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png" className="login-img" onClick={this.goHome}/>
+          </div>
+          <h2>Join</h2>
+          <h4 className="login-welcome">Be a part of Reflash.</h4>
+          <input value={this.state.username} type="text" onChange={this._handleUsernameChange} placeholder="Username" className="username-input"/>
+          <input value={this.state.password} type="password" onChange={this._handlePasswordChange} placeholder="Password" className="password-input"/>
+          <input value={this.state.f_name} type="text" onChange={this._handleFName} placeholder="First Name" className="fname-input"/>
+          <input value={this.state.l_name} type="text" onChange={this._handleLName} placeholder="Last Name" className="lname-input"/>
+          <div>{this.handleErrors()}</div>
+          <input type="submit" value="SignUp" className="login-btn"/>
+          <text className="policy">By joining, you agree to the Terms and Privacy Policy</text>
+          <p>Already a member? <Link to="/">Login!</Link></p>
+      </form>
+    </div>
+    )
   }
 });
 

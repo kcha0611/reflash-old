@@ -53424,13 +53424,12 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    if (window.location.pathname == "/") {
-	      $('#inner-main-wrap').hide();
-	    }
+	    $('#inner-main-wrap').hide();
 	    this._error = ErrorStore.addListener(this.forceUpdate.bind(this));
 	    this.loggedIn = SessionStore.addListener(this.renderPicIfLoggedIn);
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
+	    $('#inner-main-wrap').show();
 	    this._error.remove();
 	    this.loggedIn.remove();
 	  },
@@ -53471,6 +53470,10 @@
 	    e.preventDefault();
 	    SessionActions.logIn({ username: "Guest", password: "123456" });
 	  },
+	  goHome: function goHome() {
+	    hashHistory.push("/pictures");
+	  },
+	
 	  render: function render() {
 	    return React.createElement(
 	      'div',
@@ -53481,7 +53484,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'login-img-wrap' },
-	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img' })
+	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img', onClick: this.goHome })
 	        ),
 	        React.createElement(
 	          'h2',
@@ -53513,7 +53516,7 @@
 	          'New to the site? ',
 	          React.createElement(
 	            Link,
-	            { to: '/signup' },
+	            { to: '/signup', className: 'join-link' },
 	            'Join'
 	          )
 	        )
@@ -53553,10 +53556,12 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
+	    $('#inner-main-wrap').hide();
 	    this._error = ErrorStore.addListener(this.forceUpdate.bind(this));
 	    this.loggedIn = SessionStore.addListener(this.renderPicIfLoggedIn);
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
+	    $('#inner-main-wrap').show();
 	    this._error.remove();
 	    this.loggedIn.remove();
 	  },
@@ -53588,6 +53593,10 @@
 	  formType: function formType() {
 	    return this.props.location.pathname.slice(1);
 	  },
+	  goHome: function goHome() {
+	    hashHistory.push("/pictures");
+	  },
+	
 	  handleErrors: function handleErrors() {
 	    var errors = ErrorStore.errors("signup");
 	    var errorMessages = errors.map(function (message, index) {
@@ -53605,27 +53614,51 @@
 	  },
 	  render: function render() {
 	    return React.createElement(
-	      'form',
-	      { onSubmit: this._handleSubmit },
-	      React.createElement('input', { value: this.state.username, type: 'text', onChange: this._handleUsernameChange, placeholder: 'Username' }),
-	      React.createElement('input', { value: this.state.password, type: 'password', onChange: this._handlePasswordChange, placeholder: 'Password' }),
-	      React.createElement('input', { value: this.state.f_name, type: 'text', onChange: this._handleFName, placeholder: 'First Name' }),
-	      React.createElement('input', { value: this.state.l_name, type: 'text', onChange: this._handleLName, placeholder: 'Last Name' }),
+	      'div',
+	      { className: 'login-form-wrap' },
 	      React.createElement(
-	        'div',
-	        null,
-	        this.handleErrors()
-	      ),
-	      React.createElement('input', { type: 'submit', value: 'SignUp' }),
-	      React.createElement(
-	        'text',
-	        null,
-	        'Welcome'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/login' },
-	        'Login!'
+	        'form',
+	        { onSubmit: this._handleSubmit, className: 'inner-login-wrap' },
+	        React.createElement(
+	          'div',
+	          { className: 'login-img-wrap' },
+	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img', onClick: this.goHome })
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Join'
+	        ),
+	        React.createElement(
+	          'h4',
+	          { className: 'login-welcome' },
+	          'Be a part of Reflash.'
+	        ),
+	        React.createElement('input', { value: this.state.username, type: 'text', onChange: this._handleUsernameChange, placeholder: 'Username', className: 'username-input' }),
+	        React.createElement('input', { value: this.state.password, type: 'password', onChange: this._handlePasswordChange, placeholder: 'Password', className: 'password-input' }),
+	        React.createElement('input', { value: this.state.f_name, type: 'text', onChange: this._handleFName, placeholder: 'First Name', className: 'fname-input' }),
+	        React.createElement('input', { value: this.state.l_name, type: 'text', onChange: this._handleLName, placeholder: 'Last Name', className: 'lname-input' }),
+	        React.createElement(
+	          'div',
+	          null,
+	          this.handleErrors()
+	        ),
+	        React.createElement('input', { type: 'submit', value: 'SignUp', className: 'login-btn' }),
+	        React.createElement(
+	          'text',
+	          { className: 'policy' },
+	          'By joining, you agree to the Terms and Privacy Policy'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Already a member? ',
+	          React.createElement(
+	            Link,
+	            { to: '/' },
+	            'Login!'
+	          )
+	        )
 	      )
 	    );
 	  }
