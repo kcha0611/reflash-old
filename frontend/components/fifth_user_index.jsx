@@ -33,7 +33,6 @@ const FifthUserIndex = React.createClass({
                     <div className="inner-user-wrap">
                       <img src="https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg" className="user-img"/>
                       <a className="user-show-link">{pic.user.f_name} {pic.user.l_name}</a>
-                      {likeBtn}
                     </div>
                   </div>
                 )
