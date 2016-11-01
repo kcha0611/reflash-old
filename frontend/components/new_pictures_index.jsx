@@ -3,6 +3,7 @@ const PictureActions = require('../actions/picture_actions');
 const React = require('react');
 const PictureIndexItem = require('./picture_index_item');
 const SessionStore = require('../stores/session_store');
+const LikeButton = require('./like_button');
 
 const NewPicturesIndex = React.createClass({
   getInitialState() {

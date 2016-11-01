@@ -59726,6 +59726,7 @@
 	var hashHistory = ReactRouter.hashHistory;
 	var UserStore = __webpack_require__(542);
 	var SessionStore = __webpack_require__(240);
+	var LikeButton = __webpack_require__(597);
 	
 	var FirstUserIndex = React.createClass({
 	  displayName: 'FirstUserIndex',
@@ -59807,6 +59808,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
+	var LikeButton = __webpack_require__(597);
 	
 	var SecondUserIndex = React.createClass({
 	  displayName: 'SecondUserIndex',
@@ -59883,6 +59885,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
+	var LikeButton = __webpack_require__(597);
 	
 	var ThirdUserIndex = React.createClass({
 	  displayName: 'ThirdUserIndex',
@@ -59959,6 +59962,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
+	var LikeButton = __webpack_require__(597);
 	
 	var FourthUserIndex = React.createClass({
 	  displayName: 'FourthUserIndex',
@@ -60035,6 +60039,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
+	var LikeButton = __webpack_require__(597);
 	
 	var FifthUserIndex = React.createClass({
 	  displayName: 'FifthUserIndex',
@@ -60110,6 +60115,7 @@
 	var React = __webpack_require__(1);
 	var PictureIndexItem = __webpack_require__(525);
 	var SessionStore = __webpack_require__(240);
+	var LikeButton = __webpack_require__(597);
 	
 	var NewPicturesIndex = React.createClass({
 	  displayName: 'NewPicturesIndex',

@@ -5,6 +5,7 @@ const ReactRouter = require('react-router');
 const hashHistory = ReactRouter.hashHistory;
 const UserStore = require('../stores/user_store');
 const SessionStore = require('../stores/session_store');
+const LikeButton = require('./like_button');
 
 const FirstUserIndex = React.createClass({
   getInitialState: function() {

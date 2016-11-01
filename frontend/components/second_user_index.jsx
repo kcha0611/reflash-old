@@ -4,6 +4,7 @@ const PictureActions = require('../actions/picture_actions');
 const ReactRouter = require('react-router');
 const hashHistory = ReactRouter.hashHistory;
 const SessionStore = require("../stores/session_store");
+const LikeButton = require('./like_button');
 
 const SecondUserIndex = React.createClass({
   getInitialState: function() {
