@@ -37,7 +37,7 @@ const UserPictureIndex = React.createClass({
   render() {
     return (
       <div>
-        <h1>Featured Collections</h1>
+        <h1 className="collection-title">Featured Collections</h1>
         <div className="collections-wrap">
           <div className="inner-collections-wrap">
             <div className="first-collection-wrap">

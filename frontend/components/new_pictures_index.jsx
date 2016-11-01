@@ -2,6 +2,7 @@ const PictureStore = require('../stores/picture_store');
 const PictureActions = require('../actions/picture_actions');
 const React = require('react');
 const PictureIndexItem = require('./picture_index_item');
+const SessionStore = require('../stores/session_store');
 
 const NewPicturesIndex = React.createClass({
   getInitialState() {
@@ -22,11 +23,25 @@ const NewPicturesIndex = React.createClass({
     this.allPics.remove();
   },
   render() {
+    let likeBtn;
+    if (SessionStore.checkLoggedIn()) {
+      likeBtn = (<LikeButton />)
+    }
     let allPictures = this.state.pictures.map( (pic) => {
-      return (<img src={pic.picture_url} className="pic-index-item"/>)
+      return (
+      <div>
+        <img src={pic.picture_url} className="pic-index-item"/>
+        <div className="inner-user-wrap">
+          <img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg" className="user-img"/>
+          <a className="user-show-link">{pic.user.f_name} {pic.user.l_name}</a>
+          {likeBtn}
+        </div>
+      </div>
+    )
     });
     return (
       <div className="pic-index-wrap">
+        <h1 className="new-title">New Photos</h1>
         <ul className="pic-index-ul">
           <div className="inner-index-wrap">
             {allPictures}

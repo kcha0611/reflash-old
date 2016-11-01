@@ -34168,11 +34168,6 @@
 	          React.createElement(
 	            Nav,
 	            { key: 1, id: 'navbar-inner-wrap' },
-	            React.createElement(
-	              NavItem,
-	              { key: 2, href: '/', id: 'resplash-home-img', className: 'resplash-img' },
-	              React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png', className: 'resplash-img' })
-	            ),
 	            React.createElement(SearchBar, null)
 	          )
 	        ),
@@ -53103,6 +53098,12 @@
 	  showCollections: function showCollections() {
 	    hashHistory.push('/users/collections');
 	  },
+	  goLogin: function goLogin() {
+	    hashHistory.push('/');
+	  },
+	  goSignUp: function goSignUp() {
+	    hashHistory.push('/signup');
+	  },
 	  showHome: function showHome() {
 	    hashHistory.push("/pictures");
 	  },
@@ -53138,44 +53139,63 @@
 	      'div',
 	      { id: 'search-bar-id' },
 	      React.createElement(
-	        Navbar.Form,
-	        null,
+	        'div',
+	        { className: 'inner-search-wrap' },
+	        React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png', className: 'resplash-img' }),
 	        React.createElement(
-	          FormGroup,
+	          Navbar.Form,
 	          null,
-	          React.createElement(FormControl, {
-	            type: 'text',
-	            placeholder: 'Search Pictures',
-	            value: this.state.value,
-	            onChange: this.handleChange,
-	            id: 'search-input'
-	          })
+	          React.createElement(
+	            FormGroup,
+	            null,
+	            React.createElement(FormControl, {
+	              type: 'text',
+	              placeholder: 'Search Pictures',
+	              value: this.state.value,
+	              onChange: this.handleChange,
+	              id: 'search-input'
+	            })
+	          )
+	        ),
+	        React.createElement(
+	          Nav,
+	          { id: 'inner-tabs-wrap' },
+	          React.createElement(
+	            NavItem,
+	            { key: 3, href: '', onClick: this.showHome },
+	            'Home'
+	          ),
+	          React.createElement(
+	            NavItem,
+	            { key: 4, href: '', onClick: this.showNewPictures },
+	            'New'
+	          ),
+	          React.createElement(
+	            NavItem,
+	            { key: 5, href: '', onClick: this.showCollections },
+	            'Collections'
+	          ),
+	          React.createElement(
+	            'a',
+	            { href: 'javascript:void(0)', className: 'new-photo-link', onClick: this.checkLoggedIn },
+	            'Submit Photo'
+	          ),
+	          logOut
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'login-btn-wrap' },
+	          React.createElement(
+	            'button',
+	            { className: 'join-btn-nav', onClick: this.goSignUp },
+	            'JOIN'
+	          ),
+	          React.createElement(
+	            'button',
+	            { className: 'login-btn-nav', onClick: this.goLogin },
+	            'LOGIN'
+	          )
 	        )
-	      ),
-	      React.createElement(
-	        Nav,
-	        { id: 'inner-tabs-wrap' },
-	        React.createElement(
-	          NavItem,
-	          { key: 3, href: '', onClick: this.showHome },
-	          'Home'
-	        ),
-	        React.createElement(
-	          NavItem,
-	          { key: 4, href: '', onClick: this.showNewPictures },
-	          'New'
-	        ),
-	        React.createElement(
-	          NavItem,
-	          { key: 5, href: '', onClick: this.showCollections },
-	          'Collections'
-	        ),
-	        React.createElement(
-	          'a',
-	          { href: 'javascript:void(0)', className: 'new-photo-link', onClick: this.checkLoggedIn },
-	          'Submit Photo'
-	        ),
-	        logOut
 	      ),
 	      React.createElement(
 	        'h1',
@@ -53749,6 +53769,8 @@
 	var PictureStore = __webpack_require__(518);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
+	var LikeButton = __webpack_require__(597);
+	var SessionStore = __webpack_require__(240);
 	
 	var PictureIndexItem = React.createClass({
 	  displayName: 'PictureIndexItem',
@@ -53760,6 +53782,10 @@
 	    string.charAt(0).toUpperCase() + string.split(1);
 	  },
 	  render: function render() {
+	    var likeBtn = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      likeBtn = React.createElement(LikeButton, null);
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-item-wrap' },
@@ -53774,7 +53800,8 @@
 	          this.props.pic.user.f_name,
 	          ' ',
 	          this.props.pic.user.l_name
-	        )
+	        ),
+	        likeBtn
 	      )
 	    );
 	  }
@@ -59436,19 +59463,19 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'main-pic-form-wrap' },
 	      React.createElement(
 	        'form',
-	        { onSubmit: this._submit },
-	        React.createElement('input', { type: 'text', onChange: this.subjectChange, placeholder: 'Enter Picture Subject' }),
-	        React.createElement('input', { type: 'submit', placeholder: 'Post a Picture' }),
+	        { onSubmit: this._submit, className: 'inner-pic-form-wrap' },
+	        React.createElement('input', { type: 'text', onChange: this.subjectChange, placeholder: 'Enter Picture Subject', className: 'subject-input' }),
 	        React.createElement(
 	          'button',
-	          { onClick: this.updateImage },
+	          { onClick: this.updateImage, className: 'submit-pic-btn' },
 	          'Upload Picture'
-	        )
-	      ),
-	      React.createElement('img', { src: this.state.picture_url })
+	        ),
+	        React.createElement('input', { type: 'submit', placeholder: 'Post a Picture', className: 'post-pic-btn' }),
+	        React.createElement('img', { src: this.state.picture_url, className: 'pre-picture' })
+	      )
 	    );
 	  }
 	});
@@ -59505,7 +59532,7 @@
 	      null,
 	      React.createElement(
 	        'h1',
-	        null,
+	        { className: 'collection-title' },
 	        'Featured Collections'
 	      ),
 	      React.createElement(
@@ -59698,6 +59725,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var UserStore = __webpack_require__(542);
+	var SessionStore = __webpack_require__(240);
 	
 	var FirstUserIndex = React.createClass({
 	  displayName: 'FirstUserIndex',
@@ -59716,6 +59744,10 @@
 	    var firstUserPics = PictureStore.all().filter(function (pic) {
 	      return pic.user.id == 1;
 	    });
+	    var likeBtn = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      likeBtn = React.createElement(LikeButton, null);
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
@@ -59736,7 +59768,24 @@
 	          'div',
 	          { className: 'inner-index-wrap' },
 	          firstUserPics.map(function (pic) {
-	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	            return React.createElement(
+	              'div',
+	              null,
+	              React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' }),
+	              React.createElement(
+	                'div',
+	                { className: 'inner-user-wrap' },
+	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement(
+	                  'a',
+	                  { className: 'user-show-link' },
+	                  pic.user.f_name,
+	                  ' ',
+	                  pic.user.l_name
+	                ),
+	                likeBtn
+	              )
+	            );
 	          })
 	        )
 	      )
@@ -59757,6 +59806,7 @@
 	var PictureActions = __webpack_require__(520);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
+	var SessionStore = __webpack_require__(240);
 	
 	var SecondUserIndex = React.createClass({
 	  displayName: 'SecondUserIndex',
@@ -59770,6 +59820,10 @@
 	    var secondUserPics = PictureStore.all().filter(function (pic) {
 	      return pic.user.id == 2;
 	    });
+	    var likeBtn = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      likeBtn = React.createElement(LikeButton, null);
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
@@ -59790,7 +59844,24 @@
 	          'div',
 	          { className: 'inner-index-wrap' },
 	          secondUserPics.map(function (pic) {
-	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	            return React.createElement(
+	              'div',
+	              null,
+	              React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' }),
+	              React.createElement(
+	                'div',
+	                { className: 'inner-user-wrap' },
+	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement(
+	                  'a',
+	                  { className: 'user-show-link' },
+	                  pic.user.f_name,
+	                  ' ',
+	                  pic.user.l_name
+	                ),
+	                likeBtn
+	              )
+	            );
 	          })
 	        )
 	      )
@@ -59811,6 +59882,7 @@
 	var PictureActions = __webpack_require__(520);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
+	var SessionStore = __webpack_require__(240);
 	
 	var ThirdUserIndex = React.createClass({
 	  displayName: 'ThirdUserIndex',
@@ -59824,6 +59896,10 @@
 	    var thirdUserPics = PictureStore.all().filter(function (pic) {
 	      return pic.user.id == 3;
 	    });
+	    var likeBtn = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      likeBtn = React.createElement(LikeButton, null);
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
@@ -59844,7 +59920,24 @@
 	          'div',
 	          { className: 'inner-index-wrap' },
 	          thirdUserPics.map(function (pic) {
-	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	            return React.createElement(
+	              'div',
+	              null,
+	              React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' }),
+	              React.createElement(
+	                'div',
+	                { className: 'inner-user-wrap' },
+	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement(
+	                  'a',
+	                  { className: 'user-show-link' },
+	                  pic.user.f_name,
+	                  ' ',
+	                  pic.user.l_name
+	                ),
+	                likeBtn
+	              )
+	            );
 	          })
 	        )
 	      )
@@ -59865,6 +59958,7 @@
 	var PictureActions = __webpack_require__(520);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
+	var SessionStore = __webpack_require__(240);
 	
 	var FourthUserIndex = React.createClass({
 	  displayName: 'FourthUserIndex',
@@ -59878,6 +59972,10 @@
 	    var FourthUserPics = PictureStore.all().filter(function (pic) {
 	      return pic.user.id == 4;
 	    });
+	    var likeBtn = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      likeBtn = React.createElement(LikeButton, null);
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
@@ -59898,7 +59996,24 @@
 	          'div',
 	          { className: 'inner-index-wrap' },
 	          FourthUserPics.map(function (pic) {
-	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	            return React.createElement(
+	              'div',
+	              null,
+	              React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' }),
+	              React.createElement(
+	                'div',
+	                { className: 'inner-user-wrap' },
+	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement(
+	                  'a',
+	                  { className: 'user-show-link' },
+	                  pic.user.f_name,
+	                  ' ',
+	                  pic.user.l_name
+	                ),
+	                likeBtn
+	              )
+	            );
 	          })
 	        )
 	      )
@@ -59919,6 +60034,7 @@
 	var PictureActions = __webpack_require__(520);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
+	var SessionStore = __webpack_require__(240);
 	
 	var FifthUserIndex = React.createClass({
 	  displayName: 'FifthUserIndex',
@@ -59932,6 +60048,10 @@
 	    var fifthUserPics = PictureStore.all().filter(function (pic) {
 	      return pic.user.id == 4;
 	    });
+	    var likeBtn = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      likeBtn = React.createElement(LikeButton, null);
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
@@ -59952,7 +60072,24 @@
 	          'div',
 	          { className: 'inner-index-wrap' },
 	          fifthUserPics.map(function (pic) {
-	            return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	            return React.createElement(
+	              'div',
+	              null,
+	              React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' }),
+	              React.createElement(
+	                'div',
+	                { className: 'inner-user-wrap' },
+	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement(
+	                  'a',
+	                  { className: 'user-show-link' },
+	                  pic.user.f_name,
+	                  ' ',
+	                  pic.user.l_name
+	                ),
+	                likeBtn
+	              )
+	            );
 	          })
 	        )
 	      )
@@ -59972,6 +60109,7 @@
 	var PictureActions = __webpack_require__(520);
 	var React = __webpack_require__(1);
 	var PictureIndexItem = __webpack_require__(525);
+	var SessionStore = __webpack_require__(240);
 	
 	var NewPicturesIndex = React.createClass({
 	  displayName: 'NewPicturesIndex',
@@ -59992,12 +60130,38 @@
 	    this.allPics.remove();
 	  },
 	  render: function render() {
+	    var likeBtn = void 0;
+	    if (SessionStore.checkLoggedIn()) {
+	      likeBtn = React.createElement(LikeButton, null);
+	    }
 	    var allPictures = this.state.pictures.map(function (pic) {
-	      return React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' });
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement('img', { src: pic.picture_url, className: 'pic-index-item' }),
+	        React.createElement(
+	          'div',
+	          { className: 'inner-user-wrap' },
+	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	          React.createElement(
+	            'a',
+	            { className: 'user-show-link' },
+	            pic.user.f_name,
+	            ' ',
+	            pic.user.l_name
+	          ),
+	          likeBtn
+	        )
+	      );
 	    });
 	    return React.createElement(
 	      'div',
 	      { className: 'pic-index-wrap' },
+	      React.createElement(
+	        'h1',
+	        { className: 'new-title' },
+	        'New Photos'
+	      ),
 	      React.createElement(
 	        'ul',
 	        { className: 'pic-index-ul' },
@@ -60012,6 +60176,85 @@
 	});
 	
 	module.exports = NewPicturesIndex;
+
+/***/ },
+/* 550 */,
+/* 551 */,
+/* 552 */,
+/* 553 */,
+/* 554 */,
+/* 555 */,
+/* 556 */,
+/* 557 */,
+/* 558 */,
+/* 559 */,
+/* 560 */,
+/* 561 */,
+/* 562 */,
+/* 563 */,
+/* 564 */,
+/* 565 */,
+/* 566 */,
+/* 567 */,
+/* 568 */,
+/* 569 */,
+/* 570 */,
+/* 571 */,
+/* 572 */,
+/* 573 */,
+/* 574 */,
+/* 575 */,
+/* 576 */,
+/* 577 */,
+/* 578 */,
+/* 579 */,
+/* 580 */,
+/* 581 */,
+/* 582 */,
+/* 583 */,
+/* 584 */,
+/* 585 */,
+/* 586 */,
+/* 587 */,
+/* 588 */,
+/* 589 */,
+/* 590 */,
+/* 591 */,
+/* 592 */,
+/* 593 */,
+/* 594 */,
+/* 595 */,
+/* 596 */,
+/* 597 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(1);
+	
+	var LikeButton = React.createClass({
+	  displayName: "LikeButton",
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      liked: false
+	    };
+	  },
+	  _onClick: function _onClick(e) {
+	    e.preventDefault();
+	    this.setState({ liked: true });
+	  },
+	  render: function render() {
+	    var likeButton = this.state.liked ? "Liked" : "Like";
+	    return React.createElement(
+	      "button",
+	      { onClick: this._onClick, disabled: this.state.liked },
+	      likeButton
+	    );
+	  }
+	});
+	
+	module.exports = LikeButton;
 
 /***/ }
 /******/ ]);

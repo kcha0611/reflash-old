@@ -3,6 +3,7 @@ const PictureStore = require('../stores/picture_store');
 const PictureActions = require('../actions/picture_actions');
 const ReactRouter = require('react-router');
 const hashHistory = ReactRouter.hashHistory;
+const SessionStore = require('../stores/session_store');
 
 const FifthUserIndex = React.createClass({
   getInitialState: function() {
@@ -14,6 +15,10 @@ const FifthUserIndex = React.createClass({
     let fifthUserPics = PictureStore.all().filter( (pic) => {
       return pic.user.id == 4
     })
+    let likeBtn;
+    if (SessionStore.checkLoggedIn()) {
+      likeBtn = (<LikeButton />)
+    }
     return (
       <div className="pic-index-wrap">
         <h1>Collection #5</h1>
@@ -21,7 +26,16 @@ const FifthUserIndex = React.createClass({
         <ul className="pic-index-ul">
           <div className="inner-index-wrap">
             {fifthUserPics.map( (pic) => {
-                return <img src={pic.picture_url} className="pic-index-item"/>
+                return (
+                <div>
+                  <img src={pic.picture_url} className="pic-index-item"/>
+                    <div className="inner-user-wrap">
+                      <img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg" className="user-img"/>
+                      <a className="user-show-link">{pic.user.f_name} {pic.user.l_name}</a>
+                      {likeBtn}
+                    </div>
+                  </div>
+                )
               })
             }
           </div>

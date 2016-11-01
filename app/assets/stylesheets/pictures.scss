@@ -245,3 +245,57 @@
   align-items: center;
   color: #777;
 }
+
+.new-title, .collection-title {
+  font-weight: bold;
+}
+
+.main-pic-form-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.inner-pic-form-wrap {
+  width: 38%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.subject-input {
+  height: 40px;
+  margin-bottom: 40px;
+  color: #111111;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  transition: border-color ease-in-out 0.15s;
+}
+
+.submit-pic-btn {
+  height: 43.6px;
+  color: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 17px;
+  margin-bottom: 40px;
+  background: #111111;
+}
+
+.post-pic-btn {
+  height: 43.6px;
+  color: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 17px;
+  background: #4c66a4;
+  margin-bottom: 40px;
+}
+
+.pre-picture {
+  width: 100%;
+}

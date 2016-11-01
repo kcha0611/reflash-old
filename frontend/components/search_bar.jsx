@@ -55,6 +55,12 @@ const SearchBar = React.createClass({
   showCollections() {
     hashHistory.push('/users/collections')
   },
+  goLogin() {
+    hashHistory.push('/')
+  },
+  goSignUp() {
+    hashHistory.push('/signup')
+  },
   showHome() {
     hashHistory.push("/pictures")
   },
@@ -83,24 +89,31 @@ const SearchBar = React.createClass({
     }
     return (
       <div id="search-bar-id">
-          <Navbar.Form>
-            <FormGroup>
-              <FormControl
-                type="text"
-                placeholder="Search Pictures"
-                value={this.state.value}
-                onChange={this.handleChange}
-                id="search-input"
-                />
-            </FormGroup>
-          </Navbar.Form>
-            <Nav id="inner-tabs-wrap">
-              <NavItem key={3} href="" onClick={this.showHome}>Home</NavItem>
-              <NavItem key={4} href="" onClick={this.showNewPictures}>New</NavItem>
-              <NavItem key={5} href="" onClick={this.showCollections}>Collections</NavItem>
-              <a href="javascript:void(0)" className="new-photo-link" onClick={this.checkLoggedIn}>Submit Photo</a>
-              {logOut}
-          </Nav>
+        <div className="inner-search-wrap">
+          <img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/>
+            <Navbar.Form>
+              <FormGroup>
+                <FormControl
+                  type="text"
+                  placeholder="Search Pictures"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  id="search-input"
+                  />
+              </FormGroup>
+            </Navbar.Form>
+              <Nav id="inner-tabs-wrap">
+                <NavItem key={3} href="" onClick={this.showHome}>Home</NavItem>
+                <NavItem key={4} href="" onClick={this.showNewPictures}>New</NavItem>
+                <NavItem key={5} href="" onClick={this.showCollections}>Collections</NavItem>
+                <a href="javascript:void(0)" className="new-photo-link" onClick={this.checkLoggedIn}>Submit Photo</a>
+                {logOut}
+            </Nav>
+            <div className="login-btn-wrap">
+              <button className="join-btn-nav" onClick={this.goSignUp}>JOIN</button>
+              <button className="login-btn-nav" onClick={this.goLogin}>LOGIN</button>
+            </div>
+          </div>
         <h1 className="search-input">{this.state.searchInput}</h1>
           <div className="search-result-wrap">
             {filteredPictures.map ( (picture) => {

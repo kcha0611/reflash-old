@@ -17,7 +17,6 @@ const App = React.createClass({
         <div id="inner-main-wrap">
           <Navbar id="navbar-wrap">
                     <Nav key={1} id="navbar-inner-wrap">
-                        <NavItem key={2} href="/" id="resplash-home-img" className="resplash-img"><img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/></NavItem>
                         <SearchBar />
                     </Nav>
           </Navbar>

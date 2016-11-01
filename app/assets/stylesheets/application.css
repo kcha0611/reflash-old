@@ -57,6 +57,7 @@ a#resplash-home-img {
   justify-content: center;
   float: none;
   align-items: center;
+  width: 35.8%;
 }
 
 ul#navbar-inner-wrap, #search-bar-id {
@@ -112,15 +113,11 @@ ul#navbar-inner-wrap, #search-bar-id {
 
 
 .logout-btn {
-  height: 26px;
-  color: #999;
-  fill: #777;
-  background-color: transparent;
-  border-color: #ddd;
-  box-shadow: 0 1px 1px rgba(0,0,0,.04);
-  border-radius: 6px;
-  font-size: 11px;
-  width: 66px;
-  font-weight: 700;
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  border: none;
+  background: transparent;
+  margin-left: 12px;
+}
+
+.inner-search-wrap {
+  display: flex;
 }

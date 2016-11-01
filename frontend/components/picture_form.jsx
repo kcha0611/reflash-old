@@ -35,13 +35,13 @@ const PictureForm = React.createClass({
   },
   render() {
     return (
-      <div>
-        <form onSubmit={this._submit}>
-          <input type="text" onChange={this.subjectChange} placeholder="Enter Picture Subject"/>
-          <input type="submit" placeholder="Post a Picture"/>
-          <button onClick={this.updateImage}>Upload Picture</button>
+      <div className="main-pic-form-wrap">
+        <form onSubmit={this._submit} className="inner-pic-form-wrap">
+          <input type="text" onChange={this.subjectChange} placeholder="Enter Picture Subject" className="subject-input"/>
+          <button onClick={this.updateImage} className="submit-pic-btn">Upload Picture</button>
+          <input type="submit" placeholder="Post a Picture" className="post-pic-btn"/>
+          <img src={this.state.picture_url} className="pre-picture"/>
         </form>
-        <img src={this.state.picture_url}/>
       </div>
     )
   }
