@@ -90,7 +90,7 @@ const SearchBar = React.createClass({
     return (
       <div id="search-bar-id">
         <div className="inner-search-wrap">
-          <img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/>
+          <img src="https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png" className="resplash-img"/>
             <Navbar.Form>
               <FormGroup>
                 <FormControl

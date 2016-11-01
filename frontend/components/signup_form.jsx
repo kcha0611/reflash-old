@@ -71,7 +71,7 @@ const SignupForm = React.createClass({
       <div className="login-form-wrap">
         <form onSubmit={this._handleSubmit} className="inner-login-wrap">
           <div className="login-img-wrap">
-            <img src="http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png" className="login-img" onClick={this.goHome}/>
+            <img src="https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png" className="login-img" onClick={this.goHome}/>
           </div>
           <h2>Join</h2>
           <h4 className="login-welcome">Be a part of Reflash.</h4>

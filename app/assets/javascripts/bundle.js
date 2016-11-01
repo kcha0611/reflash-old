@@ -53141,7 +53141,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'inner-search-wrap' },
-	        React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png', className: 'resplash-img' }),
+	        React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,q_100,w_50/v1475032603/camera-flash-512_fosqnc.png', className: 'resplash-img' }),
 	        React.createElement(
 	          Navbar.Form,
 	          null,
@@ -53504,7 +53504,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'login-img-wrap' },
-	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img', onClick: this.goHome })
+	          React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img', onClick: this.goHome })
 	        ),
 	        React.createElement(
 	          'h2',
@@ -53642,7 +53642,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'login-img-wrap' },
-	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img', onClick: this.goHome })
+	          React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_70,w_70/v1477692420/camera-flash-512_fosqnc_xex6ag.png', className: 'login-img', onClick: this.goHome })
 	        ),
 	        React.createElement(
 	          'h2',
@@ -53740,8 +53740,8 @@
 	      React.createElement(
 	        'div',
 	        { className: 'tab-wrap' },
-	        React.createElement('img', { id: 'normal-tab', onClick: this.handleNormalTab, src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_34/v1477014487/mobile_menu_icon_zdz8sw.png' }),
-	        React.createElement('img', { id: 'grid-tab', onClick: this.handleGridTab, src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_25/v1477014279/256-256-43252f44e69ebdd2e8bb5370ba120db4-grid_buzr3h.png' })
+	        React.createElement('img', { id: 'normal-tab', onClick: this.handleNormalTab, src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_34/v1477014487/mobile_menu_icon_zdz8sw.png' }),
+	        React.createElement('img', { id: 'grid-tab', onClick: this.handleGridTab, src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_25/v1477014279/256-256-43252f44e69ebdd2e8bb5370ba120db4-grid_buzr3h.png' })
 	      ),
 	      React.createElement(
 	        'ul',
@@ -53793,7 +53793,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'inner-user-wrap' },
-	        React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	        React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
 	        React.createElement(
 	          'a',
 	          { className: 'user-show-link' },
@@ -59554,7 +59554,7 @@
 	              { className: 'collection-one-title', id: 'collection-one-date', onClick: this.goFirstUser },
 	              'October 8th, 2016'
 	            ),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935416/1920x1080_e1aoab.jpg', className: 'first-collection-img', id: 'collection-img', onClick: this.goFirstUser })
+	            React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/v1474935416/1920x1080_e1aoab.jpg', className: 'first-collection-img', id: 'collection-img', onClick: this.goFirstUser })
 	          ),
 	          React.createElement(
 	            'div',
@@ -59569,7 +59569,7 @@
 	              { className: 'collection-two-title', id: 'collection-two-date', onClick: this.goSecondUser },
 	              'October 10th, 2016'
 	            ),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/v1474935395/1920x1080_a0vlgw.jpg', className: 'second-collection-img', id: 'collection-img', onClick: this.goSecondUser })
+	            React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/v1474935395/1920x1080_a0vlgw.jpg', className: 'second-collection-img', id: 'collection-img', onClick: this.goSecondUser })
 	          )
 	        ),
 	        React.createElement(
@@ -59588,7 +59588,7 @@
 	              { className: 'collection-three-title', id: 'collection-three-date', onClick: this.goThirdUser },
 	              'October 17th, 2016'
 	            ),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524693/nature_ayqyoq.jpg', className: 'third-collection-img', id: 'collection-img', onClick: this.goThirdUser })
+	            React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524693/nature_ayqyoq.jpg', className: 'third-collection-img', id: 'collection-img', onClick: this.goThirdUser })
 	          ),
 	          React.createElement(
 	            'div',
@@ -59603,7 +59603,7 @@
 	              { className: 'collection-four-title', id: 'collection-four-date', onClick: this.goFourthUser },
 	              'October 20th, 2016'
 	            ),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524681/nature_fznpry.jpg', className: 'fourth-collection-img', id: 'collection-img', onClick: this.goFourthUser })
+	            React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524681/nature_fznpry.jpg', className: 'fourth-collection-img', id: 'collection-img', onClick: this.goFourthUser })
 	          ),
 	          React.createElement(
 	            'div',
@@ -59618,7 +59618,7 @@
 	              { className: 'collection-four-title', id: 'collection-four-date', onClick: this.goFifthUser },
 	              'October 26th, 2016'
 	            ),
-	            React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524677/nature_dcomfs.jpg', className: 'fifth-collection-img', id: 'collection-img', onClick: this.goFifthUser })
+	            React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,h_1080,w_1920/v1477524677/nature_dcomfs.jpg', className: 'fifth-collection-img', id: 'collection-img', onClick: this.goFifthUser })
 	          )
 	        )
 	      )
@@ -59775,7 +59775,7 @@
 	              React.createElement(
 	                'div',
 	                { className: 'inner-user-wrap' },
-	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
 	                React.createElement(
 	                  'a',
 	                  { className: 'user-show-link' },
@@ -59851,7 +59851,7 @@
 	              React.createElement(
 	                'div',
 	                { className: 'inner-user-wrap' },
-	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
 	                React.createElement(
 	                  'a',
 	                  { className: 'user-show-link' },
@@ -59927,7 +59927,7 @@
 	              React.createElement(
 	                'div',
 	                { className: 'inner-user-wrap' },
-	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
 	                React.createElement(
 	                  'a',
 	                  { className: 'user-show-link' },
@@ -60003,7 +60003,7 @@
 	              React.createElement(
 	                'div',
 	                { className: 'inner-user-wrap' },
-	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
 	                React.createElement(
 	                  'a',
 	                  { className: 'user-show-link' },
@@ -60079,7 +60079,7 @@
 	              React.createElement(
 	                'div',
 	                { className: 'inner-user-wrap' },
-	                React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	                React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
 	                React.createElement(
 	                  'a',
 	                  { className: 'user-show-link' },
@@ -60142,7 +60142,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'inner-user-wrap' },
-	          React.createElement('img', { src: 'http://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
+	          React.createElement('img', { src: 'https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg', className: 'user-img' }),
 	          React.createElement(
 	            'a',
 	            { className: 'user-show-link' },
