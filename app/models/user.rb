@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   attr_reader :password
 
+  has_many :votes
+
   has_many :pictures
 
   after_initialize :ensure_session_token
