@@ -15,7 +15,6 @@ const PictureIndexItem = React.createClass({
   },
   onVote() {
     if (SessionStore.checkLoggedIn) {
-      debugger
       VoteActions.createVote({user_id: SessionStore.currentUser().id, picture_id: this.props.pic.id})
       this.setState({liked: true})
     }
@@ -31,9 +30,14 @@ const PictureIndexItem = React.createClass({
     string.charAt(0).toUpperCase() + string.split(1);
   },
   render() {
-    let likeBtn;
+    let numVotes;
+    let that = this;
+    numVotes = PictureStore.votes().filter(function(vote) {
+      return vote.user_id == that.props.pic.user_id && vote.picture_id == that.props.pic.id
+    })
+    let likeBtn = (<button id="vote-btn">Vote</button>)
     if (SessionStore.checkLoggedIn()) {
-      likeBtn = (<LikeButton />)
+      likeBtn = this.state.liked == false ? (<button onClick={this.onVote}>Vote</button>) : (<button onClick={this.onDownVote}>Voted</button>)
     }
     return (
       <div className="pic-index-item-wrap">
@@ -41,8 +45,8 @@ const PictureIndexItem = React.createClass({
         <div className="inner-user-wrap">
           <img src="https://res.cloudinary.com/dllnnnotc/image/upload/c_scale,w_33/v1472239548/latest_cz23gu.jpg" className="user-img"/>
           <a className="user-show-link">{this.props.pic.user.f_name} {this.props.pic.user.l_name}</a>
-          <button onClick={this.onVote}>Vote</button>
         </div>
+        <p className="vote-value">{numVotes.length}</p>
       </div>
     )
   }

@@ -6,10 +6,17 @@ const VoteConstants = require('../constants/vote_constants');
 let PictureStore = new Store(AppDispatcher);
 
 let _pictures = {};
+let _votes = {};
 
 PictureStore.all = function () {
   return Object.keys(_pictures).reverse().map((key) => {
     return _pictures[key];
+  })
+}
+
+PictureStore.votes = function() {
+  return Object.keys(_votes).map((vote) => {
+    return _votes[vote]
   })
 }
 
@@ -50,7 +57,7 @@ PictureStore.addPicture = function (picture) {
 }
 
 PictureStore.addVote = function (vote) {
-  PictureStore.find(vote.picture_id).votes.push(vote)
+  _votes[vote.id] = vote;
 }
 
 PictureStore.removeVote = function (vote) {

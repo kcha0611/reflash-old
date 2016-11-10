@@ -54,19 +54,19 @@
 	var Route = ReactRouter.Route;
 	var SessionActions = __webpack_require__(235);
 	var App = __webpack_require__(263);
-	var LoginForm = __webpack_require__(522);
-	var SignupForm = __webpack_require__(523);
-	var PictureIndex = __webpack_require__(524);
+	var LoginForm = __webpack_require__(523);
+	var SignupForm = __webpack_require__(524);
+	var PictureIndex = __webpack_require__(525);
 	var IndexRoute = ReactRouter.IndexRoute;
 	var PictureShow = __webpack_require__(540);
 	var PictureForm = __webpack_require__(541);
 	var UserPictureIndex = __webpack_require__(542);
 	var FirstUserIndex = __webpack_require__(545);
-	var SecondUserIndex = __webpack_require__(546);
-	var ThirdUserIndex = __webpack_require__(547);
-	var FourthUserIndex = __webpack_require__(548);
-	var FifthUserIndex = __webpack_require__(549);
-	var NewPicturesIndex = __webpack_require__(550);
+	var SecondUserIndex = __webpack_require__(547);
+	var ThirdUserIndex = __webpack_require__(548);
+	var FourthUserIndex = __webpack_require__(549);
+	var FifthUserIndex = __webpack_require__(550);
+	var NewPicturesIndex = __webpack_require__(551);
 	
 	var router = React.createElement(
 	  Router,
@@ -53042,7 +53042,7 @@
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var FormControl = __webpack_require__(264).FormControl;
 	var ControlLabel = __webpack_require__(264).ControlLabel;
 	var FormGroup = __webpack_require__(264).FormGroup;
@@ -53272,15 +53272,22 @@
 	var Store = __webpack_require__(241).Store;
 	var AppDispatcher = __webpack_require__(236);
 	var PictureConstants = __webpack_require__(519);
-	var VoteConstants = __webpack_require__(725);
+	var VoteConstants = __webpack_require__(520);
 	
 	var PictureStore = new Store(AppDispatcher);
 	
 	var _pictures = {};
+	var _votes = {};
 	
 	PictureStore.all = function () {
 	  return Object.keys(_pictures).reverse().map(function (key) {
 	    return _pictures[key];
+	  });
+	};
+	
+	PictureStore.votes = function () {
+	  return Object.keys(_votes).map(function (vote) {
+	    return _votes[vote];
 	  });
 	};
 	
@@ -53321,7 +53328,7 @@
 	};
 	
 	PictureStore.addVote = function (vote) {
-	  PictureStore.find(vote.picture_id).votes.push(vote);
+	  _votes[vote.id] = vote;
 	};
 	
 	PictureStore.removeVote = function (vote) {
@@ -53349,6 +53356,19 @@
 
 /***/ },
 /* 520 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var VoteConstants = {
+	  RECEIVED_VOTE: "RECEIVED_VOTE",
+	  REMOVED_VOTE: "REMOVED_VOTE"
+	};
+	
+	module.exports = VoteConstants;
+
+/***/ },
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53357,7 +53377,7 @@
 	var PictureConstants = __webpack_require__(519);
 	var ErrorActions = __webpack_require__(259);
 	var hashHistory = __webpack_require__(172).hashHistory;
-	var PictureApiUtil = __webpack_require__(521);
+	var PictureApiUtil = __webpack_require__(522);
 	
 	var PictureActions = {
 	  fetchPictures: function fetchPictures() {
@@ -53389,7 +53409,7 @@
 	module.exports = PictureActions;
 
 /***/ },
-/* 521 */
+/* 522 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -53439,7 +53459,7 @@
 	module.exports = PictureApiUtil;
 
 /***/ },
-/* 522 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53569,7 +53589,7 @@
 	module.exports = LoginForm;
 
 /***/ },
-/* 523 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53708,15 +53728,15 @@
 	module.exports = SignupForm;
 
 /***/ },
-/* 524 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var React = __webpack_require__(1);
-	var PictureIndexItem = __webpack_require__(525);
+	var PictureIndexItem = __webpack_require__(526);
 	var SessionStore = __webpack_require__(240);
 	var Masonry = __webpack_require__(527);
 	
@@ -53780,19 +53800,19 @@
 	module.exports = PictureIndex;
 
 /***/ },
-/* 525 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var PictureIndex = __webpack_require__(524);
+	var PictureIndex = __webpack_require__(525);
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
-	var LikeButton = __webpack_require__(526);
+	var LikeButton = __webpack_require__(546);
 	var SessionStore = __webpack_require__(240);
-	var VoteActions = __webpack_require__(726);
+	var VoteActions = __webpack_require__(552);
 	
 	var PictureIndexItem = React.createClass({
 	  displayName: 'PictureIndexItem',
@@ -53804,7 +53824,6 @@
 	  },
 	  onVote: function onVote() {
 	    if (SessionStore.checkLoggedIn) {
-	      debugger;
 	      VoteActions.createVote({ user_id: SessionStore.currentUser().id, picture_id: this.props.pic.id });
 	      this.setState({ liked: true });
 	    } else {
@@ -53819,9 +53838,26 @@
 	    string.charAt(0).toUpperCase() + string.split(1);
 	  },
 	  render: function render() {
-	    var likeBtn = void 0;
+	    var numVotes = void 0;
+	    var that = this;
+	    numVotes = PictureStore.votes().filter(function (vote) {
+	      return vote.user_id == that.props.pic.user_id && vote.picture_id == that.props.pic.id;
+	    });
+	    var likeBtn = React.createElement(
+	      'button',
+	      { id: 'vote-btn' },
+	      'Vote'
+	    );
 	    if (SessionStore.checkLoggedIn()) {
-	      likeBtn = React.createElement(LikeButton, null);
+	      likeBtn = this.state.liked == false ? React.createElement(
+	        'button',
+	        { onClick: this.onVote },
+	        'Vote'
+	      ) : React.createElement(
+	        'button',
+	        { onClick: this.onDownVote },
+	        'Voted'
+	      );
 	    }
 	    return React.createElement(
 	      'div',
@@ -53838,44 +53874,18 @@
 	          ' ',
 	          this.props.pic.user.l_name
 	        ),
-	        React.createElement(
-	          'button',
-	          { onClick: this.onVote },
-	          'Vote'
-	        )
+	        likeBtn
+	      ),
+	      React.createElement(
+	        'p',
+	        { className: 'vote-value' },
+	        numVotes.length
 	      )
 	    );
 	  }
 	});
 	
 	module.exports = PictureIndexItem;
-
-/***/ },
-/* 526 */
-/***/ function(module, exports) {
-
-	// const React = require('react');
-	//
-	// const LikeButton = React.createClass({
-	//   getInitialState: function() {
-	//     return {
-	//       liked: false
-	//     };
-	//   },
-	//   _onClick(e) {
-	//     e.preventDefault();
-	//     this.setState({liked: true})
-	//   },
-	//   render() {
-	//     const likeButton = this.state.liked ? "Liked" : "Like";
-	//     return (
-	//       <button onClick={this._onClick} disabled={this.state.liked}>{likeButton}</button>
-	//     )
-	//   }
-	// })
-	//
-	// module.exports = LikeButton
-	"use strict";
 
 /***/ },
 /* 527 */
@@ -59446,7 +59456,7 @@
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	
@@ -59498,7 +59508,7 @@
 	var Router = ReactRouter.Router;
 	var Route = ReactRouter.Route;
 	var Link = ReactRouter.Link;
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	
 	var PictureForm = React.createClass({
 	  displayName: 'PictureForm',
@@ -59560,7 +59570,7 @@
 	var PictureStore = __webpack_require__(518);
 	var UserStore = __webpack_require__(543);
 	var UserActions = __webpack_require__(544);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	
@@ -59789,12 +59799,12 @@
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var UserStore = __webpack_require__(543);
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(526);
+	var LikeButton = __webpack_require__(546);
 	
 	var FirstUserIndex = React.createClass({
 	  displayName: 'FirstUserIndex',
@@ -59865,17 +59875,44 @@
 
 /***/ },
 /* 546 */
+/***/ function(module, exports) {
+
+	// const React = require('react');
+	//
+	// const LikeButton = React.createClass({
+	//   getInitialState: function() {
+	//     return {
+	//       liked: false
+	//     };
+	//   },
+	//   _onClick(e) {
+	//     e.preventDefault();
+	//     this.setState({liked: true})
+	//   },
+	//   render() {
+	//     const likeButton = this.state.liked ? "Liked" : "Like";
+	//     return (
+	//       <button onClick={this._onClick} disabled={this.state.liked}>{likeButton}</button>
+	//     )
+	//   }
+	// })
+	//
+	// module.exports = LikeButton
+	"use strict";
+
+/***/ },
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(526);
+	var LikeButton = __webpack_require__(546);
 	
 	var SecondUserIndex = React.createClass({
 	  displayName: 'SecondUserIndex',
@@ -59940,18 +59977,18 @@
 	module.exports = SecondUserIndex;
 
 /***/ },
-/* 547 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(526);
+	var LikeButton = __webpack_require__(546);
 	
 	var ThirdUserIndex = React.createClass({
 	  displayName: 'ThirdUserIndex',
@@ -60016,18 +60053,18 @@
 	module.exports = ThirdUserIndex;
 
 /***/ },
-/* 548 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(526);
+	var LikeButton = __webpack_require__(546);
 	
 	var FourthUserIndex = React.createClass({
 	  displayName: 'FourthUserIndex',
@@ -60092,18 +60129,18 @@
 	module.exports = FourthUserIndex;
 
 /***/ },
-/* 549 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(526);
+	var LikeButton = __webpack_require__(546);
 	
 	var FifthUserIndex = React.createClass({
 	  displayName: 'FifthUserIndex',
@@ -60168,17 +60205,17 @@
 	module.exports = FifthUserIndex;
 
 /***/ },
-/* 550 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var PictureStore = __webpack_require__(518);
-	var PictureActions = __webpack_require__(520);
+	var PictureActions = __webpack_require__(521);
 	var React = __webpack_require__(1);
-	var PictureIndexItem = __webpack_require__(525);
+	var PictureIndexItem = __webpack_require__(526);
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(526);
+	var LikeButton = __webpack_require__(546);
 	
 	var NewPicturesIndex = React.createClass({
 	  displayName: 'NewPicturesIndex',
@@ -60246,203 +60283,16 @@
 	module.exports = NewPicturesIndex;
 
 /***/ },
-/* 551 */,
-/* 552 */,
-/* 553 */,
-/* 554 */,
-/* 555 */,
-/* 556 */,
-/* 557 */,
-/* 558 */,
-/* 559 */,
-/* 560 */,
-/* 561 */,
-/* 562 */,
-/* 563 */,
-/* 564 */,
-/* 565 */,
-/* 566 */,
-/* 567 */,
-/* 568 */,
-/* 569 */,
-/* 570 */,
-/* 571 */,
-/* 572 */,
-/* 573 */,
-/* 574 */,
-/* 575 */,
-/* 576 */,
-/* 577 */,
-/* 578 */,
-/* 579 */,
-/* 580 */,
-/* 581 */,
-/* 582 */,
-/* 583 */,
-/* 584 */,
-/* 585 */,
-/* 586 */,
-/* 587 */,
-/* 588 */,
-/* 589 */,
-/* 590 */,
-/* 591 */,
-/* 592 */,
-/* 593 */,
-/* 594 */,
-/* 595 */,
-/* 596 */,
-/* 597 */,
-/* 598 */,
-/* 599 */,
-/* 600 */,
-/* 601 */,
-/* 602 */,
-/* 603 */,
-/* 604 */,
-/* 605 */,
-/* 606 */,
-/* 607 */,
-/* 608 */,
-/* 609 */,
-/* 610 */,
-/* 611 */,
-/* 612 */,
-/* 613 */,
-/* 614 */,
-/* 615 */,
-/* 616 */,
-/* 617 */,
-/* 618 */,
-/* 619 */,
-/* 620 */,
-/* 621 */,
-/* 622 */,
-/* 623 */,
-/* 624 */,
-/* 625 */,
-/* 626 */,
-/* 627 */,
-/* 628 */,
-/* 629 */,
-/* 630 */,
-/* 631 */,
-/* 632 */,
-/* 633 */,
-/* 634 */,
-/* 635 */,
-/* 636 */,
-/* 637 */,
-/* 638 */,
-/* 639 */,
-/* 640 */,
-/* 641 */,
-/* 642 */,
-/* 643 */,
-/* 644 */,
-/* 645 */,
-/* 646 */,
-/* 647 */,
-/* 648 */,
-/* 649 */,
-/* 650 */,
-/* 651 */,
-/* 652 */,
-/* 653 */,
-/* 654 */,
-/* 655 */,
-/* 656 */,
-/* 657 */,
-/* 658 */,
-/* 659 */,
-/* 660 */,
-/* 661 */,
-/* 662 */,
-/* 663 */,
-/* 664 */,
-/* 665 */,
-/* 666 */,
-/* 667 */,
-/* 668 */,
-/* 669 */,
-/* 670 */,
-/* 671 */,
-/* 672 */,
-/* 673 */,
-/* 674 */,
-/* 675 */,
-/* 676 */,
-/* 677 */,
-/* 678 */,
-/* 679 */,
-/* 680 */,
-/* 681 */,
-/* 682 */,
-/* 683 */,
-/* 684 */,
-/* 685 */,
-/* 686 */,
-/* 687 */,
-/* 688 */,
-/* 689 */,
-/* 690 */,
-/* 691 */,
-/* 692 */,
-/* 693 */,
-/* 694 */,
-/* 695 */,
-/* 696 */,
-/* 697 */,
-/* 698 */,
-/* 699 */,
-/* 700 */,
-/* 701 */,
-/* 702 */,
-/* 703 */,
-/* 704 */,
-/* 705 */,
-/* 706 */,
-/* 707 */,
-/* 708 */,
-/* 709 */,
-/* 710 */,
-/* 711 */,
-/* 712 */,
-/* 713 */,
-/* 714 */,
-/* 715 */,
-/* 716 */,
-/* 717 */,
-/* 718 */,
-/* 719 */,
-/* 720 */,
-/* 721 */,
-/* 722 */,
-/* 723 */,
-/* 724 */,
-/* 725 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var VoteConstants = {
-	  RECEIVED_VOTE: "RECEIVED_VOTE",
-	  REMOVED_VOTE: "REMOVED_VOTE"
-	};
-	
-	module.exports = VoteConstants;
-
-/***/ },
-/* 726 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var AppDispatcher = __webpack_require__(236);
-	var VoteConstants = __webpack_require__(725);
+	var VoteConstants = __webpack_require__(520);
 	var ErrorActions = __webpack_require__(259);
 	var hashHistory = __webpack_require__(172).hashHistory;
-	var VoteApiUtil = __webpack_require__(727);
+	var VoteApiUtil = __webpack_require__(553);
 	
 	var VoteActions = {
 	  createVote: function createVote(vote) {
@@ -60468,7 +60318,7 @@
 	module.exports = VoteActions;
 
 /***/ },
-/* 727 */
+/* 553 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -60478,7 +60328,7 @@
 	    $.ajax({
 	      method: "POST",
 	      url: 'api/votes',
-	      data: data,
+	      data: { vote: data },
 	      success: function success(resp) {
 	        callback(resp);
 	      },
@@ -60491,7 +60341,7 @@
 	    $.ajax({
 	      method: 'DELETE',
 	      url: 'api/likes',
-	      data: data,
+	      data: { vote: data },
 	      success: function success(resp) {
 	        callback(resp);
 	      },

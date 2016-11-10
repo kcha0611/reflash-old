@@ -5,10 +5,10 @@ class Api::VotesController < ApplicationController
   def create
     @vote = Vote.new(vote_params)
     @vote.user_id = current_user.id
-    if @vote
+    if @vote.save
       render 'api/votes/show'
     else
-      render json: ["somethings fucked up"]
+      render json: ["fucked up"]
     end
   end
 

@@ -3,7 +3,7 @@ const VoteApiUtil = {
     $.ajax({
       method: "POST",
       url: 'api/votes',
-      data: data,
+      data: {vote: data},
       success(resp) {
         callback(resp)
       },
@@ -16,7 +16,7 @@ const VoteApiUtil = {
     $.ajax({
       method: 'DELETE',
       url: 'api/likes',
-      data: data,
+      data: {vote: data},
       success(resp) {
         callback(resp)
       },

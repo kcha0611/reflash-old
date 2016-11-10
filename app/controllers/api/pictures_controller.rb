@@ -27,7 +27,7 @@ class Api::PicturesController < ApplicationController
   private
 
   def picture_params
-    params.require(:picture).permit(:picture_url, :subject)
+    params.require(:picture).permit(:picture_url, :subject, :vote_value)
   end
 
 end
