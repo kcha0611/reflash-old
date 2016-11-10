@@ -58,15 +58,15 @@
 	var SignupForm = __webpack_require__(524);
 	var PictureIndex = __webpack_require__(525);
 	var IndexRoute = ReactRouter.IndexRoute;
-	var PictureShow = __webpack_require__(540);
-	var PictureForm = __webpack_require__(541);
-	var UserPictureIndex = __webpack_require__(542);
-	var FirstUserIndex = __webpack_require__(545);
-	var SecondUserIndex = __webpack_require__(547);
-	var ThirdUserIndex = __webpack_require__(548);
-	var FourthUserIndex = __webpack_require__(549);
-	var FifthUserIndex = __webpack_require__(550);
-	var NewPicturesIndex = __webpack_require__(551);
+	var PictureShow = __webpack_require__(543);
+	var PictureForm = __webpack_require__(544);
+	var UserPictureIndex = __webpack_require__(545);
+	var FirstUserIndex = __webpack_require__(548);
+	var SecondUserIndex = __webpack_require__(549);
+	var ThirdUserIndex = __webpack_require__(550);
+	var FourthUserIndex = __webpack_require__(551);
+	var FifthUserIndex = __webpack_require__(552);
+	var NewPicturesIndex = __webpack_require__(553);
 	
 	var router = React.createElement(
 	  Router,
@@ -53738,7 +53738,7 @@
 	var React = __webpack_require__(1);
 	var PictureIndexItem = __webpack_require__(526);
 	var SessionStore = __webpack_require__(240);
-	var Masonry = __webpack_require__(527);
+	var Masonry = __webpack_require__(530);
 	
 	var PictureIndex = React.createClass({
 	  displayName: 'PictureIndex',
@@ -53810,9 +53810,9 @@
 	var PictureStore = __webpack_require__(518);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
-	var LikeButton = __webpack_require__(546);
+	var LikeButton = __webpack_require__(527);
 	var SessionStore = __webpack_require__(240);
-	var VoteActions = __webpack_require__(552);
+	var VoteActions = __webpack_require__(528);
 	
 	var PictureIndexItem = React.createClass({
 	  displayName: 'PictureIndexItem',
@@ -53873,8 +53873,7 @@
 	          this.props.pic.user.f_name,
 	          ' ',
 	          this.props.pic.user.l_name
-	        ),
-	        likeBtn
+	        )
 	      ),
 	      React.createElement(
 	        'p',
@@ -53889,14 +53888,113 @@
 
 /***/ },
 /* 527 */
+/***/ function(module, exports) {
+
+	// const React = require('react');
+	//
+	// const LikeButton = React.createClass({
+	//   getInitialState: function() {
+	//     return {
+	//       liked: false
+	//     };
+	//   },
+	//   _onClick(e) {
+	//     e.preventDefault();
+	//     this.setState({liked: true})
+	//   },
+	//   render() {
+	//     const likeButton = this.state.liked ? "Liked" : "Like";
+	//     return (
+	//       <button onClick={this._onClick} disabled={this.state.liked}>{likeButton}</button>
+	//     )
+	//   }
+	// })
+	//
+	// module.exports = LikeButton
+	"use strict";
+
+/***/ },
+/* 528 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var AppDispatcher = __webpack_require__(236);
+	var VoteConstants = __webpack_require__(520);
+	var ErrorActions = __webpack_require__(259);
+	var hashHistory = __webpack_require__(172).hashHistory;
+	var VoteApiUtil = __webpack_require__(529);
+	
+	var VoteActions = {
+	  createVote: function createVote(vote) {
+	    VoteApiUtil.createVote(vote, this.receiveVote);
+	  },
+	  deleteVote: function deleteVote(vote) {
+	    VoteApiUtil.deleteVote(vote, this.removeVote);
+	  },
+	  receiveVote: function receiveVote(vote) {
+	    AppDispatcher.dispatch({
+	      actionType: VoteConstants.RECEIVED_VOTE,
+	      vote: vote
+	    });
+	  },
+	  removeVote: function removeVote(vote) {
+	    AppDispatcher.dispatch({
+	      actionType: VoteConstants.REMOVED_VOTE,
+	      vote: vote
+	    });
+	  }
+	};
+	
+	module.exports = VoteActions;
+
+/***/ },
+/* 529 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var VoteApiUtil = {
+	  createVote: function createVote(data, callback) {
+	    $.ajax({
+	      method: "POST",
+	      url: 'api/votes',
+	      data: { vote: data },
+	      success: function success(resp) {
+	        callback(resp);
+	      },
+	      error: function error(resp) {
+	        console.log("error in createVote");
+	      }
+	    });
+	  },
+	  deleteVote: function deleteVote(data, callback) {
+	    $.ajax({
+	      method: 'DELETE',
+	      url: 'api/likes',
+	      data: { vote: data },
+	      success: function success(resp) {
+	        callback(resp);
+	      },
+	      error: function error(resp) {
+	        console.log("error in deleteVote");
+	      }
+	    });
+	  }
+	};
+	
+	module.exports = VoteApiUtil;
+
+/***/ },
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isBrowser = typeof window !== 'undefined';
-	var Masonry = isBrowser ? window.Masonry || __webpack_require__(528) : null;
-	var imagesloaded = isBrowser ? __webpack_require__(535) : null;
-	var assign = __webpack_require__(537);
-	var debounce = __webpack_require__(538);
-	var omit = __webpack_require__(539);
+	var Masonry = isBrowser ? window.Masonry || __webpack_require__(531) : null;
+	var imagesloaded = isBrowser ? __webpack_require__(538) : null;
+	var assign = __webpack_require__(540);
+	var debounce = __webpack_require__(541);
+	var omit = __webpack_require__(542);
 	var React = __webpack_require__(1);
 	var refName = 'masonryContainer';
 	
@@ -54094,7 +54192,7 @@
 
 
 /***/ },
-/* 528 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -54111,8 +54209,8 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	        __webpack_require__(529),
-	        __webpack_require__(531)
+	        __webpack_require__(532),
+	        __webpack_require__(534)
 	      ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS
@@ -54304,7 +54402,7 @@
 
 
 /***/ },
-/* 529 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -54320,10 +54418,10 @@
 	  if ( true ) {
 	    // AMD - RequireJS
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	        __webpack_require__(530),
-	        __webpack_require__(531),
-	        __webpack_require__(532),
-	        __webpack_require__(534)
+	        __webpack_require__(533),
+	        __webpack_require__(534),
+	        __webpack_require__(535),
+	        __webpack_require__(537)
 	      ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, getSize, utils, Item ) {
 	        return factory( window, EvEmitter, getSize, utils, Item);
 	      }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -55247,7 +55345,7 @@
 
 
 /***/ },
-/* 530 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -55362,7 +55460,7 @@
 
 
 /***/ },
-/* 531 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -55577,7 +55675,7 @@
 
 
 /***/ },
-/* 532 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -55594,7 +55692,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(533)
+	      __webpack_require__(536)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( matchesSelector ) {
 	      return factory( window, matchesSelector );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -55820,7 +55918,7 @@
 
 
 /***/ },
-/* 533 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -55879,7 +55977,7 @@
 
 
 /***/ },
-/* 534 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -55892,8 +55990,8 @@
 	  if ( true ) {
 	    // AMD - RequireJS
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	        __webpack_require__(530),
-	        __webpack_require__(531)
+	        __webpack_require__(533),
+	        __webpack_require__(534)
 	      ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS - Browserify, Webpack
@@ -56436,7 +56534,7 @@
 
 
 /***/ },
-/* 535 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -56453,7 +56551,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(536)
+	      __webpack_require__(539)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
 	      return factory( window, EvEmitter );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -56812,7 +56910,7 @@
 
 
 /***/ },
-/* 536 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -56927,7 +57025,7 @@
 
 
 /***/ },
-/* 537 */
+/* 540 */
 /***/ function(module, exports) {
 
 	/**
@@ -57570,7 +57668,7 @@
 
 
 /***/ },
-/* 538 */
+/* 541 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -57954,7 +58052,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 539 */
+/* 542 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -59449,7 +59547,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 540 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59496,7 +59594,7 @@
 	module.exports = PictureShow;
 
 /***/ },
-/* 541 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59561,15 +59659,15 @@
 	module.exports = PictureForm;
 
 /***/ },
-/* 542 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
 	var PictureStore = __webpack_require__(518);
-	var UserStore = __webpack_require__(543);
-	var UserActions = __webpack_require__(544);
+	var UserStore = __webpack_require__(546);
+	var UserActions = __webpack_require__(547);
 	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
@@ -59707,7 +59805,7 @@
 	module.exports = UserPictureIndex;
 
 /***/ },
-/* 543 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59757,13 +59855,13 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 544 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var AppDispatcher = __webpack_require__(236);
-	var UserStore = __webpack_require__(543);
+	var UserStore = __webpack_require__(546);
 	var UserConstants = __webpack_require__(258);
 	var hashHistory = __webpack_require__(172).hashHistory;
 	var UserApiUtil = __webpack_require__(262);
@@ -59792,7 +59890,7 @@
 	module.exports = UserActions;
 
 /***/ },
-/* 545 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59802,9 +59900,9 @@
 	var PictureActions = __webpack_require__(521);
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
-	var UserStore = __webpack_require__(543);
+	var UserStore = __webpack_require__(546);
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(546);
+	var LikeButton = __webpack_require__(527);
 	
 	var FirstUserIndex = React.createClass({
 	  displayName: 'FirstUserIndex',
@@ -59874,34 +59972,7 @@
 	module.exports = FirstUserIndex;
 
 /***/ },
-/* 546 */
-/***/ function(module, exports) {
-
-	// const React = require('react');
-	//
-	// const LikeButton = React.createClass({
-	//   getInitialState: function() {
-	//     return {
-	//       liked: false
-	//     };
-	//   },
-	//   _onClick(e) {
-	//     e.preventDefault();
-	//     this.setState({liked: true})
-	//   },
-	//   render() {
-	//     const likeButton = this.state.liked ? "Liked" : "Like";
-	//     return (
-	//       <button onClick={this._onClick} disabled={this.state.liked}>{likeButton}</button>
-	//     )
-	//   }
-	// })
-	//
-	// module.exports = LikeButton
-	"use strict";
-
-/***/ },
-/* 547 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59912,7 +59983,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(546);
+	var LikeButton = __webpack_require__(527);
 	
 	var SecondUserIndex = React.createClass({
 	  displayName: 'SecondUserIndex',
@@ -59977,7 +60048,7 @@
 	module.exports = SecondUserIndex;
 
 /***/ },
-/* 548 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59988,7 +60059,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(546);
+	var LikeButton = __webpack_require__(527);
 	
 	var ThirdUserIndex = React.createClass({
 	  displayName: 'ThirdUserIndex',
@@ -60053,7 +60124,7 @@
 	module.exports = ThirdUserIndex;
 
 /***/ },
-/* 549 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60064,7 +60135,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(546);
+	var LikeButton = __webpack_require__(527);
 	
 	var FourthUserIndex = React.createClass({
 	  displayName: 'FourthUserIndex',
@@ -60129,7 +60200,7 @@
 	module.exports = FourthUserIndex;
 
 /***/ },
-/* 550 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60140,7 +60211,7 @@
 	var ReactRouter = __webpack_require__(172);
 	var hashHistory = ReactRouter.hashHistory;
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(546);
+	var LikeButton = __webpack_require__(527);
 	
 	var FifthUserIndex = React.createClass({
 	  displayName: 'FifthUserIndex',
@@ -60205,7 +60276,7 @@
 	module.exports = FifthUserIndex;
 
 /***/ },
-/* 551 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60215,7 +60286,7 @@
 	var React = __webpack_require__(1);
 	var PictureIndexItem = __webpack_require__(526);
 	var SessionStore = __webpack_require__(240);
-	var LikeButton = __webpack_require__(546);
+	var LikeButton = __webpack_require__(527);
 	
 	var NewPicturesIndex = React.createClass({
 	  displayName: 'NewPicturesIndex',
@@ -60281,78 +60352,6 @@
 	});
 	
 	module.exports = NewPicturesIndex;
-
-/***/ },
-/* 552 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var AppDispatcher = __webpack_require__(236);
-	var VoteConstants = __webpack_require__(520);
-	var ErrorActions = __webpack_require__(259);
-	var hashHistory = __webpack_require__(172).hashHistory;
-	var VoteApiUtil = __webpack_require__(553);
-	
-	var VoteActions = {
-	  createVote: function createVote(vote) {
-	    VoteApiUtil.createVote(vote, this.receiveVote);
-	  },
-	  deleteVote: function deleteVote(vote) {
-	    VoteApiUtil.deleteVote(vote, this.removeVote);
-	  },
-	  receiveVote: function receiveVote(vote) {
-	    AppDispatcher.dispatch({
-	      actionType: VoteConstants.RECEIVED_VOTE,
-	      vote: vote
-	    });
-	  },
-	  removeVote: function removeVote(vote) {
-	    AppDispatcher.dispatch({
-	      actionType: VoteConstants.REMOVED_VOTE,
-	      vote: vote
-	    });
-	  }
-	};
-	
-	module.exports = VoteActions;
-
-/***/ },
-/* 553 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var VoteApiUtil = {
-	  createVote: function createVote(data, callback) {
-	    $.ajax({
-	      method: "POST",
-	      url: 'api/votes',
-	      data: { vote: data },
-	      success: function success(resp) {
-	        callback(resp);
-	      },
-	      error: function error(resp) {
-	        console.log("error in createVote");
-	      }
-	    });
-	  },
-	  deleteVote: function deleteVote(data, callback) {
-	    $.ajax({
-	      method: 'DELETE',
-	      url: 'api/likes',
-	      data: { vote: data },
-	      success: function success(resp) {
-	        callback(resp);
-	      },
-	      error: function error(resp) {
-	        console.log("error in deleteVote");
-	      }
-	    });
-	  }
-	};
-	
-	module.exports = VoteApiUtil;
 
 /***/ }
 /******/ ]);
